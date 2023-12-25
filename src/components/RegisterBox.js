@@ -40,8 +40,6 @@ const RegisterBox = () => {
       return;
     }
 
-    // You can add your authentication logic here
-    // For this example, we'll just log the entered email and password
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in 
@@ -77,7 +75,6 @@ const RegisterBox = () => {
       const errorMessage = error.message;
       
       console.log(errorCode, errorMessage)
-      // The email of the user's account used.
     });
   };
 
