@@ -101,9 +101,9 @@ const LoginBox = () => {
             placeholder='Password'
           />
 
-          {error && <p className="text-blood italic mb-5 text-xs">{error}</p>}
+          {error && <p className="text-accent-red italic mb-5 text-xs">{error}</p>}
 
-          <button className="text-text-color bg-grass font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5" type="submit">Login</button>
+          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5" type="submit">Login</button>
 
           <h1 className='font-semibold text-3xl text-text-color mb-5'>OR</h1>
         </div>
