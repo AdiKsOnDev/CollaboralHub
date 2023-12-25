@@ -114,7 +114,7 @@ const RegisterBox = () => {
             placeholder='Confirm Password'
           />
 
-          {error && <p className="text-blood italic mb-5 text-xs">{error}</p>}
+          {error && <p className="text-accent-red italic mb-5 text-xs">{error}</p>}
 
           <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Sign Up</button>
 
@@ -122,7 +122,7 @@ const RegisterBox = () => {
         </div>
       </form>
 
-      <button className="flex flex-row items-center text-midnight text-lg text-left bg-text-color font-semibold px-5 w-full rounded-md hover:bg-primary hover:text-text-color duration-300" onClick={googleAuth}>
+      <button className="flex flex-row items-center text-primary text-lg text-left bg-text-color font-semibold px-5 w-full rounded-md hover:bg-primary hover:text-text-color duration-300" onClick={googleAuth}>
         <GoogleSvg className='w-7 mr-8' />
         <h1>Sign in using Google</h1>
       </button>
