@@ -78,7 +78,7 @@ const LoginBox = () => {
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
-      <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign In</h2>
+      <h2 className="font-semibold text-center mb-7 text-5xl text-text-color">Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
           <input
@@ -103,18 +103,18 @@ const LoginBox = () => {
 
           {error && <p className="text-accent-red italic mb-5 text-xs">{error}</p>}
 
-          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5" type="submit">Login</button>
+          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Login</button>
 
           <h1 className='font-semibold text-3xl text-text-color mb-5'>OR</h1>
         </div>
       </form>
 
-      <button className="flex flex-row items-center text-midnight text-lg text-left bg-text-color font-semibold px-5 w-full rounded-md" onClick={googleAuth}>
+      <button className="flex flex-row items-center text-primary text-lg text-left bg-text-color font-semibold px-5 w-full rounded-md hover:bg-primary hover:text-text-color duration-300" onClick={googleAuth}>
         <GoogleSvg className='w-7 mr-8' />
         <h1>Sign in using Google</h1>
       </button>
 
-      <Link to="/Register" className='mt-7 text-text-color hover:text-grass duration-300'>
+      <Link to="/Register" className='mt-7 text-text-color hover:text-accent-blue duration-300'>
         Don't have an account?
       </Link>
     </div>

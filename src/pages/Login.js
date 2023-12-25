@@ -1,8 +1,8 @@
-import { LoginBox } from "..components/LoginBox"
+import LoginBox from "../components/LoginBox"
 
 function Login() {
   return ( 
-      <div>
+      <div className="w-full h-full flex items-center justify-center">
         <LoginBox />
       </div>
   );
