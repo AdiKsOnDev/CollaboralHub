@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginBox from './components/LoginBox';
 
 function App() {
   return (
     <Router>
       <div className="App bg-primary w-screen h-full">
         <Routes>
-          <Route path="/" element={<h1 className='text-white'>Home</h1>} />
+          <Route path="/" element={<LoginBox />} />
         </Routes>
       </div>
     </Router>
