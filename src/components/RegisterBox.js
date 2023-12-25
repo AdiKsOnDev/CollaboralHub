@@ -61,7 +61,6 @@ const RegisterBox = () => {
   };
 
   const googleAuth = () => {
-    console.log("HEHE");
     const auth = getAuth();
     setPersistence(auth, browserLocalPersistence);
     signInWithPopup(auth, provider)

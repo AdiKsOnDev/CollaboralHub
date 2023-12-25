@@ -34,15 +34,10 @@ const LoginBox = () => {
       return;
     }
 
-    // You can add your authentication logic here
-    // For this example, we'll just log the entered email and password
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-  
-      // Save user credentials to application state
-      // For example, you can set a user state with user information
-  
+
       navigate("/");
       console.log(user);
     })
@@ -55,23 +50,21 @@ const LoginBox = () => {
   };
 
   const googleAuth = () => {
-    console.log("HEHE");
     const auth = getAuth();
     setPersistence(auth, browserLocalPersistence);
-  signInWithPopup(auth, provider)
-  .then((result) => {
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    navigate("/");
-    // IdP data available using getAdditionalUserInfo(result)
-    // ...
-  }).catch((error) => {
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
+    signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      navigate("/");
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-    console.log(errorCode, errorMessage);
-  });
-
+      console.log(errorCode, errorMessage);
+    });
   };
 
   const { email, password, error } = formData;
