@@ -71,7 +71,7 @@ const LoginBox = () => {
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
-      <h2 className="font-semibold text-center mb-7 text-5xl text-text-color">Sign In</h2>
+      <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
           <input
