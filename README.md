@@ -20,9 +20,9 @@ Clone the repository to your local machine.
 When you have it cloned, these are the following scripts you might need:
 
 - Install the packages:
-'''bash
+```bash
 npm install
-'''
+```
 - Start the app:
 ```bash
 npm run start
