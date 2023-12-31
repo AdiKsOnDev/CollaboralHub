@@ -18,6 +18,11 @@ Clone the repository to your local machine.
 (Note that you don't have to fork it.)
 <br>
 When you have it cloned, these are the following scripts you might need:
+
+- Install the packages:
+'''bash
+npm install
+'''
 - Start the app:
 ```bash
 npm run start
