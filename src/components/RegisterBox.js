@@ -34,8 +34,7 @@ const RegisterBox = () => {
     if (!firstname || !lastname) {
       setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
       return;
-    }
-    else if (!email || !password) {
+    } else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     } else if(password.length < 8) {
