@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     passwordConfirm: '',
@@ -26,10 +28,14 @@ const RegisterBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { email, password, passwordConfirm } = formData;
+    const { firstname,lastname,  email, password, passwordConfirm } = formData;
 
     // Basic validation - check if email and password are not empty
-    if (!email || !password) {
+    if (!firstname || !lastname) {
+      setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+      return;
+    }
+    else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     } else if(password.length < 8) {
@@ -55,7 +61,7 @@ const RegisterBox = () => {
         console.log(errorCode, errorMessage);
 
         // Reset the form fields
-        setFormData({ email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
+        setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
         return;
       });
   };
@@ -77,13 +83,34 @@ const RegisterBox = () => {
     });
   };
 
-  const { email, password, passwordConfirm, error } = formData;
+  const { firstname ,lastname, email, password, passwordConfirm, error } = formData;
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
       <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
+
+        <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
+            id="firstname"
+            name="firstname"
+            value={firstname}
+            onChange={handleInputChange}
+            placeholder='First Name'
+          />
+
+        <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
+            id="lastname"
+            name="lastname"
+            value={lastname}
+            onChange={handleInputChange}
+            placeholder='Last Name'
+          /> 
+
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
