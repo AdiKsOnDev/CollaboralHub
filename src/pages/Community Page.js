@@ -1,5 +1,5 @@
 import React from 'react';
-import {firestore} from '../firebase';
+import {firestore} from '../Firebase';
 import { addDoc, collection } from '@firebase/firestore';
 import PostHolder from "../components/PostHolder";
 
