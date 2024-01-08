@@ -39,5 +39,12 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.4.0"
-  }
+  },
+  "description": "Thinklabs is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.",
+  "main": "tailwind.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "",
+  "license": "ISC"
 }
