@@ -1,10 +1,10 @@
-import Home from './pages/Community Page';
+import Community from './pages/Community Page';
 
 function App() {
   return (
     
       <div className="App bg-primary w-screen h-screen">
-        <Home/>
+        <Community/>
       </div>
    
   );

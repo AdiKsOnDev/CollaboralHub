@@ -1,18 +1,19 @@
 import React from 'react';
-import {firestore} from '../Firebase';
+import {firestore} from '../firebase';
 import { addDoc, collection } from '@firebase/firestore';
 import PostHolder from "../components/PostHolder";
 
-export default function Home() {
-    const messagRef= React.useRef();
+
+export default function Community() {
+
+    const postRef= React.useRef();
     const ref = collection( firestore, "posts");
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(messagRef.current.value);
+        console.log(postRef.current.value);
         
         let data = {
-            message: messagRef.current.value,
-
+            message: postRef.current.value,
         }
 
         try {
@@ -26,13 +27,15 @@ export default function Home() {
         <div class="newPost-container">
             
             <form onSubmit={handleSubmit}>
-                <input type="text" className="newPostInput" ref={messagRef} placeholder="Scribble away..." />
+         
+                <textarea type="text" class="newPostInput" ref={postRef} placeholder="Scribble away..." />
                  {/* add images later */}
                  <img src="" alt="profile img " style={{resizeMode: 'center', width: 61 , height: 61 ,   borderColor: 'red', borderWidth: 4,borderTopRightRadius:270, borderBottomRightRadius: 270, borderTopLeftRadius:270, borderBottomLeftRadius:270 , position: 'absolute',top: 20,  left: 18, }}/>          
-                <button type="submit"  class="newPostButton" >Save</button>
+                <button type="submit" class="newPostButton" >Save</button>
             </form>
 
             <PostHolder />
         </div>
+
     );
 }
