@@ -1,10 +1,11 @@
 import React from 'react';
 import HomeBox from '../components/HomeBox';
+import Navbar from '../components/Navbar.js';
 
 function Home() {
   return (
     <div className="home-page">
-      <h1>Welcome to ThinkLabs</h1>
+      <Navbar />
       <HomeBox />
     </div>
   );
