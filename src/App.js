@@ -1,10 +1,19 @@
-import Community from './pages/Community Page';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+// Pages
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Navbar from './components/Navbar.js';
 
 function App() {
   return (
     
       <div className="App bg-primary w-screen h-screen">
-        <Community/>
+        <Routes>
+          <Route path="/" element={<Navbar />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+        </Routes>
       </div>
    
   );
