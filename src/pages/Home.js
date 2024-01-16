@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar.js';
 
 function Home() {
   return (
-    <div className="w-screen flex">
+    <div className="w-screen h-full flex">
       <Navbar />
       <HomeBox />
     </div>
