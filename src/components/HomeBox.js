@@ -1,8 +1,9 @@
-import React from 'react';
-
+import StatusBar from "./StatusBar.js";
+ 
 function HomeBox() {
   return (
-    <div className="home-box">
+    <div className="flex flex-col w-full bg-primary">
+      <StatusBar />
     </div>
   );
 }
