@@ -14,6 +14,6 @@ function HomeBox() {
       </div>
     </div>
   );
-}
+};
 
 export default HomeBox;
