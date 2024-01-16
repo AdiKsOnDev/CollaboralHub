@@ -22,8 +22,6 @@ const SearchBox = () => {
     setSearchResults(results);
   };
 
-
-
   return (
     <div className="container w-2/4 mx-auto p-4 flex flex-col justify-center items-center">
       <div className="flex w-full">
