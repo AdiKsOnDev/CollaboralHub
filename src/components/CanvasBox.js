@@ -1,6 +1,7 @@
 import React, {useLayoutEffect, useState, useEffect} from 'react';
 import rough from "roughjs/bundled/rough.esm";
 import getStroke from "perfect-freehand";
+import ToolBox from "./ToolBox.js";
 
 const generator = rough.generator();
 
@@ -346,39 +347,7 @@ const CanvasBox = () => {
 
     return(
       <div>
-        <div style = {{position: "fixed"}}>
-            <input
-                type = "radio"
-                id = "selection"
-                checked = {tool === "selection"}
-                onChange = {() => setTool("selection")}
-            />
-            <label  htmlFor = "selection">Selection</label>
-
-            <input
-                type = "radio"
-                id = "line"
-                checked = {tool === "line"}
-                onChange = {() => setTool("line")}
-            />
-            <label  htmlFor = "line">Line</label>
-
-            <input
-                type = "radio"
-                id = "rectangle"
-                checked = {tool === "rectangle"}
-                onChange = {() => setTool("rectangle")}
-            />
-            <label htmlFor = "rectangle">Rectangle</label>
-
-            <input
-                type = "radio"
-                id = "pencil"
-                checked = {tool === "pencil"}
-                onChange = {() => setTool("pencil")}
-            />
-            <label htmlFor = "pencil">Pencil</label>
-        </div>
+        <ToolBox action={setTool} tool={tool} />
 
         <div style={{ position: "fixed", zIndex: 2, bottom: 0, padding: 10 }}>
             <button onClick={undo}>Undo</button>
