@@ -5,7 +5,7 @@ import { ReactComponent as LineSVG } from "../Assets/Tool _ Line.svg";
 
 function ToolBox({ action, tool }) {
   return (
-     <div className="fixed left-0 bottom-1/4 flex flex-col bg-secondary rounded-md h-1/2 p-5">
+     <div className="fixed left-8 bottom-1/4 flex flex-col bg-secondary rounded-lg h-1/2 p-5">
       <label>
         <input
             className=""
@@ -47,7 +47,7 @@ function ToolBox({ action, tool }) {
             checked = {tool === "pencil"}
             onChange = {() => {action("pencil")}}
         />
-        <PencilSVG className="w-7 h-7" />
+        <PencilSVG className="w-8 h-8" />
       </label>
     </div>
   )

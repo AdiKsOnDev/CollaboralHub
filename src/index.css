@@ -15,3 +15,9 @@ input[type="radio"] {
 input + svg {
   cursor: pointer;
 }
+
+svg:hover {
+  fill: #00A9E5;
+
+  transition-duration: 0.5s; 
+}
