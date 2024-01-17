@@ -1,5 +1,5 @@
 import React from 'react';
-import {firestore} from '../firebase';
+import { firestore } from '../firebase';
 import { addDoc, collection } from '@firebase/firestore';
 
 const NewPost = () => {
