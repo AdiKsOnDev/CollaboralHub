@@ -345,15 +345,16 @@ const CanvasBox = () => {
 
 
     return(
-    <div>
+      <div>
         <div style = {{position: "fixed"}}>
-        <input
+            <input
                 type = "radio"
                 id = "selection"
                 checked = {tool === "selection"}
                 onChange = {() => setTool("selection")}
             />
             <label  htmlFor = "selection">Selection</label>
+
             <input
                 type = "radio"
                 id = "line"
@@ -361,6 +362,7 @@ const CanvasBox = () => {
                 onChange = {() => setTool("line")}
             />
             <label  htmlFor = "line">Line</label>
+
             <input
                 type = "radio"
                 id = "rectangle"
@@ -368,6 +370,7 @@ const CanvasBox = () => {
                 onChange = {() => setTool("rectangle")}
             />
             <label htmlFor = "rectangle">Rectangle</label>
+
             <input
                 type = "radio"
                 id = "pencil"
@@ -376,21 +379,23 @@ const CanvasBox = () => {
             />
             <label htmlFor = "pencil">Pencil</label>
         </div>
+
         <div style={{ position: "fixed", zIndex: 2, bottom: 0, padding: 10 }}>
             <button onClick={undo}>Undo</button>
             <button onClick={redo}>Redo</button>
         </div>
+
         <canvas 
-        id= "canvas"
-        width={window.innerWidth} 
-        height={window.innerHeight} 
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
+          id= "canvas"
+          width={window.innerWidth} 
+          height={window.innerHeight} 
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
         >
-        Canvas
-    </canvas>
-    </div>
+          Canvas
+        </canvas>
+      </div>
     );
 };
 
