@@ -9,7 +9,5 @@ export default function Community() {
             <NewPost />
             <PostHolder />
         </div>
-       
-
     );
 }

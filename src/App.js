@@ -7,7 +7,6 @@ import Navbar from './components/Navbar.js';
 
 function App() {
   return (
-    
       <div className="App bg-primary w-screen h-screen">
         <Routes>
           <Route path="/" element={<Navbar />} />
@@ -15,7 +14,6 @@ function App() {
           <Route path="/Register" element={<Register />} />
         </Routes>
       </div>
-   
   );
 }
 
