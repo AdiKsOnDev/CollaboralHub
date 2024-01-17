@@ -7,3 +7,11 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+
+input[type="radio"] {
+  opacity: 0;
+}
+
+input + svg {
+  cursor: pointer;
+}
