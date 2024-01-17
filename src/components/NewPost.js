@@ -1,10 +1,10 @@
 import React from 'react';
-import { firestore } from '../firebase';
+import { database } from '../firebase';
 import { addDoc, collection } from '@firebase/firestore';
 
 const NewPost = () => {
     const postRef= React.useRef();
-    const ref = collection( firestore, "posts");
+    const ref = collection( database, "posts");
     const handleSubmit = async(e) => {
         e.preventDefault();
         console.log(postRef.current.value);
