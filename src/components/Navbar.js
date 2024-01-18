@@ -6,6 +6,10 @@ import { ReactComponent as PlannerSVG } from "../Assets/Navigation-Planner.svg";
 import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
 import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
 
+import { auth } from "../firebase.js";
+
+import LogoutButton from "./LogoutButton.js";
+
 function Navbar() {
   return (
     <nav className="flex flex-col justify-start items-center w-1/4 gap-24 h-screen bg-secondary">
@@ -47,6 +51,8 @@ function Navbar() {
            <SettingsSVG className="h-12" /> Settings
           </a>
         </li>
+
+        <li><LogoutButton auth={auth} /></li>
       </ul>
     </nav> 
   );
