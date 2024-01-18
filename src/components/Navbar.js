@@ -5,6 +5,7 @@ import { ReactComponent as NotesSVG } from "../Assets/Navigation-Notes.svg";
 import { ReactComponent as PlannerSVG } from "../Assets/Navigation-Planner.svg";
 import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
 import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
+import { auth } from "../firebase.js";
 
 function Navbar() {
   return (
