@@ -5,7 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import StatusBar from './components/StatusBar';
-
+import Community from './pages/Community';
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <div className="App bg-primary w-screen h-screen">
         <StatusBar />
         <Routes>
+          <Route path="/" element={<Community />} />
           <Route path="/" element={<Navbar />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
