@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const LoginBox = () => {
+  console.log(auth.currentUser);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -39,6 +41,7 @@ const LoginBox = () => {
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      navigate("/");
 
       console.log(user);
     })
