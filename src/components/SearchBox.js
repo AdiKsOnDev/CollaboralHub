@@ -3,6 +3,8 @@ import { database } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
+import { ReactComponent as SearchSVG } from "../Assets/Magnifier.svg";
+
 const SearchBox = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +38,7 @@ const SearchBox = () => {
           className="px-4 py-2 h-14 text-text-color bg-accent-red font-semibold rounded-r-md focus:outline-none text-xl hover:bg-dark-red duration-300"
           onClick={handleSearch}
         >
-          Search
+          <SearchSVG className="h-8 w-8" />
         </button>
       </div>
     </div>
