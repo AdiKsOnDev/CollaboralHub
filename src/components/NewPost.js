@@ -1,6 +1,6 @@
 import React from 'react';
-import { database } from '../firebase';
 import { addDoc, collection } from '@firebase/firestore';
+import { database } from "../firebase";
 
 const NewPost = () => {
     const postRef= React.useRef();
