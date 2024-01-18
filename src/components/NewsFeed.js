@@ -25,7 +25,7 @@ const NewsFeed = () => {
   }, []);
 
   return (
-    <div className="news-container h-screen h-1/2">
+    <div className="news-container h-full ">
       <div className="main-title"> Community News </div>
       {newsData.map(news => (
         <div key={news.id} className="news-item">

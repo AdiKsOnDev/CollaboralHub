@@ -150,6 +150,7 @@ body:has(.newPostInput:focus)
 
 .news-container{
     width: 247px;
+    height: 1000px;
     position: absolute;
     top: 185px;
     left: 1170px;
