@@ -3,7 +3,7 @@ import TODOList from "../components/TODO_List";
 
 function sticky_notes() {
     return (
-        <div className="w-screen h-full flex">
+        <div className="w-full h-full flex items-center justify-center">
             <TODOList/>
         </div>
     );
