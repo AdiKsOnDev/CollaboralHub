@@ -51,8 +51,6 @@ function Navbar() {
            <SettingsSVG className="h-12" /> Settings
           </a>
         </li>
-
-        <li><LogoutButton auth={auth} /></li>
       </ul>
     </nav> 
   );
