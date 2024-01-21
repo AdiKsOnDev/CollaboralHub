@@ -41,12 +41,3 @@ const NewsFeed = () => {
 };
 
 export default NewsFeed;
-
-{/* <div >  
-{newsData.map((news) => (
-  <div key={news.id} className='mb-4'> 
-    <p className="news-title">{news.title}</p>
-    <p className="news-body">{news.id.body}</p>
-  </div>
-  ))}
-</div> */}
