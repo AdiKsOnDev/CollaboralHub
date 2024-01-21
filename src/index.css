@@ -150,7 +150,7 @@ body:has(.newPostInput:focus)
 
 .news-container{
     width: 247px;
-    height: 1000px;
+    /* height: 900px; */
     position: absolute;
     top: 185px;
     left: 1170px;
@@ -193,10 +193,10 @@ body:has(.newPostInput:focus)
 }
 
 .news-body{
-    width: 355px;
-    height: 15px;
+    width: 209px;
+    height: 60px;
     position: absolute;
-    top: 100px;
+    top: 200px;
     left: 25px;
     font-family: Poppins;
     font-size: 10px;
