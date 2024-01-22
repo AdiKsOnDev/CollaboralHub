@@ -1,10 +1,8 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { getAuth } from "firebase/auth";
-import { fireApp } from './firebase.js';
 
-import { AuthContext } from "./context/AuthContext";
+import { AuthContext } from "./context/AuthContext.js";
 
 // Pages
 import Login from './pages/Login';
@@ -18,18 +16,19 @@ function App() {
 
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to="/" />
+      return <Navigate to="/Login" />
     }
 
     return children;
-  }
+  };
+  
   return (
     <Router>
       <div className="App bg-primary w-screen h-screen">
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/navbar" element={<ProtectedRoute><Navbar /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><Navbar /></ProtectedRoute>} />
         </Routes>
       </div>
     </Router>
