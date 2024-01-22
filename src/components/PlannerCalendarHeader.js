@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import GlobalContext from "../PlannerContext/PlannerGlobalContext";
 export default function CalendarHeader() {
   const { monthIndex, setMonthIndex } = useContext(GlobalContext);
+
   function handlePrevMonth() {
     setMonthIndex(monthIndex - 1);
   }
