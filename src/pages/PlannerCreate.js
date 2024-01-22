@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { getMonth } from '../components/PlannerUtil'
-import CalendarHeader from '../components/PlannerCalendarHeader';
-import PlannerSidebar from '../components/PlannerSidebar';
-import PlannerMonth from '../components/PlannerMonth';
-import PlannerCalendarHeader from '../components/PlannerCalendarHeader';
+import { getMonth } from '../components/Planner/PlannerUtil.js'
+import PlannerSidebar from '../components/Planner/PlannerSidebar.js';
+import PlannerMonth from '../components/Planner/PlannerMonth.js';
 import Navbar from '../components/Navbar.js';
 
 function PlannerCreate() {

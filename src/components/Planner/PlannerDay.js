@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React, { useContext, useState, useEffect } from "react";
-import GlobalContext from "../PlannerContext/PlannerGlobalContext";
+import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);

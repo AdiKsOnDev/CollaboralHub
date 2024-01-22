@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React, { useContext } from "react";
-import GlobalContext from "../PlannerContext/PlannerGlobalContext";
+import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
 export default function CalendarHeader() {
   const { monthIndex, setMonthIndex } = useContext(GlobalContext);
 
