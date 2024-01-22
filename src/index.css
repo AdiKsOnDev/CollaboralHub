@@ -8,12 +8,6 @@
     font-family: 'Poppins', sans-serif;
 }
 
-@layer utilities {
-    .placeholder-italic::placeholder{
-      @apply not-italic 
-    }
-  }
-
 .post-container{
     width: 732px;
     height: 395px;
