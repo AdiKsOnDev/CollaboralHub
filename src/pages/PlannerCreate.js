@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../PlannerApp.css'
 import { getMonth } from '../components/PlannerUtil'
 import CalendarHeader from '../components/PlannerCalendarHeader';
 import PlannerSidebar from '../components/PlannerSidebar';
