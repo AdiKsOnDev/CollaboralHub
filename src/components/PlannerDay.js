@@ -21,7 +21,7 @@ export default function Day({ day, rowIdx }) {
 
   function getCurrentDayClass() {
     return day.format("DD-MM-YY") === dayjs().format("DD-MM-YY")
-      ? "bg-blue-600 text-white rounded-full w-7"
+      ? "bg-accent-blue text-white rounded-full w-7"
       : "";
   }
   return (

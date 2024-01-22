@@ -35,9 +35,9 @@ export default function SmallCalendar() {
     const currDay = day.format(format);
     const slcDay = daySelected && daySelected.format(format);
     if (nowDay === currDay) {
-      return "bg-blue-500 rounded-full text-white";
+      return "bg-accent-blue rounded-full text-white";
     } else if (currDay === slcDay) {
-      return "bg-blue-100 rounded-full text-blue-600 font-bold";
+      return "bg-accent-blue rounded-full text-blue-600 font-bold";
     } else {
       return "";
     }
@@ -45,20 +45,20 @@ export default function SmallCalendar() {
   return (
     <div className="mt-9">
       <header className="flex justify-between">
-        <p className="text-gray-500 font-bold">
+        <p className="text-text-color font-bold">
           {dayjs(new Date(dayjs().year(), currentMonthIdx)).format(
             "MMMM YYYY"
           )}
         </p>
         <div>
           <button onClick={handlePrevMonth}>
-            <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-              chevron_left
+            <span className="cursor-pointer font-semibold mx-4 hover:text-accent-blue duration-300">
+              Prev
             </span>
           </button>
           <button onClick={handleNextMonth}>
-            <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-              chevron_right
+            <span className="cursor-pointer font-semibold mx-4 hover:text-accent-blue duration-300">
+              Next
             </span>
           </button>
         </div>

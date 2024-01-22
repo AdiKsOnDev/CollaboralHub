@@ -10,7 +10,7 @@ function PlannerCreate() {
 
   return (
     <React.Fragment>
-      <div className="h-screen flex flex flex-columns">
+      <div className="h-screen flex flex-columns">
         <PlannerCalendarHeader />
         <div className="flex flex-1">
           <PlannerSidebar />

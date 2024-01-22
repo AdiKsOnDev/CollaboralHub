@@ -5,7 +5,7 @@ export default function CreateEventButton() {
   return (
     <button
       onClick={() => setShowEventModal(true)}
-      className="border p-2 rounded-full flex items-center shadow-md hover:bg-accent-blue hover:border-accent-blue duration-300"
+      className="border border-accent-red p-2 rounded-full flex items-center bg-accent-red shadow-md hover:bg-accent-blue hover:border-accent-blue duration-300"
     >
       <span className="px-3">Create</span>
     </button>
