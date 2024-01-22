@@ -11,7 +11,6 @@ function App() {
   return (
     <Router>
       <div className="App bg-primary w-screen h-screen">
-        <StatusBar />
         <Routes>
           <Route path="/" element={<Community />} />
           <Route path="/" element={<Navbar />} />
