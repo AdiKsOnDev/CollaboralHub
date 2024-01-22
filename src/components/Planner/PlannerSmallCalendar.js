@@ -45,7 +45,7 @@ export default function SmallCalendar() {
   return (
     <div className="mt-9">
       <header className="flex justify-between">
-        <p className="text-text-color font-bold">
+        <p className="font-bold">
           {dayjs(new Date(dayjs().year(), currentMonthIdx)).format(
             "MMMM YYYY"
           )}
