@@ -355,7 +355,7 @@ const CanvasBox = () => {
         </div>
 
         <canvas 
-          className="bg-primary"
+          className="bg-primary w-full h-full"
           id= "canvas"
           width={window.innerWidth} 
           height={window.innerHeight} 
