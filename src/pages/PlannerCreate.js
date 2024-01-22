@@ -11,7 +11,7 @@ function PlannerCreate() {
     <React.Fragment>
       <div className="h-screen flex flex-columns">
         <Navbar />
-        <div className="flex flex-1 p-10">
+        <div className="flex flex-1 bg-secondary">
           <PlannerSidebar />
           <PlannerMonth month={currentMonth} />
         </div>
