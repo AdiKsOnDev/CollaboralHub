@@ -7,7 +7,7 @@ import StatusBar from "../components/StatusBar";
 export default function Community() {
 
   return (
-    <div className="w-full h-full flex items-center justify-center overflow-y-auto">
+    <div className="w-full h-screen flex items-center justify-center overflow-y-auto">
         <StatusBar /> 
         <NewPost />
         <PostHolder />

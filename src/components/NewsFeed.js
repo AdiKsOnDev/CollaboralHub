@@ -24,7 +24,7 @@ const NewsFeed = () => {
     fetchData();
   }, []);
   return (
-    <div className="news-container flex min-h-screen flex-col">
+    <div className="news-container flex h-screen flex-col">
       <div className="main-title "> Community News </div>
       <div className=" left-[25px] top-[70px] absolute">  
         {newsData.map((news) => (
