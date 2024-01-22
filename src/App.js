@@ -5,7 +5,7 @@ import { fireApp } from './firebase.js';
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Navbar from './components/Navbar.js';
+import Navbar from './components/Navbar';
 
 function App() {
   const auth = getAuth(fireApp);
