@@ -30,12 +30,12 @@ export default function CalendarHeader() {
       </button>
       <button onClick={handlePrevMonth}>
         <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_left
+          Prev
         </span>
       </button>
       <button onClick={handleNextMonth}>
         <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          chevron_right
+          Next 
         </span>
       </button>
       <h2 className="ml-4 text-xl text-gray-500 font-bold">
