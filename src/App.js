@@ -11,7 +11,7 @@ import NewsFeed from './components/NewsFeed.js';
 function App() {
   return (
     <Router>
-      <div className="App bg-primary w-screen h-screen">
+      <div className="App bg-primary w-screen h-full overflow-hidden">
         <Navbar />
         <Community />
         <NewsFeed />

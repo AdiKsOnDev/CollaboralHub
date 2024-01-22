@@ -84,13 +84,13 @@
     padding: 3px;
   
 } */
-body:has(.newPostInput:focus)
+/* body:has(.newPostInput:focus)
 .post-container {
         position: absolute;  
         top: 600px;
-      }
+      } */
 
-body:has(.newPostInput:focus)
+/* body:has(.newPostInput:focus)
     .newPost-container {
         height: 403px; 
       }
@@ -98,9 +98,19 @@ body:has(.newPostInput:focus)
 body:has(.newPostInput:focus)
     .newPostButton{
     position: absolute;
-    top: 350px;}
+    top: 350px;} */
 
-.newPostInput:focus {
+.newPost-container-expanded{
+    height: 403px; 
+    width: 732px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 3px #00000040;
+    background: #2A2A2A;
+    position: absolute;
+    top: 185px;
+    left: 400px;
+}
+/* .newPostInput {
     width: 604px;
     height: 291px;
     position: absolute;
@@ -108,11 +118,11 @@ body:has(.newPostInput:focus)
     left: 103px;
     border-radius: 15px;
     background:#D9D9D9;
-}
+} */
 .newPostInput{
     width: 604px;
     height: 63px;
-    padding: 20px ;
+    padding: 15px ;
     position: absolute;
     top: 21px;
     left: 108px;
@@ -120,7 +130,27 @@ body:has(.newPostInput:focus)
     box-shadow: 0px 4px 4px 3px #00000040;
     background: #D9D9D9;   
 
+    color: #323232;
+    font-size: 20px;
+    font-family: Poppins;
+    font-style: italic;
+    font-Weight: 300;
+
 }
+
+.newPostInput-expanded{
+    width: 604px;
+    height: 291px;
+    position: absolute;
+    top: 19px;
+    left: 103px;
+    border-radius: 15px;
+    background:#D9D9D9; 
+    padding-left: 10px;
+    padding-top: 5px;
+
+}
+
 ::placeholder {
     font-family: Poppins;
     font-size: 20px;
@@ -139,10 +169,21 @@ body:has(.newPostInput:focus)
     left: 630px;
     border-radius: 15px;
     box-shadow: 0px 4px 4px 3px #00000040;
+    background: #7E7E7E;
+}
+
+.newPostButton-expanded{
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    top: 340px;
+    left: 620px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px 3px #00000040;
     background: #00A9E5; 
 }
 
-.newPostButton:hover{
+.newPostButton-expanded:hover{
     background: #8DB5C4;
     cursor: pointer;
 }

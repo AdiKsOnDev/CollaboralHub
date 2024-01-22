@@ -57,10 +57,20 @@ const PostHolder= () => {
         //         </div>
         //     ))}
         // </div>
-        <div className="left-[351px] top-[360px] h-[500px] absolute overflow-y-auto h-650">
-            <InfiniteScroll dataLength={postData.length}>
 
-            {postData.map((post,index) => (
+    //     <div
+    //     className={`post-container ${isInputFocused ? 'absolute top-600' : ''}`}
+    //   >
+    //     {/* Your content for .post-container goes here */}
+    //   </div>
+
+
+
+        <div className="left-[351px] top-[360px] h-[470px] absolute overflow-y-auto h-650 ">
+            <InfiniteScroll dataLength={postData.length} >
+            
+
+            {postData.map((post) => (
                 <div className="post-container">
                     <img src="" alt="profile img " style={{resizeMode: 'center', width: 61 , height: 61 ,   borderColor: 'red', borderWidth: 4,borderTopRightRadius:270, borderBottomRightRadius: 270, borderTopLeftRadius:270, borderBottomLeftRadius:270 , position: 'absolute',top: 20,  left: 18, }}/>
                     <p className="post-username"> {post.userName}</p>

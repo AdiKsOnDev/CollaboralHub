@@ -8,7 +8,7 @@ import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg
 
 function Navbar() {
   return (
-    <nav className="flex flex-col justify-start items-center w-1/4 gap-24 h-full bg-secondary">
+    <nav className="flex flex-col justify-start items-center w-1/4 gap-24 h-screen bg-secondary">
       <img className="mt-12" src={LogoPNG} alt="Logo" />
       
       <ul className="flex flex-col justify-center items-center w-full">
