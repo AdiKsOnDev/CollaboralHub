@@ -1,8 +1,9 @@
 import CanvasBox from '../components/CanvasBox';
+import Navbar from '../components/Navbar.js';
 
 function Canvas() {
   return (
-    <div className="w-full h-full flex items-center bg-white justify-center">
+    <div className="w-full h-full flex flex-col">
       <CanvasBox />
     </div>
   );
