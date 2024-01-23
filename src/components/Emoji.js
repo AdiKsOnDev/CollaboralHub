@@ -14,12 +14,12 @@ const onEmojiClick = (event, emojiObject) => {
 };
 
     return (
-        <div >
-            <IconContext.Provider value={{ color: "white", className: "global-class-name" }}>
-                <BiHappyBeaming  size={40} className="left-[120px] top-[345px] absolute" />
+        <div className="flex flex-row">
+            <IconContext.Provider value={{ color: "white" }}>
+                <BiHappyBeaming size={40} onClick={setShowPicker} />
             </IconContext.Provider>
 
-            <EmojiPicker pickerStyle={{width:'50%'}}className="left-[180px] top-[150px] absolute "/> 
+            {showPicker ? (<EmojiPicker />) : (<div></div>)} 
         </div>
     );
   };

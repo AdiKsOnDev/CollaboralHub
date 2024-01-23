@@ -4,17 +4,20 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.18",
+    "@excalidraw/excalidraw": "^0.17.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "emoji-picker-react": "^4.7.0",
     "firebase": "^10.7.1",
+    "perfect-freehand": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "roughjs": "^4.6.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

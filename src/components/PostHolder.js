@@ -14,6 +14,7 @@ async function getPosts() {
   })
   return post;
 }
+
 const PostHolder= () => {
   const [postData, setPostData] = useState([]);
 
@@ -25,26 +26,23 @@ const PostHolder= () => {
     fetchData();
   }, []);
 
-    return (
-
-        <div className="left-[351px] top-[280px] absolute overflow-y-auto " style={{ height: '65%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-
-            <InfiniteScroll dataLength={postData.length} >
-        
-                {postData.map((post) => (
-                    <div className="post-container">
-                        <img src="" alt="profile img " style={{resizeMode: 'center', width: 61 , height: 61 ,   borderColor: 'red', borderWidth: 4,borderTopRightRadius:270, borderBottomRightRadius: 270, borderTopLeftRadius:270, borderBottomLeftRadius:270 , position: 'absolute',top: 20,  left: 18, }}/>
-                        <p className="post-username"> {post.userName}</p>
-                        <p className="post-content">{post.postBody}</p>
-                        <p className="post-contentimg"> </p>  
+  return (
+      <div className="flex flex-col justify-center items-center text-white px-10">
+          <InfiniteScroll dataLength={postData.length} >
+              {postData.map((post) => (
+                  <div className="bg-secondary p-10 flex- rounded-xl mb-5">
+                    <div className="flex flex-row items-center mb-5">
+                      <img src="" alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>          
+                      <p className="font-semibold text-xl"> {post.userName}</p>
                     </div>
-                ))}
-
-            </InfiniteScroll>
-
-        </div>
-
-    );
-  };
+                    <div className="flex justify-center w-full">
+                      <p className="w-2/3">{post.postBody}</p>
+                    </div>
+                  </div>
+              ))}
+          </InfiniteScroll>
+      </div>
+  );
+};
 
   export default PostHolder;
