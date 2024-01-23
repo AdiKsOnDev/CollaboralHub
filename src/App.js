@@ -5,34 +5,25 @@ import { fireApp } from './firebase.js';
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Navbar from './components/Navbar';
+import Canvas from './pages/Canvas';
+import Navbar from './components/Navbar.js';
 
 function App() {
-  const auth = getAuth(fireApp);
+  return (
+    <Router>
+      <div className="App bg-primary w-screen h-screen">
+        <Routes>
+          <Route path="/" element={<Navbar />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Canvas" element={<Canvas />} />
+        </Routes>
+      </div>
+    </Router>
 
-  if (auth.currentUser) {
-    return (
-      <Router>
-        <div className="App bg-primary w-screen h-screen">
-          <Routes>
-            <Route path="/" element={<Navbar />} />
-          </Routes>
-        </div>
-      </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <div className="App bg-primary w-screen h-screen">
-          <Routes>
-            <Route path="*" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-          </Routes>
-        </div>
-      </Router>
-    )
-  }
+  );
 }
+
 
 export default App;
 
