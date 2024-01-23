@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { getAuth } from "firebase/auth";
+import { fireApp } from './firebase.js';
 
 // Pages
 import Login from './pages/Login';
@@ -24,3 +26,4 @@ function App() {
 
 
 export default App;
+
