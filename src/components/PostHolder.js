@@ -27,7 +27,7 @@ const PostHolder= () => {
 
     return (
 
-        <div className="left-[351px] top-[280px] absolute overflow-y-auto " style={{width: '100%', height: '65%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
+        <div className="left-[351px] top-[280px] absolute overflow-y-auto " style={{ height: '65%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
 
             <InfiniteScroll dataLength={postData.length} >
         
