@@ -1,9 +1,11 @@
-const TODOList = () => {
+import React from 'react';
+import 'tailwindcss/tailwind.css';
+
+function TODOList() {
     return (
-        <div className="p-24">
-            <h1 className="text-white text-4xl font-poppins font-semibold tracking-wider break-words">TODO Lists</h1>
-        </div>
+        <h1 className="text-4xl font-bold text-center p-5 bg-gray-100">
+            TODO List
+        </h1>
     );
-  };
-  
-  export default TODOList;
+};
+export default TODOList;
