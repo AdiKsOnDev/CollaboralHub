@@ -3,6 +3,7 @@ import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
 import { auth, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ const RegisterBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname,lastname,  email, password, passwordConfirm } = formData;
+    const { firstname, lastname, email, password, passwordConfirm } = formData;
 
     // Basic validation - check if email and password are not empty
     if (!firstname || !lastname) {
@@ -50,6 +51,12 @@ const RegisterBox = () => {
         // Signed in 
         const user = userCredential.user;
         navigate("/Login");
+
+        const response = await axios.post('/api/register', {
+          firstname: firstname,
+          lastname: lastname,
+          email: email
+        });
 
         console.log(user);
       })
