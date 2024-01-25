@@ -28,7 +28,7 @@ const NewPost = () => {
     let [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="w-1/2 mb-5">
+      <div className="w-full mb-5 p-10">
         {!isOpen ? (
           <div class="w-full bg-secondary flex flex-col rounded-2xl p-5">
             <div className="flex flex-row justify-between mb-5">
