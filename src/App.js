@@ -5,7 +5,7 @@ import { fireApp } from './firebase.js';
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import StickyN from './pages/sticky_notes.js';
+import StickyNotes from './pages/Sticky_Notes.js';
 
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
     <Router>
       <div className="App bg-primary w-screen h-screen">
         <Routes>
-          <Route path="/" element={<StickyN />} />
+          <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
         </Routes>

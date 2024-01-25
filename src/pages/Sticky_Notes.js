@@ -3,11 +3,12 @@ import TODOList from "../components/TODO_List";
 import Navbar from '../components/Navbar.js';
 import 'tailwindcss/tailwind.css';
 
-function StickyN() {
+function StickyNotes() {
     return (
         <div className="w-screen h-full flex">
+            <Navbar />
             <TODOList/>
         </div>
     );
 }
-export default StickyN;
+export default StickyNotes;
