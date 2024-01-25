@@ -18,7 +18,6 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/sticky_notes" element={<StickyN />} />
-          <Route path="/Canvas" element={<Canvas />} />
         </Routes>
       </div>
     </Router>
