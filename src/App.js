@@ -5,7 +5,7 @@ import { fireApp } from './firebase.js';
 // Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import StickyNotes from './pages/Sticky_Notes.js';
+import StickyNotes from './pages/StickyNotes.js';
 
 
 function App() {
