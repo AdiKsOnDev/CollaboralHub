@@ -6,18 +6,16 @@ import { fireApp } from './firebase.js';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import StickyN from './pages/sticky_notes.js';
-import Navbar from './components/Navbar';
 
 
 function App() {
   return (
     <Router>
-      <div className="App bg-primary w-screen h-full">
+      <div className="App bg-primary w-screen h-screen">
         <Routes>
-          {/* <Route path="/" element={<Navbar />} /> */}
+          <Route path="/" element={<StickyN />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/sticky_notes" element={<StickyN />} />
         </Routes>
       </div>
     </Router>

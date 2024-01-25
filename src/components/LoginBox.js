@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
-import { auth, provider } from '../firebase';
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { auth, provider } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import useAuth from '../context/Auth.js'; 
+
 const LoginBox = () => {
+  console.log(auth.currentUser);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,6 +17,7 @@ const LoginBox = () => {
   });
 
   const navigate = useNavigate();
+  const { login } = useAuth()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,15 +38,8 @@ const LoginBox = () => {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     }
-
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-
-      navigate("/");
-      console.log(user);
-    })
-    .catch((error) => {
+    
+    login(auth=auth, email=email, password=password).then(() => { navigate("/") }).catch((error) => {
       // Handle login errors
       console.error(error);
   
@@ -50,8 +48,8 @@ const LoginBox = () => {
   };
 
   const googleAuth = () => {
-    const auth = getAuth();
     setPersistence(auth, browserLocalPersistence);
+
     signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
