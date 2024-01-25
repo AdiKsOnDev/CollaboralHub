@@ -21,34 +21,15 @@ function TODOList() {
           <div className="p-24">
             <h1 className="text-4xl text-text-color font-semibold mb-8">Saved Notes</h1>
     
-            <div className="grid grid-cols-4"> 
+            <div className="grid grid-cols-4 gap-4">  
+              <SavedNotes img={Img} heading="Monday" />
+              <SavedNotes img={Img} heading="Tuesday" />
+              <SavedNotes img={Img} heading="Wednesday" />
+              <SavedNotes img={Img} heading="Thursday" />
               <SavedNotes img={Img} heading="Friday" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
-              <Project image={Image} title="New Design Sprint" />
+              <SavedNotes img={Img} heading="Saturday" />
+              <SavedNotes img={Img} heading="Sunday" />
+              <SavedNotes img={Img} heading="All Week" />
             </div>
           </div>
         </div>

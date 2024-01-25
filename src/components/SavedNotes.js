@@ -1,9 +1,11 @@
 function SavedNotes({img, heading}) {
     return (
-      <div className="flex flex-col items-center justify-center mr-5 w-48 hover:w-52 hover:text-lg duration-300">
-        <img className="w-full rounded-lg" src={img} alt="sticky_note" />
+      <div className="relative">
+        <img className="w-full h-auto" src={img} alt="sticky_note" />
         
-        <h1 className="text-text-color font-regular w-full pl-2 mt-3 mb-8">{heading}</h1>
+        <div className="absolute inset-x-0 top-0 flex items-center justify-center bg-black bg-opacity-50">
+        <p className="text-text-color font-regular">{heading}</p>
+      </div>
       </div>
     )
   };
