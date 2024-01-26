@@ -26,51 +26,56 @@ const RegisterBox = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const { firstname, lastname, email, password, passwordConfirm } = formData;
+  const { firstname, lastname, email, password, passwordConfirm } = formData;
 
-    // Basic validation - check if email and password are not empty
-    if (!firstname || !lastname) {
-      setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+  // Basic validation - check if email and password are not empty
+  if (!firstname || !lastname) {
+    setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+    return;
+  } else if (!email || !password) {
+    setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+    return;
+  } else if(password.length < 8) {
+    setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
+    return;
+  } else if (password !== passwordConfirm) {
+    setFormData({ ...formData, error: 'Passwords are not matching' });
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+  .then(async (userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    navigate("/Login");
+  
+    // Remove the next line if you don't use the 'response' variable
+    const response = await axios.post('/api/register', {
+      firstname: firstname,
+      lastname: lastname,
+      email: email
+    });
+  
+    console.log(user);
+  })
+  
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(errorCode, errorMessage);
+
+      // Reset the form fields
+      setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
       return;
-    } else if (!email || !password) {
-      setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
-      return;
-    } else if(password.length < 8) {
-      setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
-      return;
-    } else if (password !== passwordConfirm) {
-      setFormData({ ...formData, error: 'Passwords are not matching' });
-      return;
-    }
+    });
+};
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        navigate("/Login");
 
-        const response = await axios.post('/api/register', {
-          firstname: firstname,
-          lastname: lastname,
-          email: email
-        });
 
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-
-        // Reset the form fields
-        setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
-        return;
-      });
-  };
 
   const googleAuth = () => {
     const auth = getAuth();
@@ -97,7 +102,7 @@ const RegisterBox = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
 
-        <input
+          <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
             id="firstname"
@@ -107,7 +112,7 @@ const RegisterBox = () => {
             placeholder='First Name'
           />
 
-        <input
+          <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
             id="lastname"
