@@ -4,9 +4,49 @@ import { FiImage } from "react-icons/fi";
 import { RxCross2 } from "react-icons/rx";
 import { LuUpload } from "react-icons/lu";
 import { IconContext } from "react-icons";
-
+//name of firestore collection
+import {storage} from './firebase';
+import {ref, uploadBytes,listAll,getDownloadURL} from 'firebase/storage';
+import {v4} from 'uuid';
+import { useState , useEffect} from 'react';
 
 function PhotoLibrary(){
+
+
+  // //send img to firestore 
+  // const [imageUpload, setImageUpload] = React.useState(null);
+  // //stores array of img urls from firestore
+  // const [imageList, setImageList] = React.useState([]);
+
+
+  // // ref to all files in storage
+  // const imageListRef = ref(storage, 'images');
+
+  // const uploadImage = () => {
+  //   if(!imageUpload==null) return ;
+  //     const imageRef = ref(storage, `images/${imageUpload.name + v4() }`);
+  //     uploadBytes(imageRef, imageUpload).then((snapshot.ref) => {
+  //       alert("Image uploaded");
+  //       setImageList((prev)=>{...prev, snapshot.ref.then((url))})
+  //     });
+
+  // };git
+
+  // useEffect(() => {
+
+  //   listAll(imageListRef).then((response) => {
+  //   console.log(response);
+  //   response.items.forEach((item) => {
+  //     getDownloadURL(item).then((url) => {
+  //       setImageList((prev) => [...prev, url]);
+  //     });
+  //   });
+
+  //   });
+
+  // },[]);
+
+
 
     //image upload
 

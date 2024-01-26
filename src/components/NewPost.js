@@ -103,10 +103,17 @@ const NewPost = () => {
 
                   {/* Image upload goes here */}
                     <div className="flex flex-row ">
+                      <input type="file"/>
                       <PhotoLibrary />
+
                     </div> 
 
                   {/* add images later */}
+                  {/* {imageList.map((url)=> {
+                    return <img src={url} />
+                  })} */}
+
+                  {/* Post button */}
                   <button type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
                 </div>
               </form>

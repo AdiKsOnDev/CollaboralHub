@@ -9,7 +9,7 @@ async function getNews() {
 
   querySnapshot.forEach((doc) => {
     news.push({ id:doc.id, ...doc.data() });
-    console.log(doc.id, ' => ', doc.data());
+    // console.log(doc.id, ' => ', doc.data());
   })
   return news;
 }
