@@ -8,6 +8,10 @@ import { BiHappyBeaming } from "react-icons/bi";
 import { IconContext } from "react-icons";
 
 import { FiImage } from "react-icons/fi";
+import { PhotoLibrary } from "react-images-uploading";
+import ImageUploading from 'react-images-uploading';
+import { RxCross2 } from "react-icons/rx";
+import { LuUpload } from "react-icons/lu";
 
 const NewPost = () => {
 
@@ -40,6 +44,19 @@ const NewPost = () => {
     const onEmojiClick = (event, emojiObject) => {
     setInputStr(prevInput=> prevInput + emojiObject.emoji);
     setShowPicker(false);
+    };
+
+
+
+    //image upload
+
+    const [images, setImages] = React.useState([]);
+    const maxNumber = 69;
+  
+    const onChange = (imageList, addUpdateIndex) => {
+      // data for submit
+      console.log(imageList, addUpdateIndex);
+      setImages(imageList);
     };
 
     return (
@@ -87,15 +104,65 @@ const NewPost = () => {
                     </div>
 
 
+                  {/* Image upload goes here */}
                     <div className="flex flex-row">
-
-                      <IconContext.Provider value={{ color: "white" }}>
-                        <FiImage size={40}/>
-                      </IconContext.Provider>
                       
+                      <ImageUploading
+                        multiple
+                        value={images}
+                        onChange={onChange}
+                        maxNumber={maxNumber}
+                        dataURLKey="data_url"
+                      >
+                        {({
+                          imageList,
+                          onImageUpload,
+                          onImageUpdate,
+                          onImageRemove,
+                          isDragging,
+                          dragProps,
+                        }) => (
+                          // write your building UI
+                          <div className="upload__image-wrapper">
+                            <button
+                              style={isDragging ? { color: 'red' } : undefined}
+                              onClick={onImageUpload}
+                              {...dragProps}
+                            >
+                              <IconContext.Provider value={{ color: "white" }}>
+                                <FiImage size={40}/>
+                              </IconContext.Provider>
+                            </button>
+                            {imageList.map((image, index) => (
+                              <div key={index} className="image-item">
+                                <img src={image['data_url']} alt="" width="100" />
+
+                                <div className=" flex flex-row justify-between p-2">
+                                      <button onClick={() => onImageUpdate(index)}>
+                                        <IconContext.Provider value={{ color: "white" }}>
+                                            <LuUpload size={20} />
+                                        </IconContext.Provider>
+                                      </button>
+
+                                      <button onClick={() => onImageRemove(index)}>
+                                        <IconContext.Provider value={{ color: "white" }}>
+                                            <RxCross2 size={24}/>
+                                        </IconContext.Provider>
+
+                                      </button>
+                                </div>
+
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </ImageUploading>
+
+
                     </div> 
+
                   {/* add images later */}
-                  <button onmouseleave={() => setIsOpen(false)} type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
+                  <button onClick={() => setIsOpen(false)} type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
                 </div>
               </form>
             </div>
