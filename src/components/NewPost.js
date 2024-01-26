@@ -6,6 +6,7 @@ import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import PhotoLibrary from "./PhotoLibrary";
+import { RxCross2 } from "react-icons/rx";
 
 
 const NewPost = () => {
@@ -70,8 +71,10 @@ const NewPost = () => {
         //expanded post box
           <div class="w-full bg-secondary flex flex-col rounded-2xl p-5">
             <div className="flex flex-row w-full">
+
               <img src="" alt="profile img " className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>        
               
+
               <form onSubmit={handleSubmit} className="w-full">
                 <textarea 
                 type="text" 
@@ -87,7 +90,7 @@ const NewPost = () => {
 
 
                   {/* Emoji picker goes here */}
-                  <div className="flex flex-row">
+                  <div className="flex flex-row justify-right">
                         <IconContext.Provider value={{ color: "white" }}>
                           <BiHappyBeaming size={40} onClick={()=> setShowPicker(val=> !val)} />
                         </IconContext.Provider>
@@ -99,7 +102,7 @@ const NewPost = () => {
 
 
                   {/* Image upload goes here */}
-                    <div className="flex flex-row">
+                    <div className="flex flex-row ">
                       <PhotoLibrary />
                     </div> 
 
@@ -107,6 +110,13 @@ const NewPost = () => {
                   <button type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
                 </div>
               </form>
+
+              {/* close button */}
+              <div className="flex-col m-0 p-0">
+                  <IconContext.Provider value={{ color: "white" }} >
+                    <RxCross2 size={15} onClick={() => setIsOpen(false)} />
+                  </IconContext.Provider>
+               </div >
             </div>
           </div>
         )}
