@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { database } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { RotatingLines } from "react-loader-spinner";
 
 async function getPosts() {
   const querySnapshot = await getDocs(collection(database, "Posts"));
@@ -28,6 +29,14 @@ const PostHolder= () => {
 
   return (
       <div className="flex flex-col justify-center items-center h-screen overflow-y-scroll text-white px-10">
+            <RotatingLines
+              strokeColor="grey"
+              strokeWidth="5"
+              animationDuration="0.5"
+              width="200"
+              visible={true}
+            />
+          
           <InfiniteScroll dataLength={postData.length} >
               {postData.map((post) => (
                   <div className="bg-secondary p-10 rounded-xl mb-5">

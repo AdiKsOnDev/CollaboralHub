@@ -26,9 +26,9 @@ const NewsFeed = () => {
   return (
     <div className="flex h-3/4 bg-secondary p-5 rounded-2xl flex-col mr-10">
       <div className="font-semibold text-white text-xl mb-8">Community News</div>
-
-      <div className="">  
+      <div >  
         {newsData.map((news) => (
+          
           <div key={newsData.id} className='mb-4 w-[209px] pb-[40px] relative'> 
             <p className="text-white text-sm font-bold underline tracking-wide"> {news.newsTitle}</p>
             <p className="text-white text-sm font-normal tracking-wide">{news.newsBody}</p>
