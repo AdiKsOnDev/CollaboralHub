@@ -3,6 +3,11 @@ import { addDoc, collection } from '@firebase/firestore';
 import { database } from "../firebase";
 import { useState } from 'react'
 import Emoji from './Emoji';
+
+import EmojiPicker from 'emoji-picker-react';
+import { BiHappyBeaming } from "react-icons/bi";
+import { IconContext } from "react-icons";
+
 const NewPost = () => {
 
     const postRef= React.useRef();
@@ -27,6 +32,15 @@ const NewPost = () => {
     //post box 
     let [isOpen, setIsOpen] = useState(false);
 
+    //emoji picker
+    const [inputStr, setInputStr] = useState("");
+    const [showPicker, setShowPicker] = useState(false);
+
+    const onEmojiClick = (event, emojiObject) => {
+    setInputStr(prevInput=> prevInput + emojiObject.emoji);
+    setShowPicker(false);
+    };
+
     return (
       <div className="w-full mb-5 p-10">
         {!isOpen ? (
@@ -47,10 +61,29 @@ const NewPost = () => {
               <img src="" alt="profile img " className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>        
               
               <form onSubmit={handleSubmit} className="w-full">
-                <textarea type="text" class="w-full rounded-3xl text-placeholder font-semibold p-5 h-64 focus:border-none" ref={postRef} placeholder="Scribble away" />
+                <textarea 
+                type="text" 
+                class="w-full rounded-3xl text-placeholder font-semibold p-5 h-64 focus:border-none" 
+                ref={postRef} 
+                placeholder="Scribble away" 
+                onChange={(e) => setInputStr(e.target.value)}
+                value={inputStr}
+
+                />
                 
                 <div className="flex flex-row justify-between">
-                  <Emoji />
+
+
+                  {/* Emoji picker goes here */}
+                  <div className="flex flex-row">
+                        <IconContext.Provider value={{ color: "white" }}>
+                          <BiHappyBeaming size={40} onClick={()=> setShowPicker(val=> !val)} />
+                        </IconContext.Provider>
+
+                        {showPicker && <EmojiPicker
+                        onEmojiClick={onEmojiClick} />
+                        }
+                    </div>
                   {/* add images later */}
                   <button onmouseleave={() => setIsOpen(false)} type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
                 </div>
