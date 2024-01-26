@@ -2,11 +2,12 @@ import React from 'react';
 import { addDoc, collection } from '@firebase/firestore';
 import { database } from "../firebase";
 import { useState } from 'react'
-import Emoji from './Emoji';
 
 import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { IconContext } from "react-icons";
+
+import { FiImage } from "react-icons/fi";
 
 const NewPost = () => {
 
@@ -84,6 +85,15 @@ const NewPost = () => {
                         onEmojiClick={onEmojiClick} />
                         }
                     </div>
+
+
+                    <div className="flex flex-row">
+
+                      <IconContext.Provider value={{ color: "white" }}>
+                        <FiImage size={40}/>
+                      </IconContext.Provider>
+                      
+                    </div> 
                   {/* add images later */}
                   <button onmouseleave={() => setIsOpen(false)} type="submit" className="text-white h-fit bg-accent-blue px-5 py-2 rounded-3xl font-semibold hover:bg-accent-red duration-300">Post</button>
                 </div>
