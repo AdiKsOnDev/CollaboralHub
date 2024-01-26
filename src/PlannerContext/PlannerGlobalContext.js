@@ -1,6 +1,6 @@
 import React from "react";
 
-const GlobalContext = React.createContext({
+const PlannerGlobalContext = React.createContext({
   monthIndex: 0,
   setMonthIndex: (index) => { },
   smallCalendarMonth: 0,
@@ -19,4 +19,4 @@ const GlobalContext = React.createContext({
   filteredEvents: [],
 });
 
-export default GlobalContext;
+export default PlannerGlobalContext;

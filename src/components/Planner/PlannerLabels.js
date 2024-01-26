@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 
 export default function Labels() {
-  const { labels, updateLabel } = useContext(GlobalContext);
+  const { labels, updateLabel } = useContext(PlannerGlobalContext);
   return (
     <React.Fragment>
-      <p className="text-gray-500 font-bold mt-10">Label</p>
+      <p className="text-white-500 font-bold mt-10">Label</p>
       {labels.map(({ label: lbl, checked }, idx) => (
         <label key={idx} className="items-center mt-3 block">
           <input

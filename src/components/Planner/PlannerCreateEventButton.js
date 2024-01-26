@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 export default function CreateEventButton() {
-  const { setShowEventModal } = useContext(GlobalContext);
+  const { setShowEventModal } = useContext(PlannerGlobalContext);
   return (
     <button
       onClick={() => setShowEventModal(true)}

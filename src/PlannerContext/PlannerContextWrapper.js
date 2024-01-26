@@ -4,7 +4,7 @@ import React, {
   useReducer,
   useMemo,
 } from "react";
-import GlobalContext from "./GlobalContext";
+import PlannerGlobalContext from "./PlannerGlobalContext";
 import dayjs from "dayjs";
 
 function savedEventsReducer(state, { type, payload }) {
@@ -27,7 +27,7 @@ function initEvents() {
   return parsedEvents;
 }
 
-export default function ContextWrapper(props) {
+export default function PlannerContextWrapper(props) {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
   const [daySelected, setDaySelected] = useState(dayjs());
@@ -88,7 +88,7 @@ export default function ContextWrapper(props) {
   }
 
   return (
-    <GlobalContext.Provider
+    <PlannerGlobalContext.Provider
       value={{
         monthIndex,
         setMonthIndex,
@@ -109,6 +109,6 @@ export default function ContextWrapper(props) {
       }}
     >
       {props.children}
-    </GlobalContext.Provider>
+    </PlannerGlobalContext.Provider>
   );
 }

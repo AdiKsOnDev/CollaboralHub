@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React, { useContext, useEffect, useState } from "react";
-import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 import { getMonth } from "./PlannerUtil";
 
 export default function SmallCalendar() {
@@ -17,7 +17,7 @@ export default function SmallCalendar() {
     setSmallCalendarMonth,
     setDaySelected,
     daySelected,
-  } = useContext(GlobalContext);
+  } = useContext(PlannerGlobalContext);
 
   useEffect(() => {
     setCurrentMonthIdx(monthIndex);

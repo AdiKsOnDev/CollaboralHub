@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React, { useContext, useState, useEffect } from "react";
-import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 
 export default function Day({ day, rowIdx }) {
   const [dayEvents, setDayEvents] = useState([]);
@@ -9,7 +9,7 @@ export default function Day({ day, rowIdx }) {
     setShowEventModal,
     filteredEvents,
     setSelectedEvent,
-  } = useContext(GlobalContext);
+  } = useContext(PlannerGlobalContext);
 
   useEffect(() => {
     const events = filteredEvents.filter(

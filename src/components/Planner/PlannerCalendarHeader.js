@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import React, { useContext } from "react";
-import GlobalContext from "../../PlannerContext/PlannerGlobalContext";
-export default function CalendarHeader() {
-  const { monthIndex, setMonthIndex } = useContext(GlobalContext);
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
+export default function PlannerCalendarHeader() {
+  const { monthIndex, setMonthIndex } = useContext(PlannerGlobalContext);
 
   function handlePrevMonth() {
     setMonthIndex(monthIndex - 1);
@@ -24,18 +24,18 @@ export default function CalendarHeader() {
       </h1>
       <button
         onClick={handleReset}
-        className="border rounded py-2 px-4 mr-5"
+        className="border rounded py-2 px-4 mr-5 hover:bg-white hover:text-primary duration-300"
       >
         Today
       </button>
       <button onClick={handlePrevMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
+        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2 hover:text-white duration-300">
           Prev
         </span>
       </button>
       <button onClick={handleNextMonth}>
-        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2">
-          Next 
+        <span className="material-icons-outlined cursor-pointer text-gray-600 mx-2 hover:text-white duration-300">
+          Next
         </span>
       </button>
       <h2 className="ml-4 text-xl text-gray-500 font-bold">

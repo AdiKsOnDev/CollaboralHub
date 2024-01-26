@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import GlobalContext from "../context/GlobalContext";
+import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 
 const labelsClasses = [
   "indigo",
@@ -16,7 +16,7 @@ export default function EventModal() {
     daySelected,
     dispatchCalEvent,
     selectedEvent,
-  } = useContext(GlobalContext);
+  } = useContext(PlannerGlobalContext);
 
   const [title, setTitle] = useState(
     selectedEvent ? selectedEvent.title : ""
