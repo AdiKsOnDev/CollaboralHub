@@ -3,35 +3,18 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { database } from "./firebase.js";
+import path from "path";
 
 // dotenv.config();
 
 const app = express();
-app.use(express.json());
 
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: `localhost:3000` }));
 
-/** GET 
- *
- * @return index.html
- */
-app.get("/", async(req, res) => {
-    res.sendFile('index.html', { root: "../build" });
-});
-
-/** GET `canvases`
- */
-// app.get("/api/canvases", async(req, res) => {
-//     try {
-//         const projects = await Project.find({}).sort({ _id: -1 });
-//         res.status(200).json(projects);
-//     } catch (error) {
-//         res.status(404).json({ msg: "Data could not be found." });
-//     }
-// });
+app.use(express.static(path.join("../", 'build')));
 
 /** GET `currentUser`
   *
@@ -82,6 +65,14 @@ app.post("/api/register", async(req, res) => {
     }
 })
 
+/** GET 
+ *
+ * @return index.html
+*/
+app.get("/*", async(req, res) => {
+    res.sendFile('index.html', { root: "../build" });
+});
+            
 app.listen(port, () => {
     console.log(`Listening to the server at http://localhost:${port}`);
 }); 
