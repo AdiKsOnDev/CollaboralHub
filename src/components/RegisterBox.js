@@ -50,15 +50,15 @@ const handleSubmit = (e) => {
   .then(async (userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    navigate("/Login");
   
     // Remove the next line if you don't use the 'response' variable
     const response = await axios.post('/api/register', {
-      firstname: firstname,
-      lastname: lastname,
-      email: email
+      email: email,
+      name: firstname,
+      lastname: lastname
     });
   
+    navigate("/Login");
     console.log(user);
   })
   
