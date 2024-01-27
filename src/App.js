@@ -19,14 +19,14 @@ function App() {
           <Route path="/Register" element={<Register />} />
 
           {/* Protected Routes */}
-          {currentUser ? (
-            <>
-              <Route path="/" element={<Navbar />} />
-              <Route path="/Canvas" element={<Canvas />} />
-            </>
-          ) : (
-            <Navigate to="/Login" replace />
-          )}
+          <Route
+            path="/"
+            element={currentUser ? <Navbar /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </Router>
     </div>
