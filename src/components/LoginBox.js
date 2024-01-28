@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom';
 import useAuth from '../context/Auth.js'; 
 
 const LoginBox = () => {
-  console.log(auth.currentUser);
-
   const [formData, setFormData] = useState({
     email: '',
     password: '',

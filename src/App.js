@@ -1,52 +1,35 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
-import { fireApp } from './firebase.js';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
+import Canvas from './pages/Canvas';
 
-// function App() {
-//   const auth = getAuth(fireApp);
-//
-//   if (auth.currentUser) {
-//     return (
-//       <Router>
-//         <div className="App bg-primary w-screen h-screen">
-//           <Routes>
-//             <Route path="/" element={<Home />} />
-//           </Routes>
-//         </div>
-//       </Router>
-//     );
-//   } else {
-//     return (
-//       <Router>
-//         <div className="App bg-primary w-screen h-screen">
-//           <Routes>
-//             <Route path="*" element={<Login />} />
-//             <Route path="/Register" element={<Register />} />
-//           </Routes>
-//         </div>
-//       </Router>
-//     )
-//   }
-// }
-//
-// export default App;
 function App() {
+  const { currentUser } = useContext(AuthContext);
+
   return (
-    <Router>
-      <div className="App bg-primary w-screen h-screen">
+    <div className="App bg-primary w-screen h-screen">
+      <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* Public Routes */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-        </Routes>
-      </div>
-    </Router>
 
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

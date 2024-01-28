@@ -3,15 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@excalidraw/excalidraw": "^0.17.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "firebase": "^10.7.1",
+    "axios": "^1.6.7",
+    "firebase": "^10.7.2",
+    "perfect-freehand": "^1.2.0",
     "fuse": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
+    "roughjs": "^4.6.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
