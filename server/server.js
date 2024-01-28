@@ -26,14 +26,11 @@ app.get("/api/currentUser", async(req, res) => {
     try {
         const { email } = req.body;
 
-        console.log("Success");
         const user = query(collection(database, "Users"), where("email", "==", email));
 
-        console.log(user);
         res.status(200).json(user);
     } catch (error) {
-        console.log("Fail");
-        res.status(404).json({ msg: "Data could not be found.", err: error.toString() });
+        res.status(404).json({ msg: "Data could not be found." });
     }
 });
 
