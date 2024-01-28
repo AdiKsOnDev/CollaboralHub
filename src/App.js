@@ -1,28 +1,36 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
-import { fireApp } from './firebase.js';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Canvas from './pages/Canvas';
 import Navbar from './components/Navbar.js';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+
   return (
-    <Router>
-      <div className="App bg-primary w-screen h-screen">
+    <div className="App bg-primary w-screen h-screen">
+      <Router>
         <Routes>
-          <Route path="/" element={<Navbar />} />
+          {/* Public Routes */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/Canvas" element={<Canvas />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={currentUser ? <Navbar /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
-
 export default App;
-
