@@ -4,6 +4,8 @@ import { auth, provider } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
+
 
 const LoginBox = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +13,9 @@ const LoginBox = () => {
     password: '',
     error: '',
   });
+
+  const [resetEmail, setResetEmail] = useState('');
+  const [resetSuccess, setResetSuccess] = useState(null);
 
   const navigate = useNavigate();
 
@@ -49,6 +54,16 @@ const LoginBox = () => {
   
       setFormData({ email: '', password: '', error: "Wrong E-Mail OR Password" });
     });
+  };
+
+  const handleResetPassword = async () => {
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      setResetSuccess('Password reset email sent. Check your inbox.');
+    } catch (error) {
+      console.error(error);
+      setResetSuccess('Error sending password reset email.');
+    }
   };
 
   const googleAuth = () => {
@@ -100,7 +115,30 @@ const LoginBox = () => {
 
           <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Login</button>
 
-          <h1 className='font-semibold text-3xl text-text-color mb-5'>OR</h1>
+          <h1 className='font-semibold text-3xl text-text-color mb-3'>OR</h1>
+
+          <input
+          type="text"
+          className='mb-2 p-2 rounded-md bg-text-color'
+          id="resetEmail"
+          name="resetEmail"
+          value={resetEmail}
+          onChange={(e) => setResetEmail(e.target.value)}
+          placeholder='Email for password reset'
+        />
+
+        {/* Reset Password button */}
+        <button
+          className="mb-3 text-accent-blue underline text-sm hover:text-accent-red duration-300"
+          type="button"
+          onClick={handleResetPassword}
+        >
+          Reset Password
+        </button>
+
+        {resetSuccess && (
+          <p className="text-accent-green italic mb-5 text-xs">{resetSuccess}</p>
+        )}
         </div>
       </form>
 
