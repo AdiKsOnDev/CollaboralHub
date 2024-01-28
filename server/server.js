@@ -24,14 +24,16 @@ app.use(express.static(path.join("../", 'build')));
   */
 app.get("/api/currentUser", async(req, res) => {
     try {
-        const email = req.body;
+        const { email } = req.body;
 
-        if (email) {
-          const user = query(collection(database, "Users"), where("email", "==", email));
-    }
+        console.log("Success");
+        const user = query(collection(database, "Users"), where("email", "==", email));
+
+        console.log(user);
         res.status(200).json(user);
     } catch (error) {
-        res.status(404).json({ msg: "Data could not be found." });
+        console.log("Fail");
+        res.status(404).json({ msg: "Data could not be found.", err: error.toString() });
     }
 });
 
