@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
+import { auth, provider } from '../firebase';
 import { signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLocalPersistence } from 'firebase/auth';
-import { auth, provider } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
-
-
-import useAuth from '../context/Auth.js'; 
 
 const LoginBox = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +16,6 @@ const LoginBox = () => {
   const [resetSuccess, setResetSuccess] = useState(null);
 
   const navigate = useNavigate();
-  const { login } = useAuth()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +37,16 @@ const LoginBox = () => {
       return;
     }
     
-    login(auth=auth, email=email, password=password).then(() => { navigate("/") }).catch((error) => {
+    setPersistence(auth, browserLocalPersistence);
+
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      navigate("/");
+
+      console.log(user);
+    })
+    .catch((error) => {
       // Handle login errors
       console.error(error);
   
