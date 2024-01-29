@@ -3,6 +3,7 @@ import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
 import { auth, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
@@ -46,13 +47,21 @@ const RegisterBox = () => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        navigate("/Login");
 
+        // Remove the next line if you don't use the 'response' variable
+        const response = await axios.post('/api/register', {
+          email: email,
+          name: firstname,
+          lastname: lastname
+        });
+
+        navigate("/Login");
         console.log(user);
       })
+
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
@@ -64,6 +73,9 @@ const RegisterBox = () => {
         return;
       });
   };
+
+
+
 
   const googleAuth = () => {
     const auth = getAuth();

@@ -1,41 +1,37 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Canvas from './pages/Canvas';
 import Navbar from './components/Navbar.js';
 import PlannerCreate from './pages/PlannerCreate.js';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 function App() {
-  const auth = getAuth(fireApp);
+  const { currentUser } = useContext(AuthContext);
 
-  if (auth.currentUser) {
-    return (
+  return (
+    <div className="App bg-primary w-screen h-screen">
       <Router>
-        <div className="App bg-primary w-screen h-screen">
-          <Routes>
-            <Route path="/" element={<Navbar />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Canvas" element={<Canvas />} />
-            <Route path="/Planner" element={<PlannerCreate />} />
-          </Routes>
-        </div>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={currentUser ? <Navbar /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
+        </Routes>
       </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <div className="App bg-primary w-screen h-screen">
-          <Routes>
-            <Route path="*" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-          </Routes>
-        </div>
-      </Router>
-    )
-  }
+    </div>
+  );
 }
 
 export default App;
