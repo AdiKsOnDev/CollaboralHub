@@ -14,7 +14,6 @@ const LoginBox = () => {
     error: '',
   });
 
-  const [resetEmail, setResetEmail] = useState('');
   const [resetSuccess, setResetSuccess] = useState(null);
 
   const navigate = useNavigate();
@@ -58,11 +57,11 @@ const LoginBox = () => {
 
   const handleResetPassword = async () => {
     try {
-      await sendPasswordResetEmail(auth, resetEmail);
+      await sendPasswordResetEmail(auth, email);
       setResetSuccess('Password reset email sent. Check your inbox.');
     } catch (error) {
       console.error(error);
-      setResetSuccess('Error sending password reset email.');
+      setResetSuccess('Please type your email in the input box.');
     }
   };
 
@@ -115,30 +114,20 @@ const LoginBox = () => {
 
           <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Login</button>
 
+          <button
+            className="mb-3 text-text-color underline no-underline hover:text-accent-blue duration-300"
+            type="button"
+            onClick={handleResetPassword}
+          >
+            Reset Password
+          </button>
+
+          {resetSuccess && (
+            <p className="text-accent-red italic mb-5 text-xs">{resetSuccess}</p>
+          )}
+
           <h1 className='font-semibold text-3xl text-text-color mb-3'>OR</h1>
 
-          <input
-          type="text"
-          className='mb-2 p-2 rounded-md bg-text-color'
-          id="resetEmail"
-          name="resetEmail"
-          value={resetEmail}
-          onChange={(e) => setResetEmail(e.target.value)}
-          placeholder='Email for password reset'
-        />
-
-        {/* Reset Password button */}
-        <button
-          className="mb-3 text-accent-blue underline text-sm hover:text-accent-red duration-300"
-          type="button"
-          onClick={handleResetPassword}
-        >
-          Reset Password
-        </button>
-
-        {resetSuccess && (
-          <p className="text-accent-green italic mb-5 text-xs">{resetSuccess}</p>
-        )}
         </div>
       </form>
 
