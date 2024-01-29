@@ -26,53 +26,53 @@ const RegisterBox = () => {
     });
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const { firstname, lastname, email, password, passwordConfirm } = formData;
+    const { firstname, lastname, email, password, passwordConfirm } = formData;
 
-  // Basic validation - check if email and password are not empty
-  if (!firstname || !lastname) {
-    setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
-    return;
-  } else if (!email || !password) {
-    setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
-    return;
-  } else if(password.length < 8) {
-    setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
-    return;
-  } else if (password !== passwordConfirm) {
-    setFormData({ ...formData, error: 'Passwords are not matching' });
-    return;
-  }
-
-  createUserWithEmailAndPassword(auth, email, password)
-  .then(async (userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-  
-    // Remove the next line if you don't use the 'response' variable
-    const response = await axios.post('/api/register', {
-      email: email,
-      name: firstname,
-      lastname: lastname
-    });
-  
-    navigate("/Login");
-    console.log(user);
-  })
-  
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.log(errorCode, errorMessage);
-
-      // Reset the form fields
-      setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
+    // Basic validation - check if email and password are not empty
+    if (!firstname || !lastname) {
+      setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
       return;
-    });
-};
+    } else if (!email || !password) {
+      setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+      return;
+    } else if (password.length < 8) {
+      setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters' })
+      return;
+    } else if (password !== passwordConfirm) {
+      setFormData({ ...formData, error: 'Passwords are not matching' });
+      return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async (userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+
+        // Remove the next line if you don't use the 'response' variable
+        const response = await axios.post('/api/register', {
+          email: email,
+          name: firstname,
+          lastname: lastname
+        });
+
+        navigate("/Login");
+        console.log(user);
+      })
+
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorCode, errorMessage);
+
+        // Reset the form fields
+        setFormData({ firstname: '', lastname: '', email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
+        return;
+      });
+  };
 
 
 
@@ -81,17 +81,17 @@ const handleSubmit = (e) => {
     const auth = getAuth();
     setPersistence(auth, browserLocalPersistence);
     signInWithPopup(auth, provider)
-    .then((result) => {
-      navigate("/");
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      
-      console.log(errorCode, errorMessage)
-    });
+      .then((result) => {
+        navigate("/Login");
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.log(errorCode, errorMessage)
+      });
   };
 
   const { email, firstname, lastname, password, passwordConfirm, error } = formData;
@@ -120,7 +120,7 @@ const handleSubmit = (e) => {
             value={lastname}
             onChange={handleInputChange}
             placeholder='Last Name'
-          /> 
+          />
 
           <input
             type="text"
