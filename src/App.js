@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Home from './pages/Home';
 import Canvas from './pages/Canvas';
-import Navbar from './components/Navbar.js';
-import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/"
-            element={currentUser ? <Navbar /> : <Navigate to="/Login" replace />}
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Canvas"
@@ -32,5 +32,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
