@@ -1,7 +1,7 @@
 import StatusBar from "./StatusBar.js";
 import Project from "./Project.js";
-import Image from "../Assets/canvas.png";
-import Img from "../Assets/sticky_note.png";
+import Image from "../Assets/addTL.png";
+import Img from "../Assets/stickyNote.png";
 import SavedNotes from "./SavedNotes.js";
  
 
@@ -13,10 +13,10 @@ function TODOList() {
           <div className="p-24">
             <h1 className="text-4xl text-text-color font-semibold mb-8">TODO List</h1>
     
-            <div className="flex flex-row">
-              <Project image={Image} title="Add New To Do List" />
+              <div className="flex flex-row">
+                <Project image={Image} title="" />
+              </div>
             </div>
-          </div>
     
           <div className="p-24">
             <h1 className="text-4xl text-text-color font-semibold mb-8">Saved Notes</h1>
