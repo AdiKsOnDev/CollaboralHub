@@ -1,4 +1,3 @@
-'use client';
 import React, { useEffect, useState } from 'react';
 import { database } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -24,7 +23,7 @@ const NewsFeed = () => {
     fetchData();
   }, []);
   return (
-    <div className="flex h-3/4 bg-secondary p-5 rounded-2xl flex-col mr-10">
+    <div className="flex bg-secondary overflow-hidden w-1/4 items-center p-5 rounded-2xl flex-col mr-10">
       <div className="font-semibold text-white text-xl mb-8">Community News</div>
       <div >  
         {newsData.map((news) => (
