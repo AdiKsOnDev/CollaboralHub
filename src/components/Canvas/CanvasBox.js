@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState, useEffect} from 'react';
 import rough from "roughjs/bundled/rough.esm";
 import getStroke from "perfect-freehand";
-import ToolBox from "./ToolBox.js";
+import ToolBox from "../ToolBox.js";
 
 const generator = rough.generator();
 

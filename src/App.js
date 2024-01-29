@@ -1,29 +1,47 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
-import { fireApp } from './firebase.js';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Home from './pages/Home';
 import Canvas from './pages/Canvas';
-import Navbar from './components/Navbar.js';
+import Community from './pages/Community.js';
+import PlannerCreate from './pages/PlannerCreate.js';
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+
   return (
-    <Router>
-      <div className="App bg-primary w-screen h-screen">
+    <div className="App bg-primary w-screen h-screen">
+      <Router>
         <Routes>
-          <Route path="/" element={<Navbar />} />
+          {/* Public Routes */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/Canvas" element={<Canvas />} />
-        </Routes>
-      </div>
-    </Router>
 
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Community"
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Planner"
+            element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
+          />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 
 
 export default App;
-

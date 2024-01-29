@@ -1,7 +1,5 @@
-import CanvasBox from '../components/CanvasBox';
-import CanvasHeader from '../components/CanvasHeader.js';
+import CanvasHeader from '../components/Canvas/CanvasHeader.js';
 import { Excalidraw } from "@excalidraw/excalidraw";
-import { THEME } from "@excalidraw/excalidraw";
 
 function Canvas() {
   return (

@@ -1,4 +1,4 @@
-import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
+import { ReactComponent as HomeSVG } from "../../Assets/Home_Icon.svg";
 
 function CanvasHeader() {
   return (
