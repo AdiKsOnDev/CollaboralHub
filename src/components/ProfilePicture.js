@@ -10,7 +10,7 @@ function ProfilePicture() {
   try {
     const { currentUser } = useContext(AuthContext);
   } catch(err) {
-    console.log(err);
+    console.log("No User");
   } 
   const [menu, setMenu] = useState(false);
 

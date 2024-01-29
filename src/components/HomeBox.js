@@ -10,7 +10,7 @@ function HomeBox() {
       <div className="p-24">
         <h1 className="text-4xl text-text-color font-semibold mb-8">Create a Canvas</h1>
 
-        <div className="flex flex-row">
+        <div data-testid="canvases" className="flex flex-row">
           <Project image={Image} title="New Canvas" />
           <Project image={Image} title="New Flow Chart" />
           <Project image={Image} title="New Kanban Scheme" />
