@@ -28,7 +28,7 @@ function PlannerCreate() {
 
           <div className="p-12 pb-0 text-white h-full">
             <PlannerCalendarHeader />
-            <div className="flex flex-1 h-90 bg-secondary">
+            <div data-testid="calendar" className="flex flex-1 h-90 bg-secondary">
               <PlannerSidebar />
               <PlannerMonth month={currentMonth} />
             </div>

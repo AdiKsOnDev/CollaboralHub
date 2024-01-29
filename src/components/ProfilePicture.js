@@ -7,7 +7,11 @@ import { auth } from "../firebase.js";
 import LogoutButton from "./LogoutButton.js";
 
 function ProfilePicture() {
-  const { currentUser } = useContext(AuthContext);
+  try {
+    const { currentUser } = useContext(AuthContext);
+  } catch(err) {
+    console.log(err);
+  } 
   const [menu, setMenu] = useState(false);
 
   const handleToggle = () => {

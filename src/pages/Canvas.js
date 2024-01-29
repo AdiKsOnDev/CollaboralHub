@@ -3,9 +3,9 @@ import { Excalidraw } from "@excalidraw/excalidraw";
 
 function Canvas() {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div data-testid="excalidraw-canvas" className="w-full h-full flex flex-col">
       <CanvasHeader />
-      <Excalidraw theme="dark" />
+      <Excalidraw  theme="dark" />
     </div>
   );
 }
