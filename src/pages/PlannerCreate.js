@@ -20,15 +20,15 @@ function PlannerCreate() {
   return (
     <React.Fragment>
       {showEventModal && <EventModal />}
-      <div className="h-screen flex">
+      <div className="flex">
         <Navbar />
 
         <div className="flex flex-columns bg-primary w-full flex-col">
           <StatusBar />
 
-          <div className="p-12 pb-0 h-full">
+          <div className="p-12 pb-0 text-white h-full">
             <PlannerCalendarHeader />
-            <div className="flex flex-1 h-full bg-secondary">
+            <div className="flex flex-1 h-90 bg-secondary">
               <PlannerSidebar />
               <PlannerMonth month={currentMonth} />
             </div>

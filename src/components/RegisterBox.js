@@ -7,9 +7,9 @@ import axios from 'axios';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
+    email: '',
     firstname: '',
     lastname: '',
-    email: '',
     password: '',
     passwordConfirm: '',
     error: '',
@@ -94,7 +94,7 @@ const RegisterBox = () => {
       });
   };
 
-  const { firstname, lastname, email, password, passwordConfirm, error } = formData;
+  const { email, firstname, lastname, password, passwordConfirm, error } = formData;
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
-
 const LoginBox = () => {
   const [formData, setFormData] = useState({
     email: '',

@@ -128,7 +128,7 @@ export default function EventModal() {
           <button
             type="submit"
             onClick={handleSubmit}
-            className="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded text-white"
+            className="bg-accent-blue hover:bg-blue-600 px-6 py-2 rounded text-white"
           >
             Save
           </button>
