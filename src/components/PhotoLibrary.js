@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { LuUpload } from "react-icons/lu";
 import { IconContext } from "react-icons";
 //name of firestore collection
-import {storage} from './firebase';
+// import {storage} from './firebase';
 import {ref, uploadBytes,listAll,getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid';
 import { useState , useEffect} from 'react';
