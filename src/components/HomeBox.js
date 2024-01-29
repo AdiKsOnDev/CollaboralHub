@@ -23,33 +23,7 @@ function HomeBox() {
         <h1 className="text-4xl text-text-color font-semibold mb-8">Your Canvases</h1>
 
         <div className="grid grid-cols-4"> 
-          <Project image={Image} title="New Mindmap" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
-          <Project image={Image} title="New Design Sprint" />
+          
         </div>
       </div>
     </div>
