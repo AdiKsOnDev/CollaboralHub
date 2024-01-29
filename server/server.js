@@ -4,6 +4,7 @@ import cors from "cors";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { database } from "./firebase.js";
 import path from "path";
+import { v4 as uuidv4 } from 'uuid';
 
 // dotenv.config();
 
@@ -52,7 +53,7 @@ app.post("/api/register", async(req, res) => {
         };
 
         if (newUser) {
-            const user = await setDoc(doc(database, "Users", email), newUser); 
+            const user = await setDoc(doc(database, "Users", uuidv4), newUser); 
 
             res.status(201).json(user);
         }
