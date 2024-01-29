@@ -4,6 +4,8 @@ import { signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLoc
 import { auth, provider } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { sendPasswordResetEmail } from 'firebase/auth';
+
 
 import useAuth from '../context/Auth.js'; 
 
@@ -13,6 +15,8 @@ const LoginBox = () => {
     password: '',
     error: '',
   });
+
+  const [resetSuccess, setResetSuccess] = useState(null);
 
   const navigate = useNavigate();
   const { login } = useAuth()
@@ -43,6 +47,16 @@ const LoginBox = () => {
   
       setFormData({ email: '', password: '', error: "Wrong E-Mail OR Password" });
     });
+  };
+
+  const handleResetPassword = async () => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      setResetSuccess('Password reset email sent. Check your inbox.');
+    } catch (error) {
+      console.error(error);
+      setResetSuccess('Please type your email in the input box.');
+    }
   };
 
   const googleAuth = () => {
@@ -94,7 +108,20 @@ const LoginBox = () => {
 
           <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Login</button>
 
-          <h1 className='font-semibold text-3xl text-text-color mb-5'>OR</h1>
+          <button
+            className="mb-3 text-text-color underline no-underline hover:text-accent-blue duration-300"
+            type="button"
+            onClick={handleResetPassword}
+          >
+            Reset Password
+          </button>
+
+          {resetSuccess && (
+            <p className="text-accent-red italic mb-5 text-xs">{resetSuccess}</p>
+          )}
+
+          <h1 className='font-semibold text-3xl text-text-color mb-3'>OR</h1>
+
         </div>
       </form>
 
