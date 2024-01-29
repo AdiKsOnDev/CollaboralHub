@@ -9,7 +9,6 @@ const apiKey = 'gr65wzrsgsuv';
 const client = StreamChat.getInstance(apiKey);
 
 function Messaging() {
-  console.log("gyat")
   return (
     <div className="flex flex-1 h-full border-radius:1rem ">
       <Chat client={client}>
