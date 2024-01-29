@@ -28,6 +28,10 @@ function App() {
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
+          <Route
+            path="/Planner"
+            element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </Router>
     </div>

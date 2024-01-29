@@ -12,8 +12,8 @@ root.render(
     <AuthContextProvider>
       <PlannerContextWrapper>
         <App />
+      </PlannerContextWrapper>
     </AuthContextProvider>
-  </PlannerContextWrapper>
 
   </React.StrictMode >
 );
