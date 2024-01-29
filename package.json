@@ -11,9 +11,14 @@
     "perfect-freehand": "^1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icon": "^1.0.0",
+    "react-icons": "^5.0.1",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
     "roughjs": "^4.6.6",
+    "stream-chat": "^8.14.5",
+    "stream-chat-react": "^11.4.0",
+    "universal-cookie": "^7.0.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
