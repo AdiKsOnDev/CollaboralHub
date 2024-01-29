@@ -27,6 +27,10 @@ function App() {
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
+          <Route
+            path="/Messaging"
+            element={currentUser ? <Messaging /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </Router>
     </div>
