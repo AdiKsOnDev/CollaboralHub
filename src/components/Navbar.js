@@ -15,25 +15,25 @@ function Navbar() {
       
       <ul className="flex flex-col justify-center items-center w-full">
         <li className="w-full flex items-start justify-center hover:bg-placeholder duration-300">
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2 duration-300" href="/">
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2 duration-300" href="/">
             <ProjectsSVG className="h-12" /> Projects
           </a>
         </li>
 
         <li className="w-full flex items-start hover:bg-placeholder duration-300">
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Community">
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Community">
             <CommunitySVG className="h-12" /> Community Page
           </a>
         </li>
 
         <li className="w-full flex items-start hover:bg-placeholder duration-300">
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/">
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/">
             <NotesSVG className="h-12" /> Sticky Notes
           </a>
         </li>
 
         <li className="w-full flex items-start hover:bg-placeholder duration-300">
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Planner">
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Planner">
             <PlannerSVG className="h-12" /> Planner
           </a>
         </li>
