@@ -3,10 +3,13 @@ import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
 import { auth, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
     email: '',
+    firstname: '',
+    lastname: '',
     password: '',
     passwordConfirm: '',
     error: '',
@@ -23,42 +26,56 @@ const RegisterBox = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const { email, password, passwordConfirm } = formData;
+  const { firstname, lastname, email, password, passwordConfirm } = formData;
 
-    // Basic validation - check if email and password are not empty
-    if (!email || !password) {
-      setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+  // Basic validation - check if email and password are not empty
+  if (!firstname || !lastname) {
+    setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+    return;
+  } else if (!email || !password) {
+    setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+    return;
+  } else if(password.length < 8) {
+    setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
+    return;
+  } else if (password !== passwordConfirm) {
+    setFormData({ ...formData, error: 'Passwords are not matching' });
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+  .then(async (userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+  
+    // Remove the next line if you don't use the 'response' variable
+    const response = await axios.post('/api/register', {
+      email: email,
+      name: firstname,
+      lastname: lastname
+    });
+  
+    navigate("/Login");
+    console.log(user);
+  })
+  
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(errorCode, errorMessage);
+
+      // Reset the form fields
+      setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
       return;
-    } else if(password.length < 8) {
-      setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
-      return;
-    } else if (password !== passwordConfirm) {
-      setFormData({ ...formData, error: 'Passwords are not matching' });
-      return;
-    }
+    });
+};
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        navigate("/Login");
 
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
 
-        console.log(errorCode, errorMessage);
-
-        // Reset the form fields
-        setFormData({ email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
-        return;
-      });
-  };
 
   const googleAuth = () => {
     const auth = getAuth();
@@ -77,13 +94,34 @@ const RegisterBox = () => {
     });
   };
 
-  const { email, password, passwordConfirm, error } = formData;
+  const { email, firstname, lastname, password, passwordConfirm, error } = formData;
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
       <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
+
+          <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
+            id="firstname"
+            name="firstname"
+            value={firstname}
+            onChange={handleInputChange}
+            placeholder='First Name'
+          />
+
+          <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
+            id="lastname"
+            name="lastname"
+            value={lastname}
+            onChange={handleInputChange}
+            placeholder='Last Name'
+          /> 
+
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
