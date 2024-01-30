@@ -7,6 +7,7 @@ import { BiHappyBeaming } from "react-icons/bi";
 import { IconContext } from "react-icons";
 import PhotoLibrary from "./PhotoLibrary";
 import { RxCross2 } from "react-icons/rx";
+import Profile from "./Profile";
 
 
 const NewPost = () => {
@@ -68,13 +69,16 @@ const NewPost = () => {
             </div>
           </div>
         ) : (
+
         //expanded post box
           <div class="w-full bg-secondary flex flex-col rounded-2xl p-5">
+
+          
             <div className="flex flex-row w-full">
 
-              <img src="" alt="profile img " className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>        
-              
 
+              {/* <Profile /> */}
+            
               <form onSubmit={handleSubmit} className="w-full">
                 <textarea 
                 type="text" 
@@ -103,12 +107,15 @@ const NewPost = () => {
 
                   {/* Image upload goes here */}
                     <div className="flex flex-row ">
-                      <input type="file"/>
+                      {/* <input type="file"/> */}
                       <PhotoLibrary />
 
                     </div> 
 
                   {/* add images later */}
+
+
+        
                   {/* {imageList.map((url)=> {
                     return <img src={url} />
                   })} */}

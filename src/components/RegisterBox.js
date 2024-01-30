@@ -25,7 +25,51 @@ const RegisterBox = () => {
       error: '', // Clear any previous errors when the user starts typing
     });
   };
+  
+const handleSubmit = (e) => {
+  e.preventDefault();
 
+  const { firstname, lastname, email, password, passwordConfirm } = formData;
+
+  // Basic validation - check if email and password are not empty
+  if (!firstname || !lastname) {
+    setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+    return;
+  } else if (!email || !password) {
+    setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+    return;
+  } else if(password.length < 8) {
+    setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters'})
+    return;
+  } else if (password !== passwordConfirm) {
+    setFormData({ ...formData, error: 'Passwords are not matching' });
+    return;
+  }
+
+  createUserWithEmailAndPassword(auth, email, password)
+  .then(async (userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+  
+    // Remove the next line if you don't use the 'response' variable
+    const response = await axios.post('/api/register', {
+      email: email,
+      name: firstname,
+      lastname: lastname
+    });
+  
+    navigate("/Tutorial");
+    console.log(user);
+  })
+  
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      console.log(errorCode, errorMessage);
+
+      // Reset the form fields
+      setFormData({ firstname:'',lastname:'',email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -34,6 +78,7 @@ const RegisterBox = () => {
     // Basic validation - check if email and password are not empty
     if (!firstname || !lastname) {
       setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+      
       return;
     } else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
@@ -164,6 +209,7 @@ const RegisterBox = () => {
         <GoogleSvg className='w-7 mr-8' />
         <h1>Sign in using Google</h1>
       </button>
+
     </div>
   );
 };
