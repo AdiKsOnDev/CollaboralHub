@@ -10,13 +10,13 @@ import Tutorial from './pages/Tutorial.js';
 
 import Call from './pages/Call.js';
 
+import DocxEditor from './pages/DocxEditor.js';
 
 function App() {
   return (
     <Router>
       <div className="App bg-primary w-screen h-screen">
         <Routes>
-          <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
@@ -25,6 +25,10 @@ function App() {
             path="/"
             element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
+          <Route
+            path="/DocxEditor"
+            element={currentUser ? <DocxEditor /> : <Navigate to="/Login" replace />}
+          /> 
           <Route
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
@@ -45,10 +49,7 @@ function App() {
             path="/Call"
             element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
           />
-          <Route 
-            path="/Notes" 
-            element={currentUser ? <StickyNotes /> : <Navigate to="/Login" replace />}
-          />
+
         </Routes>
       </div>
     </Router>
