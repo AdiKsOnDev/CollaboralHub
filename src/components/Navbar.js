@@ -47,8 +47,8 @@ function Navbar() {
         </li>
 
         <li className="w-full flex items-start hover:bg-placeholder duration-300">
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/">
-            <SettingsSVG className="h-12" /> Settings
+          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/DocxEditor">
+            <SettingsSVG className="h-12" /> Documents
           </a>
         </li>
       </ul>
