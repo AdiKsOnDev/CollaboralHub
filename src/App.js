@@ -6,6 +6,9 @@ import { fireApp } from './firebase.js';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import StickyNotes from './pages/StickyNotes.js';
+import Tutorial from './pages/Tutorial.js';
+
+import Call from './pages/Call.js';
 
 
 function App() {
@@ -16,6 +19,36 @@ function App() {
           <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Canvas"
+            element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Community"
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Tutorial"
+            element={currentUser ? <Tutorial /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Planner"
+            element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Call"
+            element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
+          />
+          <Route 
+            path="/Notes" 
+            element={currentUser ? <StickyNotes /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </div>
     </Router>

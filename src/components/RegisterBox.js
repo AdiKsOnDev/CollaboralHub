@@ -49,8 +49,15 @@ const RegisterBox = () => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        navigate("/Login");
 
+        // Remove the next line if you don't use the 'response' variable
+        const response = await axios.post('/api/register', {
+          email: email,
+          name: firstname,
+          lastname: lastname
+        });
+
+        navigate("/Tutorial");
         console.log(user);
       })
       .catch((error) => {

@@ -20,6 +20,9 @@ const database = getFirestore(fireApp);
 const auth = getAuth(fireApp);
 const provider = new GoogleAuthProvider();
 
+const storage = getStorage(fireApp);
+
+
 export {
   fireApp,
   database,
