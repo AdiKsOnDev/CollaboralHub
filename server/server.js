@@ -5,14 +5,14 @@ import { collection, query, where, getDocs, doc, setDoc } from "firebase/firesto
 import { database } from "./firebase.js";
 import path from "path";
 
-// dotenv.config();
+dotenv.config();
 
 const app = express();
 
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors({ origin: `localhost:3000` }));
+app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
 
 app.use(express.static(path.join("../", 'build')));
 
