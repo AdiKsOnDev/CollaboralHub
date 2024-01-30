@@ -1,21 +1,24 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { getAuth } from "firebase/auth";
-import { fireApp } from './firebase.js';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
-// Pages
 import Login from './pages/Login';
 import Register from './pages/Register';
-import StickyNotes from './pages/StickyNotes.js';
+import Home from './pages/Home';
+import Canvas from './pages/Canvas';
+import Community from './pages/Community.js';
 import Tutorial from './pages/Tutorial.js';
-
+import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+
   return (
-    <Router>
-      <div className="App bg-primary w-screen h-screen">
+    <div className="App bg-primary w-screen h-screen">
+      <Router>
         <Routes>
           <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
@@ -52,9 +55,8 @@ function App() {
           />
 
         </Routes>
-      </div>
-    </Router>
-
+      </Router>
+    </div>
   );
 }
 
