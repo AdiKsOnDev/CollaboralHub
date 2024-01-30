@@ -1,14 +1,14 @@
 import React, { useContext, useState } from "react";
 import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
 
-const labelsClasses = [
-  "indigo",
-  "gray",
-  "green",
-  "blue",
-  "red",
-  "purple",
-];
+const labelsMap = {
+  indigo: "Indigo",
+  gray: "Gray",
+  green: "Green",
+  blue: "Blue",
+  red: "Red",
+  purple: "Purple",
+};
 
 export default function EventModal() {
   const {
@@ -26,8 +26,8 @@ export default function EventModal() {
   );
   const [selectedLabel, setSelectedLabel] = useState(
     selectedEvent
-      ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
-      : labelsClasses[0]
+      ? labelsMap[selectedEvent.label.toLowerCase()]
+      : labelsMap.indigo
   );
 
   function handleSubmit(e) {
@@ -35,7 +35,7 @@ export default function EventModal() {
     const calendarEvent = {
       title,
       description,
-      label: selectedLabel,
+      label: selectedLabel.toLowerCase(),
       day: daySelected.valueOf(),
       id: selectedEvent ? selectedEvent.id : Date.now(),
     };
