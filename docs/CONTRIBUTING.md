@@ -42,8 +42,7 @@ Is recommended to be one of the below items. Only **feat** and **fix** show up i
 * **docs**: Documentation only changes
 * **refactor**: A code change that neither fixes a bug or adds a feature
 * **test**: Adding missing tests
-* **chore**: Changes to the build process or auxiliary tools and libraries such as documentation
-  generation
+* **chore**: Cleaning up the project
 
 ### ❗️ Breaking Changes
 ---
