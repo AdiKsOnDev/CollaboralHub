@@ -54,7 +54,7 @@ const DocxEditor = () => {
  
   return (
     <div>
-      <div className="editor-toolbar">
+      <div className="editor-toolbar text-white">
         <button onClick={handleSave}>Save</button>
         <button onClick={handlePrint}>Print</button>
         <button onClick={handleInsertImage}>Insert Image</button>
@@ -62,6 +62,7 @@ const DocxEditor = () => {
         <button onClick={handleInsertCodeBlock}>Insert Code Block</button>
       </div>
       <ReactQuill
+        className='bg-white h-screen'
         theme="snow"
         value={content}
         onChange={handleChange}
