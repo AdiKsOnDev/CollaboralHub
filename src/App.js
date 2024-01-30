@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Canvas from './pages/Canvas';
 import Community from './pages/Community.js';
 import Tutorial from './pages/Tutorial.js';
-
+import PlannerCreate from './pages/PlannerCreate.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -37,6 +37,10 @@ function App() {
           <Route
             path="/Tutorial"
             element={currentUser ? <Tutorial /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Planner"
+            element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
           />
         </Routes>
       </Router>
