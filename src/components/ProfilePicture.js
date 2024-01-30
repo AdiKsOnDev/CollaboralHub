@@ -8,7 +8,7 @@ import LogoutButton from "./LogoutButton.js";
 
 function ProfilePicture() {
   try {
-    const { currentUser } = useContext(AuthContext);
+    const currentUser = useContext(AuthContext);
   } catch(err) {
     console.log("No User");
   } 
