@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from './context/AuthContext';
 
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Home from './pages/Home';
 import Canvas from './pages/Canvas';
-import Navbar from './components/Navbar.js';
-import { useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
+import Community from './pages/Community.js';
+import PlannerCreate from './pages/PlannerCreate.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -21,16 +23,25 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/"
-            element={currentUser ? <Navbar /> : <Navigate to="/Login" replace />}
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Community"
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Planner"
+            element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
           />
         </Routes>
       </Router>
     </div>
   );
 }
+
 
 export default App;
