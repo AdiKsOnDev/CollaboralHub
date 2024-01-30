@@ -17,6 +17,7 @@ function App() {
     <Router>
       <div className="App bg-primary w-screen h-screen">
         <Routes>
+          <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 

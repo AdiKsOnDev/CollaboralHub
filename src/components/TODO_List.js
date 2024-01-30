@@ -27,7 +27,7 @@ function TODOList() {
               <h1 className="text-4xl text-text-color font-semibold mb-8">TODO List</h1>
               <Form />
             </div> 
-            <div>
+            <div  className="flex flex-row pt-20 pl-0">
             <DisplayStickyNotes/>
             </div>
           </div>

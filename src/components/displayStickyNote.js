@@ -8,7 +8,6 @@ const DisplayStickyNotes = () => {
   const [themeMode, setThemeMode] = themes;
 
   return (
-    <>
       <div className= "flex flex-row gap-4">
           {todos.map((todo, index) => (
               <div key={index} className="w-[198px] h-[245px] bg-amber-200 rounded-[15px] shadow flex flex-col justify-center items-center">
@@ -17,7 +16,6 @@ const DisplayStickyNotes = () => {
               </div>
           ))}
       </div>
-    </>
   );
 }
 
