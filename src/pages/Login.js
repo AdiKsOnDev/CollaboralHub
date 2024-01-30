@@ -1,10 +1,10 @@
-import LoginBox from "../components/LoginBox"
+import LoginBox from '../components/LoginBox';
 
 function Login() {
-  return ( 
-      <div className="w-full h-full flex items-center justify-center">
-        <LoginBox />
-      </div>
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <LoginBox />
+    </div>
   );
 }
 

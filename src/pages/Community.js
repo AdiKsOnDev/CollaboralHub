@@ -7,18 +7,19 @@ import StatusBar from "../components/StatusBar";
 export default function Community() {
 
   return (
-    <div className="w-screen h-full flex flex-row">
+    <div className="w-screen h-screen flex flex-row">
       <Navbar />
 
       <div className="w-full">
         <StatusBar />
-        <div className="flex flex-row p-5">
-          <div className="flex flex-col items-center w-full">
+
+        <div className="flex flex-row p-5 h-90">
+          <div className="flex flex-col w-full">
             <NewPost />
             <PostHolder />
           </div>
 
-          <NewsFeed />
+        <NewsFeed />
         </div>
       </div>
     </div>

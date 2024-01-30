@@ -28,7 +28,7 @@ const PostHolder= () => {
   }, []);
 
   return (
-      <div className="flex flex-col justify-center items-center h-screen overflow-y-scroll text-white px-10">
+      <div className="flex flex-col h-screen items-center overflow-y-scroll text-white px-10">
             <RotatingLines
               strokeColor="grey"
               strokeWidth="5"
@@ -37,19 +37,17 @@ const PostHolder= () => {
               visible={true}
             />
           
-          <InfiniteScroll dataLength={postData.length} >
-              {postData.map((post) => (
-                  <div className="bg-secondary p-10 rounded-xl mb-5">
-                    <div className="flex flex-row items-center mb-5">
-                      <img src="" alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>          
-                      <p className="font-semibold text-xl"> {post.userName}</p>
-                    </div>
-                    <div className="flex justify-center text-center w-full">
-                      <p className="w-2/3">{post.postBody}</p>
-                    </div>
+            {postData.map((post) => (
+                <div className="bg-secondary w-full p-10 rounded-xl mb-4">
+                  <div className="flex flex-row items-center mb-5">
+                    <img src="" alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>          
+                    <p className="font-semibold text-xl"> {post.userName}</p>
                   </div>
-              ))}
-          </InfiniteScroll>
+                  <div className="flex justify-center text-center w-full">
+                    <p className="w-2/3">{post.postBody}</p>
+                  </div>
+                </div>
+            ))}
       </div>
   );
 };

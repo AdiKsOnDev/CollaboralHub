@@ -87,3 +87,5 @@ return (
 - Write code that is unreadable
 - Add blank spaces for no reason
 - Use `var` keyword (Use `let` or `const` instead)
+- Abbreviate variable names. I want all of you guys to name your variables in a way that it makes SENSE.
+    - Refer this helpful video: https://www.youtube.com/watch?v=-J3wNP6u5YU&t=86s  
