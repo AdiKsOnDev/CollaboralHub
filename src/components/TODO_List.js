@@ -5,8 +5,6 @@ import contextTodo from "../context/contextTodo.js";
 import reducer from "./reducer.js";
 import DisplayStickyNotes from "./displayStickyNote.js";
 import StatusBar from "./StatusBar.js";
-import Project from "./Project.js";
-import Image from "../Assets/addTL.png";
 import Img from "../Assets/stickyNote.png";
 import SavedNotes from "./SavedNotes.js";
  

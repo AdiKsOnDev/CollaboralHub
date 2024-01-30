@@ -1,17 +1,23 @@
-import React from 'react';
-import { useContext, useState } from 'react';
+import React, { useState, useContext, useRef, useEffect } from 'react';
 import contextTodo from '../context/contextTodo.js';
 import { ADD_TODO } from './actionTypes.js';
 
 function Form() {
-  const { todos, dispatch } = useContext(contextTodo);
+  const { dispatch } = useContext(contextTodo);
   const [todoString, setTodoString] = useState('');
+  const [style, setStyle] = useState({});
+  const contentEditableRef = useRef(null);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    
-    if (todoString === '') {
-      return alert('Please enter todo to add');
+  useEffect(() => {
+    if (contentEditableRef.current) {
+      contentEditableRef.current.textContent = todoString;
+    }
+  }, [todoString]);
+
+  const handleSubmit = () => {
+    if (!todoString.trim()) {
+      alert('Please enter todo to add');
+      return;
     }
 
     dispatch({
@@ -20,20 +26,55 @@ function Form() {
     });
 
     setTodoString('');
-    console.log(todos);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    handleSubmit();
+  };
+
+  const applyStyle = (newStyle) => {
+    setStyle({ ...style, ...newStyle });
+  };
+
+  const handleInput = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit();
+    } else {
+      setTodoString(e.currentTarget.textContent);
+    }
   };
 
   return (
     <>
-      <form className='flex flex-col items-center justify-center mr-5 w-48 hover:w-52 hover:text-lg duration-300' onSubmit={handleClick}>
-        <input  
-          type='text' 
-          placeholder= {'Add New \nTo Do List'}
-          className="w-[198px] h-[252px] bg-pink-800 rounded-[15px] shadow flex flex-col justify-center items-center text-center"
-          onChange={(e) => setTodoString(e.target.value)}
-          value={todoString}
+      <div className="w-[198px] h-[252px] bg-pink-800 rounded-[15px] shadow flex flex-col justify-between p-2">
+        <div className="flex justify-center items-center gap-2 mb-2">
+          <button
+            className="px-0.5 py-0 bg-blue-500 text-white rounded hover:bg-blue-700"
+            onClick={() => applyStyle({ fontWeight: style.fontWeight === 'bold' ? 'normal' : 'bold' })}>
+            Bold
+          </button>
+          <button
+            className="px-0.5 py-0 bg-green-500 text-white rounded hover:bg-green-700"
+            onClick={() => applyStyle({ fontStyle: style.fontStyle === 'italic' ? 'normal' : 'italic' })}>
+            Italic
+          </button>
+          <button
+            className="px-0.5 py-0 bg-red-500 text-white rounded hover:bg-red-700"
+            onClick={() => applyStyle({ textDecoration: style.textDecoration === 'underline' ? 'none' : 'underline' })}>
+            Underline
+          </button>
+        </div>
+        <div
+          contentEditable
+          ref={contentEditableRef}
+          className="flex-grow text-center"
+          style={style}
+          onInput={(e) => handleInput(e)}
+          onKeyDown={(e) => handleInput(e)}
         />
-      </form>
+      </div>
     </>
   );
 }

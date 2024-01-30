@@ -10,6 +10,7 @@ import Community from './pages/Community.js';
 import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
+import StickyNotes from './pages/StickyNotes.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
