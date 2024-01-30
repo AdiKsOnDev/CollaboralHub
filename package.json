@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@excalidraw/excalidraw": "^0.17.2",
+    "@headlessui/react": "^1.7.18",
+    "@mantine/hooks": "^7.5.0",
+    "@syncfusion/ej2-react-schedule": "^24.1.41",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@zegocloud/zego-uikit-prebuilt": "^1.10.2",
     "axios": "^1.6.7",
@@ -14,6 +17,8 @@
     "fuse": "^0.10.0",
     "perfect-freehand": "^1.2.0",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.8.6",
+    "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.1",
     "react-images-uploading": "^3.1.7",
@@ -22,7 +27,8 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.1",
     "react-scripts": "5.0.1",
-    "tailwind": "^4.0.0",
+    "roughjs": "^4.6.6",
+    "uuid": "^8.2.0",
     "web-vitals": "^2.1.4",
     "zego-superboard-web": "^2.14.1"
   },
@@ -51,6 +57,15 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^14.1.2",
+    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.4.0"
-  }
+  },
+  "description": "Thinklabs is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.",
+  "main": "server/server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "AdiKsOnDev",
+  "license": "MIT"
 }
