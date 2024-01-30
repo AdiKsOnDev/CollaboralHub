@@ -58,7 +58,7 @@ const RegisterBox = () => {
           lastname: lastname
         });
 
-        navigate("/Login");
+        navigate("/Tutorial");
         console.log(user);
       })
 
