@@ -44,7 +44,7 @@ const RegisterBox = () => {
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        navigate("/Login");
+        navigate("/Tutorial");
 
         console.log(user);
       })
@@ -126,6 +126,7 @@ const RegisterBox = () => {
         <GoogleSvg className='w-7 mr-8' />
         <h1>Sign in using Google</h1>
       </button>
+
     </div>
   );
 };

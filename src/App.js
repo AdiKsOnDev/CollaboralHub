@@ -9,18 +9,20 @@ import Canvas from './pages/Canvas';
 import Navbar from './components/Navbar.js';
 import Community from './pages/Community.js';
 import NewsFeed from './components/NewsFeed.js';
+import Tutorial from './pages/Tutorial.js';
 
 
 function App() {
   return (
     <Router>
-      <div className="App bg-primary w-screen h-full">
+      <div className="App bg-primary w-screen h-screen">
         <Routes>
           {/* <Route path="/" element={<Navbar />} /> */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Community" element={<Community />} />
           <Route path="/Canvas" element={<Canvas />} />
+          <Route path="/Tutorial" element={<Tutorial />} />
         </Routes>
       </div>
     </Router>
