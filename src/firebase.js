@@ -25,6 +25,7 @@ const provider = new GoogleAuthProvider();
 
 const storage = getStorage(fireApp);
 
+
 export {
   fireApp,
   database,

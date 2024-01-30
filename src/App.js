@@ -7,7 +7,11 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import Canvas from './pages/Canvas';
 import Community from './pages/Community.js';
+import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
+import Call from './pages/Call.js';
+
+import DocxEditor from './pages/DocxEditor.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -16,7 +20,6 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
-          {/* Public Routes */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
@@ -26,6 +29,10 @@ function App() {
             element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
+            path="/DocxEditor"
+            element={currentUser ? <DocxEditor /> : <Navigate to="/Login" replace />}
+          /> 
+          <Route
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
@@ -34,9 +41,18 @@ function App() {
             element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
           />
           <Route
+            path="/Tutorial"
+            element={currentUser ? <Tutorial /> : <Navigate to="/Login" replace />}
+          />
+          <Route
             path="/Planner"
             element={currentUser ? <PlannerCreate /> : <Navigate to="/Login" replace />}
           />
+          <Route
+            path="/Call"
+            element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
+          />
+
         </Routes>
       </Router>
     </div>
