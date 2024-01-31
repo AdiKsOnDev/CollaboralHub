@@ -10,6 +10,7 @@ import Community from './pages/Community.js';
 import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
+import StickyNotes from './pages/StickyNotes.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
@@ -20,6 +21,7 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
+          <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
