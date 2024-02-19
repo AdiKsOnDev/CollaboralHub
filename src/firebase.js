@@ -2,11 +2,13 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import{getStorage} from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyABG7t7ZD6ptOPsWfBqEP5coJhx2PCjLh8",
   authDomain: "papercraft-af1e6.firebaseapp.com",
+  databaseURL: "https://papercraft-af1e6-default-rtdb.firebaseio.com",
   projectId: "papercraft-af1e6",
   storageBucket: "papercraft-af1e6.appspot.com",
   messagingSenderId: "375489922161",
@@ -17,12 +19,17 @@ const firebaseConfig = {
 const fireApp = initializeApp(firebaseConfig); 
 const database = getFirestore(fireApp);
 
+// const userDocument = await database.collection("posts").doc('0zLt6Bx8ajbCkam2oCuX').get()
 const auth = getAuth(fireApp);
 const provider = new GoogleAuthProvider();
+
+const storage = getStorage(fireApp);
+
 
 export {
   fireApp,
   database,
   auth,
-  provider
+  provider,
+  storage
 };
