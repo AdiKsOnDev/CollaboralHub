@@ -21,7 +21,6 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
-          <Route path="/" element={<StickyNotes />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
@@ -45,6 +44,10 @@ function App() {
           <Route
             path="/Tutorial"
             element={currentUser ? <Tutorial /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Notes"
+            element={currentUser ? <StickyNotes /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Planner"
