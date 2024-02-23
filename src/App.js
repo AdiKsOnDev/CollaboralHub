@@ -21,6 +21,7 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
+          {/* Auth */} 
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
