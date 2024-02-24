@@ -4,6 +4,7 @@ import cors from "cors";
 import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
 import { database } from "./firebase.js";
 import path from "path";
+import { v4 as uuidv4 } from 'uuid';
 
 // dotenv.config();
 
@@ -24,11 +25,10 @@ app.use(express.static(path.join("../", 'build')));
   */
 app.get("/api/currentUser", async(req, res) => {
     try {
-        const email = req.body;
+        const { email } = req.body;
 
-        if (email) {
-          const user = query(collection(database, "Users"), where("email", "==", email));
-    }
+        const user = query(collection(database, "Users"), where("email", "==", email));
+
         res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ msg: "Data could not be found." });
@@ -53,7 +53,7 @@ app.post("/api/register", async(req, res) => {
         };
 
         if (newUser) {
-            const user = await setDoc(doc(database, "Users", email), newUser); 
+            const user = await setDoc(doc(database, "Users", uuidv4), newUser); 
 
             res.status(201).json(user);
         }

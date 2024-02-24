@@ -25,17 +25,17 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="container w-2/4 mx-auto p-4 flex flex-col justify-center items-center">
+    <div className="container w-2/4 p-4 flex flex-col justify-center items-center">
       <div className="flex w-full">
         <input
           type="text"
           placeholder="Search For Projects"
           value={searchQuery}
-          className="w-full h-14 px-4 py-2 border rounded-md focus:outline-none text-xl font-semibold"
+          className="w-full h-14 px-4 py-2 border rounded-l-md focus:outline-none text-xl font-semibold"
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <button
-          className="px-4 py-2 h-14 text-text-color bg-accent-red font-semibold ml-3 rounded-md focus:outline-none text-xl hover:bg-dark-red duration-300"
+          className="px-4 py-2 h-14 text-text-color bg-accent-red font-semibold rounded-r-md focus:outline-none text-xl hover:bg-dark-red duration-300"
           onClick={handleSearch}
         >
           <SearchSVG className="h-8 w-8" />
