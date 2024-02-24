@@ -19,7 +19,7 @@ module.exports = {
         'accent-gray': '#b8b8b8',
         'accent-green': '#39ff14',
         // 'blue': '#45b6fe',
-        'accent-red': '#ff4d4d',
+        'red': '#ff4d4d',
         'accent-purple': '#a44cd3',
       }
     },
