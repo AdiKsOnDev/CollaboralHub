@@ -7,6 +7,8 @@ import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
 import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
 import { ReactComponent as MenuBarSVG } from "../Assets/Menu-Bar.svg";
 
+import ProfilePicture from "./ProfilePicture.js";
+
 import { auth } from "../firebase.js";
 import React, { useState } from 'react';
 
