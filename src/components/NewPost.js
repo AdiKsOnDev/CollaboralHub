@@ -65,7 +65,7 @@ const NewPost = () => {
 
             <div className="flex justify-between">
               <span></span>
-              <button onClick={() => setIsOpen(true)} className="text-white bg-slate-400 px-5 py-2 rounded-3xl font-semibold duration-300">Post</button>
+              <button onClick={() => setIsOpen(true)} className="text-white bg-accent-blue px-5 py-2 rounded-3xl font-semibold duration-300">Post</button>
             </div>
           </div>
         ) : (
