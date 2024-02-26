@@ -8,43 +8,43 @@ import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg
 
 import { auth } from "../firebase.js";
 
-function Navbar() {
+function Navbar({ page }) {
   return (
     <nav className="flex flex-col justify-start items-center w-1/4 gap-24 h-screen bg-secondary">
       <img className="mt-12" src={LogoPNG} alt="Logo" />
 
       <ul className="flex flex-col justify-center items-center w-full">
-        <li className="w-full flex items-start justify-center hover:bg-placeholder duration-300">
+        <li className={`w-full flex items-start justify-center ${ page === "home" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
           <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2 duration-300" href="/">
             <ProjectsSVG className="h-12" /> Projects
           </a>
         </li>
 
-        <li className="w-full flex items-start hover:bg-placeholder duration-300">
+        <li className={`w-full flex items-start justify-center ${ page === "community" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
           <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Community">
             <CommunitySVG className="h-12" /> Community Page
           </a>
         </li>
 
-        <li className="w-full flex items-start hover:bg-placeholder duration-300">
-          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/">
+        <li className={`w-full flex items-start justify-center ${ page === "notes" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Notes">
             <NotesSVG className="h-12" /> Sticky Notes
           </a>
         </li>
 
-        <li className="w-full flex items-start hover:bg-placeholder duration-300">
+        <li className={`w-full flex items-start justify-center ${ page === "planner" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
           <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Planner">
             <PlannerSVG className="h-12" /> Planner
           </a>
         </li>
 
-        <li className="w-full flex items-start hover:bg-placeholder duration-300">
+        <li className={`w-full flex items-start justify-center ${ page === "groups" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
           <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Call">
             <GroupsSVG className="h-12" /> Groups
           </a>
         </li>
 
-        <li className="w-full flex items-start hover:bg-placeholder duration-300">
+        <li className={`w-full flex items-start justify-center ${ page === "docx" ? "bg-placeholder" : "" } hover:bg-placeholder duration-300`}>
           <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/DocxEditor">
             <NotesSVG className="h-12" /> Documents
           </a>

@@ -6,7 +6,7 @@ import 'tailwindcss/tailwind.css';
 function StickyNotes() {
     return (
         <div className="w-screen h-full flex">
-            <Navbar />
+            <Navbar page="notes" />
             <TODOList/>
         </div>
     );
