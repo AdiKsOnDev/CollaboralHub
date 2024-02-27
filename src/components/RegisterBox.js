@@ -60,6 +60,7 @@ const RegisterBox = () => {
 
         navigate("/Tutorial");
         console.log(user);
+        console.log(response);
       })
 
       .catch((error) => {

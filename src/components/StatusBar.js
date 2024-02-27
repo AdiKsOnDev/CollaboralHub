@@ -1,5 +1,4 @@
 import SearchBox from "./SearchBox.js";
-import ProfilePicture from "./ProfilePicture.js";
 
 function StatusBar() {
   return (

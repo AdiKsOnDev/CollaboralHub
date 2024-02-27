@@ -1,4 +1,4 @@
-import {ADD_TODO, CHANGE_THEME, REMOVE_TODO} from './actionTypes.js'
+import {ADD_TODO, REMOVE_TODO} from './actionTypes.js'
 
 
 
@@ -8,8 +8,9 @@ const Reducer =(state,action)=>{
         case ADD_TODO:   
             return [...state, action.payload]
         case REMOVE_TODO:
-           return state.filter((todo)=>todo !=action.payload)
-       
+           return state.filter((todo)=>todo !==action.payload)
+        default:
+          console.log("NO SUCH ACTION TYPE");
 
     }
 

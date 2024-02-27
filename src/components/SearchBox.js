@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { database } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { Link } from "react-router-dom";
+// import { database } from "../firebase";
+// import { collection } from "firebase/firestore";
 
 import { ReactComponent as SearchSVG } from "../Assets/Magnifier.svg";
 
@@ -11,9 +10,9 @@ const SearchBox = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const handleSearch = async () => {
-    const projectsRef = collection(database, "Projects");
-    const querySnapshot = await getDocs(projectsRef);
-    const allProjects = querySnapshot.docs.map((doc) => doc.data());
+    // const projectsRef = collection(database, "Projects");
+    // const querySnapshot = await getDocs(projectsRef);
+    // const allProjects = querySnapshot.docs.map((doc) => doc.data());
 
     // Perform the fuzzy search
     // const searchResults = fuse.search(searchQuery);

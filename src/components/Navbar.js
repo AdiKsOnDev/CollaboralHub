@@ -1,4 +1,3 @@
-import LogoPNG from "../Assets/logo.png";
 import { ReactComponent as ProjectsSVG } from "../Assets/Navigation-Projects.svg";
 import { ReactComponent as CommunitySVG } from "../Assets/Navigation-Community.svg";
 import { ReactComponent as NotesSVG } from "../Assets/Navigation-Notes.svg";
@@ -7,9 +6,6 @@ import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
 import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
 import { ReactComponent as MenuBarSVG } from "../Assets/Menu-Bar.svg";
 
-import ProfilePicture from "./ProfilePicture.js";
-
-import { auth } from "../firebase.js";
 import React, { useState } from 'react';
 
 function Navbar({ page }) {
