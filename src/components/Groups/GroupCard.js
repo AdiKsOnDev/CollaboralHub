@@ -1,0 +1,11 @@
+function GroupCard({ image, name, }) {
+  return (
+    <a href={`/${name}`} className="flex flex-col items-center justify-center mr-5 w-48 hover:w-52 hover:text-lg duration-300">
+      <img className="w-full h-30 rounded-lg" src={image} alt="GroupPreview" />
+      
+      <h1 className="text-text-color font-regular w-full pl-2 mt-3 mb-8">{name}</h1>
+    </a>
+  )
+}
+
+export default GroupCard;
