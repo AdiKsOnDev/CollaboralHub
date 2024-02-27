@@ -11,6 +11,7 @@ import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
 import StickyNotes from './pages/StickyNotes.js';
+import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
@@ -58,7 +59,10 @@ function App() {
             path="/Call"
             element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
           />
-
+          <Route
+            path="/Groups"
+            element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </Router>
     </div>

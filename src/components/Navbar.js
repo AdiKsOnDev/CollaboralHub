@@ -50,7 +50,7 @@ function Navbar({ page }) {
         </li>
 
         <li className={`w-full flex items-start justify-center ${ page === "groups" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Call">
+          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Groups">
             <GroupsSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Groups</h1> : ""}
           </a>
         </li>
