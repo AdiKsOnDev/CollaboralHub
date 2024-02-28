@@ -1,10 +1,11 @@
 import { ReactComponent as ProjectsSVG } from "../Assets/Navigation-Projects.svg";
-import { ReactComponent as CommunitySVG } from "../Assets/Navigation-Community.svg";
 import { ReactComponent as NotesSVG } from "../Assets/Navigation-Notes.svg";
 import { ReactComponent as PlannerSVG } from "../Assets/Navigation-Planner.svg";
 import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
 import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
 import { ReactComponent as MenuBarSVG } from "../Assets/Menu-Bar.svg";
+import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
+import { ReactComponent as DocxSVG } from "../Assets/Docx-Icon.svg";
 
 import React, { useState } from 'react';
 
@@ -25,15 +26,16 @@ function Navbar({ page }) {
             <MenuBarSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Side Menu</h1> : ""} 
           </button>
         </li>
-        <li className={`w-full flex items-start justify-center ${ page === "home" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
-          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2 duration-300" href="/">
-            <ProjectsSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Your Files</h1> : ""}
+
+        <li className={`w-full flex items-start justify-center ${ page === "community" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/">
+            <HomeSVG className="h-8" /> {menuBar ? <h1 className="duration-300">Home</h1> : ""}
           </a>
         </li>
 
-        <li className={`w-full flex items-start justify-center ${ page === "community" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
-          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Community">
-            <CommunitySVG className="h-12" /> {menuBar ? <h1 className="duration-300">Community Page</h1> : ""}
+        <li className={`w-full flex items-start justify-center ${ page === "home" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
+          <a data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2 duration-300" href="/Dashboard">
+            <ProjectsSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Your Files</h1> : ""}
           </a>
         </li>
 
@@ -57,7 +59,7 @@ function Navbar({ page }) {
 
         <li className={`w-full flex items-start justify-center ${ page === "docx" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
           <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/DocxEditor">
-            <NotesSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Docx Editor</h1> : ""}
+            <DocxSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Document Editor</h1> : ""}
           </a>
         </li>
       </ul>

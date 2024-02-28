@@ -29,7 +29,7 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/"
-            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/DocxEditor"
@@ -40,8 +40,8 @@ function App() {
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
           <Route
-            path="/Community"
-            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+            path="/Dashboard"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Tutorial"
