@@ -53,7 +53,7 @@ app.post("/api/register", async(req, res) => {
         };
 
         if (newUser) {
-            const user = await setDoc(doc(database, "Users", uuidv4), newUser); 
+            const user = await setDoc(doc(database, "Users", email), newUser); 
 
             res.status(201).json(user);
         }
