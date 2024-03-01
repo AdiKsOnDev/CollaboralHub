@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { ChannelList, useChatContext } from 'stream-chat-react';
+import ChannelList from 'stream-chat-react';
+import { useContext } from 'react';
+import { ChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
-import { ChannelSearch } from 'stream-chat-react';
+import ChannelSearch from './ChannelSearch';
 import TeamChannelList from './TeamChannelList';
 import TeamChannelPreview from './TeamChannelPreview';
 import { LuLogOut } from "react-icons/lu";
@@ -10,13 +12,13 @@ import { LuLogOut } from "react-icons/lu";
 const cookies = new Cookies();
 
 const SideBar = ({ logout }) => (
-  <div className="channel-list__sidebar">
-    <div className="channel-list__sidebar__icon1">
-      <div className="icon1__inner">
+  <div className="w-[72px] shadow-[1px 0px 0px rgba(0,0,0,0.25)] bg-gradient-to-r from-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.2)] var(--primary-color)">
+    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] m-3.5 rounded-full bg-gradient-to-r from-[rgba(0,0,0,0.1)] to-[rgba(0,0,0,0)] #ffffff">
+      <div className="h-full flex items-center justify-center font-sans">
       </div>
     </div>
-    <div className="channel-list__sidebar__icon2">
-      <div className="icon1__inner" onClick={logout}>
+    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] cursor-pointer m-3.5 rounded-full bg-gradient-to-r from-[rgba(0,0,0,0.1)] to-[rgba(0,0,0,0)] #ffffff">
+      <div className="h-full flex items-center justify-center font-sans" onClick={logout}>
         <LuLogOut />
       </div>
     </div>
@@ -38,7 +40,7 @@ const customChannelMessagingFilter = (channels) => {
 }
 
 const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
-  const { client } = useChatContext();
+  const { client } = useContext(ChatContext);
 
   const logout = () => {
     cookies.remove("token");
@@ -113,31 +115,13 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
   );
 }
 
-const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) => {
+const ChannelListContainer = () => {
   const [toggleContainer, setToggleContainer] = useState(false);
 
   return (
     <>
-      <div className="channel-list__container">
-        <ChannelListContent
-          setIsCreating={setIsCreating}
-          setCreateType={setCreateType}
-          setIsEditing={setIsEditing}
-        />
-      </div>
 
-      <div className="channel-list__container-responsive"
-        style={{ left: toggleContainer ? "0%" : "-89%", backgroundColor: "#005fff" }}
-      >
-        <div className="channel-list__container-toggle" onClick={() => setToggleContainer((prevToggleContainer) => !prevToggleContainer)}>
-        </div>
-        <ChannelListContent
-          setIsCreating={setIsCreating}
-          setCreateType={setCreateType}
-          setIsEditing={setIsEditing}
-          setToggleContainer={setToggleContainer}
-        />
-      </div>
+      <SideBar />
     </>
   )
 
