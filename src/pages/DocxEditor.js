@@ -7,25 +7,33 @@ import { AuthContext } from "../context/AuthContext";
 import 'react-quill/dist/quill.snow.css';
 import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
- 
+
 const DocxEditor = ({ passedContent }) => {
   const { currentUser } = useContext(AuthContext);
   const [content, setContent] = useState(passedContent);
+  const [title, setTitle] = useState("");
 
   const handleChange = (value) => {
     setContent(value.toString());
   };
  
+  const handleName = (value) => {
+    setTitle(value.toString());
+  } 
+
   const handleSave = async () => {
+    if (!content) {
+      return;
+    }
     const fileID = uuidv4();
 
-    console.log("SAVED:" + content)
+    console.log("SAVED:" + title)
     const userRef = doc(collection(database, "Users"), currentUser.email);
     const userSnapshot = await getDoc(userRef);
     const user = userSnapshot.data();
 
     const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-    const response = await setDoc(doc(database, "Files", fileID), {content}); 
+    const response = await setDoc(doc(database, "Files", fileID), {content, title}); 
   };
  
   const handlePrint = () => {
@@ -72,6 +80,7 @@ const DocxEditor = ({ passedContent }) => {
       <div className="bg-accent-blue w-full text-white font-semibold flex">
         <a className="px-6 hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-6" /></a>
 
+        <input id="title" name="title" type="text" placeholder="Title" className="p-2 bg-accent-blue border-white border-b-4 m-4 border-solid placeholder-white font-semibold focus:outline-none" value={title} onChange={(e)=> setTitle(e.target.value)} />
         <button className="p-5 hover:bg-accent-red duration-300" onClick={handleSave}>Save</button>
         <button className="p-5 hover:bg-accent-red duration-300" onClick={handlePrint}>Share</button>
       </div>
@@ -96,4 +105,3 @@ const DocxEditor = ({ passedContent }) => {
 };
  
 export default DocxEditor;
-//Hi

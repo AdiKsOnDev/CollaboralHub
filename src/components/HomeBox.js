@@ -6,7 +6,6 @@ import PreviewImage from "../Assets/canvas.png";
 import PreviewDocx from "../Assets/PreviewDocx.png";
 import StatusBar from "./StatusBar.js";
 import Project from "./Project.js";
-import Image from "../Assets/canvas.png";
  
 function HomeBox() {
   const { currentUser } = useContext(AuthContext);
