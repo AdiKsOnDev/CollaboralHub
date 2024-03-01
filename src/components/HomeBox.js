@@ -17,9 +17,16 @@ function HomeBox() {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
-      console.log(user);
+
+      // Getting the files from collection Files
+      const files = await Promise.all(user.files.map(async (file) => {
+        const fileRef = doc(collection(database, "Files"), file);
+        const fileSnapshot = await getDoc(fileRef);
+        return fileSnapshot.data();
+      }));
       
-      setUserFiles(user.files);
+      setUserFiles(files);
+      console.log(userFiles);
     };
 
     getFiles();
@@ -30,7 +37,6 @@ function HomeBox() {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
-      console.log(user);
       
       setUserCanvases(user.canvases);
     };
@@ -46,8 +52,8 @@ function HomeBox() {
         <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1>
 
         <div className="grid grid-cols-4"> 
-          {userFiles.map((group) => (
-            <Project image={PreviewDocx} title={group} />
+          {userFiles.map((file) => (
+            <Project image={PreviewDocx} title={file.title} />
           ))}
         </div>
       </div>

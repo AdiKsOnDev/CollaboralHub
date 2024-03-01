@@ -7,16 +7,34 @@ import { AuthContext } from "../context/AuthContext";
 import 'react-quill/dist/quill.snow.css';
 import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
+import { useSearchParams } from "react-router-dom";
 
-const DocxEditor = ({ passedContent }) => {
+const DocxEditor = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { currentUser } = useContext(AuthContext);
-  const [content, setContent] = useState(passedContent);
+  const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
 
   const handleChange = (value) => {
     setContent(value.toString());
   };
  
+  useEffect(() => {
+    const getContent = async () => {
+      const id = searchParams.get("id").toString();
+      console.log(id);
+
+      const fileRef = doc(collection(database, "Files"), id);
+      const fileSnapshot = await getDoc(fileRef);
+      const file = fileSnapshot.data();
+
+      setContent(file.content);
+      setTitle(file.title);
+    };
+
+    getContent();
+    }, [searchParams])  
+
   const handleName = (value) => {
     setTitle(value.toString());
   } 
