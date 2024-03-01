@@ -43,6 +43,7 @@ const DocxEditor = () => {
     if (!content) {
       return;
     }
+    
     const fileID = uuidv4();
 
     console.log("SAVED:" + title)
@@ -51,7 +52,7 @@ const DocxEditor = () => {
     const user = userSnapshot.data();
 
     const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-    const response = await setDoc(doc(database, "Files", fileID), {content, title}); 
+    const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
   };
  
   const handlePrint = () => {

@@ -26,7 +26,6 @@ function HomeBox() {
       }));
       
       setUserFiles(files);
-      console.log(userFiles);
     };
 
     getFiles();
@@ -53,7 +52,7 @@ function HomeBox() {
 
         <div className="grid grid-cols-4"> 
           {userFiles.map((file) => (
-            <Project image={PreviewDocx} title={file.title} />
+            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} />
           ))}
         </div>
       </div>
