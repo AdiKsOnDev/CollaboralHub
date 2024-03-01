@@ -28,10 +28,10 @@ function Form() {
     setTodoString('');
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    handleSubmit();
-  };
+  // const handleClick = (e) => {
+    // e.preventDefault();
+    // handleSubmit();
+  // };
 
   const applyStyle = (newStyle) => {
     setStyle({ ...style, ...newStyle });

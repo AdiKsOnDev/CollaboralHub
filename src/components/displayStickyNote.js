@@ -5,7 +5,7 @@ import { REMOVE_TODO } from './actionTypes.js';
 
 const DisplayStickyNotes = () => {
   const { todos, dispatch, themes } = useContext(contextTodo);
-  const [themeMode, setThemeMode] = themes;
+  // const [themeMode, setThemeMode] = themes;
 
   return (
       <div className= "flex flex-row gap-4">

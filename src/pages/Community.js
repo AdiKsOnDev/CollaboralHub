@@ -8,7 +8,7 @@ export default function Community() {
 
   return (
     <div className="w-screen h-screen flex flex-row">
-      <Navbar />
+      <Navbar page="community" />
 
       <div className="w-full">
         <StatusBar />

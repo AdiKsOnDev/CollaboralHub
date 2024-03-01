@@ -1,16 +1,31 @@
-import React, { useState } from 'react';
+import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
+
 import ReactQuill from 'react-quill';
+import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useContext, useState } from 'react';
+import { AuthContext } from "../context/AuthContext";
 import 'react-quill/dist/quill.snow.css';
+import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { database } from "../firebase.js";
  
-const DocxEditor = () => {
-  const [content, setContent] = useState('');
- 
+const DocxEditor = ({ passedContent }) => {
+  const { currentUser } = useContext(AuthContext);
+  const [content, setContent] = useState(passedContent);
+
   const handleChange = (value) => {
-    setContent(value);
+    setContent(value.toString());
   };
  
-  const handleSave = () => {
-    console.log("Document saved:", content);
+  const handleSave = async () => {
+    const fileID = uuidv4();
+
+    console.log("SAVED:" + content)
+    const userRef = doc(collection(database, "Users"), currentUser.email);
+    const userSnapshot = await getDoc(userRef);
+    const user = userSnapshot.data();
+
+    const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
+    const response = await setDoc(doc(database, "Files", fileID), {content}); 
   };
  
   const handlePrint = () => {
@@ -54,13 +69,13 @@ const DocxEditor = () => {
  
   return (
     <div>
-      <div className="editor-toolbar text-white">
-        <button onClick={handleSave}>Save</button>
-        <button onClick={handlePrint}>Print</button>
-        <button onClick={handleInsertImage}>Insert Image</button>
-        <button onClick={handleInsertLink}>Insert Link</button>
-        <button onClick={handleInsertCodeBlock}>Insert Code Block</button>
+      <div className="bg-accent-blue w-full text-white font-semibold flex">
+        <a className="px-6 hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-6" /></a>
+
+        <button className="p-5 hover:bg-accent-red duration-300" onClick={handleSave}>Save</button>
+        <button className="p-5 hover:bg-accent-red duration-300" onClick={handlePrint}>Share</button>
       </div>
+
       <ReactQuill
         className='bg-white h-screen'
         theme="snow"

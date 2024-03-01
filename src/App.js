@@ -11,6 +11,7 @@ import Tutorial from './pages/Tutorial.js';
 import Messaging from './pages/Messaging'; import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
 import StickyNotes from './pages/StickyNotes.js';
+import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
@@ -28,7 +29,7 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/"
-            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/DocxEditor"
@@ -39,8 +40,8 @@ function App() {
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
           <Route
-            path="/Community"
-            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+            path="/Dashboard"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Tutorial"
@@ -58,7 +59,10 @@ function App() {
             path="/Call"
             element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
           />
-
+          <Route
+            path="/Groups"
+            element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+          />
           <Route
             path="/Messaging"
             element={currentUser ? <Messaging /> : <Navigate to="/Login" replace />}
