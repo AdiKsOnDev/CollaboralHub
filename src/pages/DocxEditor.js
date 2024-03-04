@@ -1,6 +1,7 @@
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
 import ReactQuill from 'react-quill';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useContext, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
@@ -14,6 +15,7 @@ const DocxEditor = () => {
   const { currentUser } = useContext(AuthContext);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (value) => {
     setContent(value.toString());
@@ -21,15 +23,20 @@ const DocxEditor = () => {
  
   useEffect(() => {
     const getContent = async () => {
-      const id = searchParams.get("id").toString();
-      console.log(id);
+      try {
+        const id = searchParams.get("id").toString();
 
-      const fileRef = doc(collection(database, "Files"), id);
-      const fileSnapshot = await getDoc(fileRef);
-      const file = fileSnapshot.data();
+        console.log(id);
 
-      setContent(file.content);
-      setTitle(file.title);
+        const fileRef = doc(collection(database, "Files"), id);
+        const fileSnapshot = await getDoc(fileRef);
+        const file = fileSnapshot.data();
+
+        setContent(file.content);
+        setTitle(file.title);
+      } catch (Exception) {
+        console.log("NO ID");
+      }
     };
 
     getContent();
@@ -44,15 +51,30 @@ const DocxEditor = () => {
       return;
     }
     
-    const fileID = uuidv4();
+    let id = null;
 
-    console.log("SAVED:" + title)
-    const userRef = doc(collection(database, "Users"), currentUser.email);
-    const userSnapshot = await getDoc(userRef);
-    const user = userSnapshot.data();
+    try {
+      id = searchParams.get("id").toString();
+    } catch (Exception) {
+      console.log("NO ID Passed");
+    }
 
-    const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-    const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
+    if (id === null) {
+      const fileID = uuidv4();
+
+      console.log("SAVED: " + title)
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+
+      const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
+      const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
+    } else {
+      console.log(id);
+      const response = await updateDoc(doc(database, "Files", id), {content, title, id});
+    }
+
+    navigate("/Dashboard");
   };
  
   const handlePrint = () => {
