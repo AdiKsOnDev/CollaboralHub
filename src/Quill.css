@@ -1,0 +1,35 @@
+/* Increae the size of the icons in toolbar */
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  padding: 5px;
+  width: 40px;
+  fill: white;
+}
+/* Quill.css - Adjust scrollbar width and color */
+
+/* Target the scrollbar itself */
+/* .ql-editor::-webkit-scrollbar { */
+/*   width: 8px; /* Decrease the width of the scrollbar */ */
+/* } */
+
+/* Target the scrollbar thumb (the part you drag) and change its color */
+/* .ql-editor::-webkit-scrollbar-thumb { */
+/*   background: #ffffff; /* Replace with your desired color */ */
+/* } */
+/* Quill.css */
+/* .ql-container { */
+/*   height: 100% !important; /* Ensure the container fills its parent's height */ */
+/* } */
+
+/* Remove bottom padding/margin that may cause the black space */
+.ql-toolbar.ql-snow {
+  border: none;
+}
+
+.ql-snow.ql-container {
+  border: none;
+}
