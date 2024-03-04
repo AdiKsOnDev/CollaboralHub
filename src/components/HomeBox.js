@@ -44,7 +44,7 @@ function HomeBox() {
   }, [currentUser]);
 
   return (
-    <div className="flex flex-col w-3/4 h-full bg-primary overflow-scroll">
+    <div className="flex flex-col w-full h-full bg-primary overflow-scroll">
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">
