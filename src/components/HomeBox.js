@@ -6,7 +6,6 @@ import PreviewImage from "../Assets/canvas.png";
 import PreviewDocx from "../Assets/PreviewDocx.png";
 import StatusBar from "./StatusBar.js";
 import Project from "./Project.js";
-import Image from "../Assets/canvas.png";
  
 function HomeBox() {
   const { currentUser } = useContext(AuthContext);
@@ -18,9 +17,15 @@ function HomeBox() {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
-      console.log(user);
+
+      // Getting the files from collection Files
+      const files = await Promise.all(user.files.map(async (file) => {
+        const fileRef = doc(collection(database, "Files"), file);
+        const fileSnapshot = await getDoc(fileRef);
+        return fileSnapshot.data();
+      }));
       
-      setUserFiles(user.files);
+      setUserFiles(files);
     };
 
     getFiles();
@@ -31,7 +36,6 @@ function HomeBox() {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
-      console.log(user);
       
       setUserCanvases(user.canvases);
     };
@@ -40,15 +44,15 @@ function HomeBox() {
   }, [currentUser]);
 
   return (
-    <div className="flex flex-col w-3/4 h-full bg-primary overflow-scroll">
+    <div className="flex flex-col w-full h-full bg-primary overflow-scroll">
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">
         <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1>
 
         <div className="grid grid-cols-4"> 
-          {userFiles.map((group) => (
-            <Project image={PreviewDocx} title={group} />
+          {userFiles.map((file) => (
+            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} />
           ))}
         </div>
       </div>
