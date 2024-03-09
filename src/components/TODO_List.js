@@ -20,14 +20,13 @@ function TODOList() {
             
             <contextTodo.Provider value={{todos,dispatch,themes:[theme,updateTheme]}}>
 
-          <div className="p-24 flex flex-row">
-            {/* <div> */}
-              <h1 className="text-4xl text-text-color font-semibold mb-8">TODO List</h1>
-              {/* <Form /> */}
-            {/* </div>  */}
-            <div  className="flex flex-row pt-20 ">
-            <DisplayStickyNotes/>
-            </div>
+          <div className="flex flex-col p-20" >
+            <h1  className="text-4xl text-text-color font-semibold mb-8">TODO List</h1>
+            <div className="flex flex-row">
+              <div className="flex flex-row">
+              <DisplayStickyNotes/>
+              </div>
+          </div>
           </div>
           </contextTodo.Provider>
 
