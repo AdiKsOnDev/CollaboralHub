@@ -1,22 +1,46 @@
-import React from 'react';
+import React, { useState } from "react";
 import { useContext } from 'react';
-import contextTodo from "../context/contextTodo.js";
-import { REMOVE_TODO } from './actionTypes.js';
+
+
+import Note from "./Note";
+import CreateArea from "./CreateArea";
 
 const DisplayStickyNotes = () => {
-  const { todos, dispatch, themes } = useContext(contextTodo);
-  const [themeMode, setThemeMode] = themes;
+
+
+
+  const [notes, setNotes] = useState([]);
+
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
+    })
+  }
+
+  function deleteNote(id) {
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      })
+    })
+  }
 
   return (
       <div className= "flex flex-row gap-4">
-          {todos.map((todo, index) => (
-              <div key={index} className="w-[198px] h-[245px] bg-amber-200 rounded-[15px] shadow flex flex-col justify-center items-center">
-                  <h1 className="text-black font-regular text-center">{todo}</h1>
-                  <button onClick={() => dispatch({ type: REMOVE_TODO, payload: todo })}>x</button>
-              </div>
-          ))}
+         
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return <Note 
+          key={index}
+          id={index}
+          title={noteItem.title}
+          content={noteItem.content}
+          onDelete={deleteNote}
+        />
+      })}
       </div>
   );
 }
 
 export default DisplayStickyNotes;
+
