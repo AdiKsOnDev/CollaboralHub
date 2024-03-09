@@ -38,6 +38,10 @@ const DisplayStickyNotes = () => {
 
         try {
             addDoc(ref, data);
+            setTimeout(() => {
+                
+                window.location.reload(true);
+             }, 500);
         }
         
         catch(e) {
@@ -61,12 +65,23 @@ const DisplayStickyNotes = () => {
     
 
     //fix it in firebase 
-    function deleteNote(id) {
-    setNotes(prevNotes => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-        })
-        })
+    async function deleteNote(id) {
+        // try {
+        //     await deleteDoc(doc(ref, id));
+        //     setTimeout(() => {
+                
+        //         window.location.reload(true);
+        //      }, 500);
+            
+        // } catch (error) {
+        //     console.error("Error deleting document: ", error);
+        // }
+
+        setNotes(prevNotes => {
+        return prevNotes.filter((noteItem, index) => {
+            return index !== id;
+            })
+            })
     }
 
     return (
