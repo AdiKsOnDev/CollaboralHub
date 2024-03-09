@@ -1,8 +1,7 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { database } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { RotatingLines } from "react-loader-spinner";
 
 async function getPosts() {

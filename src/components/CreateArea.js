@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { database } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 function CreateArea(props) {
+  
 
   let previousLength = 0;
 
@@ -36,7 +39,6 @@ function CreateArea(props) {
   }
 
 
-
   function handleChangeTitle(event) {
 
     const {name, value} = event.target; // this is both event.target.name AND event.target.value.
@@ -58,7 +60,8 @@ function CreateArea(props) {
 
     event.preventDefault();
   }
-  
+
+
   return (
     <div >
       <form className="w-[198px] h-[252px] bg-rose-600 shadow flex flex-col rounded-[15px] justify-between m-0 p-2 " >
