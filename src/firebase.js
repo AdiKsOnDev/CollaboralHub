@@ -1,8 +1,8 @@
 // Imports
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, updateProfile } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import{getStorage} from "firebase/storage";
+import{getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -33,3 +33,18 @@ export {
   provider,
   storage
 };
+
+// Storage
+export async function upload(file, currentUser, setLoading) {
+  const fileRef = ref(storage, currentUser.uid + '.png');
+
+  setLoading(true);
+  
+  const snapshot = await uploadBytes(fileRef, file);
+  const photoURL = await getDownloadURL(fileRef);
+
+  updateProfile(currentUser, {photoURL});
+  
+  setLoading(false);
+  alert("Uploaded file!");
+}

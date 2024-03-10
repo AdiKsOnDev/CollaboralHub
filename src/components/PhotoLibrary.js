@@ -5,7 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import { LuUpload } from "react-icons/lu";
 import { IconContext } from "react-icons";
 //name of firestore collection
-// import {storage} from './firebase';
+import {auth , upload} from '../firebase';
 import {ref, uploadBytes,listAll,getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid';
 import { useState , useEffect} from 'react';
@@ -46,68 +46,109 @@ function PhotoLibrary(){
 
   // },[]);
 
+//--------------------------------------------------
+
+// const currentUser = auth();
+const [photo, setPhoto] = useState(null);
+const [loading, setLoading] = useState(false);
+const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
+
+function handleChange(e) {
+  if (e.target.files[0]) {
+    setPhoto(e.target.files[0])
+  }
+}
+
+function handleClick() {
+  upload(photo, setLoading);
+}
 
 
+
+return (
+  <div className="fields">
+
+        <IconContext.Provider value={{ color: "white" }} >
+            <FiImage size={40} onClick={handleChange}/>
+        </IconContext.Provider>
+
+
+    {/* <input type="file" onChange={handleChange} /> */}
+
+    {/* <IconContext.Provider value={{ color: "white" }} >
+      <LuUpload size={20}  onClick={() => handleClick()}/>
+    </IconContext.Provider> */}
+
+
+    <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
+    <img src={photoURL} alt="Avatar" className="avatar" />
+  </div>
+);
+}
+
+//----------------------------------
     //image upload
 
-    const [images, setImages] = React.useState([]);
-    const maxNumber = 5;
+    // const [images, setImages] = React.useState([]);
+    // const maxNumber = 5;
   
-    const onChange = (imageList, addUpdateIndex) => {
-      // data for submit
-      console.log(imageList, addUpdateIndex);
-      setImages(imageList);
-    };
+    // const onChange = (imageList, addUpdateIndex) => {
+    //   // data for submit
+    //   console.log(imageList, addUpdateIndex);
+    //   setImages(imageList);
+    // };
 
-  return (
-                    <ImageUploading
-                        multiple
-                        value={images}
-                        onChange={onChange}
-                        maxNumber={maxNumber}
-                        dataURLKey="data_url"
-                      >
-                        {({
-                          imageList,
-                          onImageUpload,
-                          onImageUpdate,
-                          onImageRemove,
-                        }) => (
-                          <div>
-                            {/* img icon  */}
+//   return (
+//                     <ImageUploading
+//                         multiple
+//                         value={images}
+//                         onChange={onChange}
+//                         maxNumber={maxNumber}
+//                         dataURLKey="data_url"
+//                       >
+//                         {({
+//                           imageList,
+//                           onImageUpload,
+//                           onImageUpdate,
+//                           onImageRemove,
+//                         }) => (
+//                           <div>
+//                             {/* img icon  */}
                           
-                              <IconContext.Provider value={{ color: "white" }} >
-                                <FiImage size={40} onClick={onImageUpload}/>
-                              </IconContext.Provider>
+//                               <IconContext.Provider value={{ color: "white" }} >
+//                                 <FiImage size={40} onClick={onImageUpload}/>
+//                               </IconContext.Provider>
 
-                            {imageList.map((image, index) => (
-                              <div key={index} className="image-item">
-                                <img src={image['data_url']} alt="" width="100" />
+//                             {imageList.map((image, index) => (
+//                               <div key={index} className="image-item">
+//                                 <img src={image['data_url']} alt="" width="100" />
 
-                                <div className=" flex flex-row justify-between p-2">
+//                                 <div className=" flex flex-row justify-between p-2">
 
-                                      {/* img upload icon  */}
-                                        <IconContext.Provider value={{ color: "white" }} >
-                                            <LuUpload size={20}  onClick={() => onImageUpdate(index)}/>
-                                        </IconContext.Provider>
+//                                       {/* img upload icon  */}
+//                                         <IconContext.Provider value={{ color: "white" }} >
+//                                             <LuUpload size={20}  onClick={() => onImageUpdate(index)}/>
+//                                         </IconContext.Provider>
 
                                       
-                                      {/* img remove icon  */}
-                                        <IconContext.Provider value={{ color: "white" }} >
-                                            <RxCross2 size={24} onClick={() => onImageRemove(index)}/>
-                                        </IconContext.Provider>
+//                                       {/* img remove icon  */}
+//                                         <IconContext.Provider value={{ color: "white" }} >
+//                                             <RxCross2 size={24} onClick={() => onImageRemove(index)}/>
+//                                         </IconContext.Provider>
 
 
-                                </div>
+//                                 </div>
 
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </ImageUploading>
+//                               </div>
+//                             ))}
+//                           </div>
+//                         )}
+//                       </ImageUploading>
 
-  );
-}; 
+//   );
+// }; 
 
 
 export default PhotoLibrary;
+
+
