@@ -12,7 +12,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
   }
 
   return (
-    <div className="channel-name-input__wrapper">
+    <div className="flex flex-col h-[169px] shadow-[0px_1px_0px_rgba(0,0,0,0.1)] pl-5 flex flex-col h-[169px] shadow-[0px_1px_0px_rgba(0,0,0,0.1)] pl-5;">
       <p>Name</p>
       <input value={channelName} onChange={handleChange} placeholder="channel-name" />
       <p>Add Members</p>
@@ -45,14 +45,15 @@ const CreateChannel = ({ createType, setIsCreating }) => {
   }
 
   return (
-    <div className="create-channel__container">
-      <div className="create-channel__header">
+    <div className="flex flex-col h-full">
+      <div className="flex items-center justify-between h-[62px] shadow-[0px_1px_0px_rgba(0,0,0,0.1)] pr-5;">
         <p>{createType === 'team' ? 'Create a New Channel' : 'Send a Direct Message'}</p>
         <CloseCreateChannel setIsCreating={setIsCreating} />
       </div>
       {createType === 'team' && <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />}
       <UserList setSelectedUsers={setSelectedUsers} />
-      <div className="create-channel__button-wrapper" onClick={createChannel}>
+      <div className="h-[82px] flex items-center justify-end px-2.5 py-0 rounded-br-2xl;
+  background: #f7f6f8;" onClick={createChannel}>
         <p>{createType === 'team' ? 'Create Channel' : 'Create Message Group'}</p>
       </div>
     </div>

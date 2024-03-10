@@ -82,10 +82,10 @@ const TeamChannelHeader = ({ setIsEditing }) => {
   };
 
   return (
-    <div className='team-channel-header__container'>
+    <div className='relative h-16 flex justify-between items-center px-5 bg-white shadow-md rounded-tr-lg z-10'>
       <MessagingHeader />
-      <div className='team-channel-header__right'>
-        <p className='team-channel-header__right-text'>{getWatcherText(watcher_count)}</p>
+      <div className='flex-55 flex items-center justify-end text-right'>
+        <p className='font-sans text-sm text-gray-500'>{getWatcherText(watcher_count)}</p>
       </div>
     </div>
   );

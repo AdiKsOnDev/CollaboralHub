@@ -52,13 +52,15 @@ const ChannelSearch = ({ setToggleContainer }) => {
   }
 
   return (
-    <div className="channel-search__container">
-      <div className="channel-search__input__wrapper">
-        <div className="channel-serach__input__icon">
-          <SearchIcon />
+    <div className="relative flex justify-center items-center pt-4 border-t-[#00000033] border-t border-solid;">
+      <div className="flex justify-center items-center h-10 border w-[95%] mb-2 rounded-lg border-solid border-transparent focus-within:border focus-within:border-solid focus-within:border-white; background: rgba(255, 255, 255, 0.2);">
+        <div className="w-8 flex justify-center">
         </div>
         <input
-          className="channel-search__input__text"
+          className="text-white text-base border-[none];
+          background: none;
+          font-family: Helvetica Neue, sans-serif;
+          outline: none;"
           placeholder="Search"
           type="text"
           value={query}

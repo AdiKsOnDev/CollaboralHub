@@ -33,8 +33,11 @@ const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer
         }}
         className={focusedId === channel.id ? 'channel-search__result-container__focused' : 'channel-search__result-container'}
       >
-        <div className='result-hashtag'>#</div>
-        <p className='channel-search__result-text'>{channel.data.name}</p>
+        <div className='h-6 w-7 flex items-center justify-center font-[bold] text-sm leading-[120%] text-white m-3 rounded-3xl;
+  background: var(--primary-color);
+  font-family: Helvetica Neue, sans-serif;'>#</div>
+        <p className='w-full font-medium text-sm leading-[120%] text-[#2c2c30];
+  font-family: Helvetica Neue, sans-serif;'>{channel.data.name}</p>
       </div>
     );
   }
@@ -49,9 +52,10 @@ const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer
       }}
       className={focusedId === channel.id ? 'channel-search__result-container__focused' : 'channel-search__result-container'}
     >
-      <div className='channel-search__result-user'>
+      <div className='flex items-center ml-3'>
         <Avatar image={channel.image || undefined} name={channel.name} size={24} />
-        <p className='channel-search__result-text'>{channel.name}</p>
+        <p className='w-full font-medium text-sm leading-[120%] text-[#2c2c30];
+  font-family: Helvetica Neue, sans-serif;'>{channel.name}</p>
       </div>
     </div>
   );
@@ -60,15 +64,19 @@ const SearchResult = ({ channel, focusedId, type, setChannel, setToggleContainer
 const ResultsDropdown = ({ teamChannels, directChannels, focusedId, loading, setChannel, setToggleContainer }) => {
 
   return (
-    <div className='channel-search__results'>
-      <p className='channel-search__results-header'>Channels</p>
+    <div className='absolute h-fit w-[300px] border box-border shadow-[0px_2px_4px_rgba(0,0,0,0.06)] z-10 rounded-lg border-solid border-[#e9e9ea] left-[230px] top-4;
+    background: #fff;'>
+      <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+  font-family: Helvetica Neue, sans-serif;'>Channels</p>
       {loading && !teamChannels.length && (
-        <p className='channel-search__results-header'>
+        <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+        font-family: Helvetica Neue, sans-serif;'>
           <i>Loading...</i>
         </p>
       )}
       {!loading && !teamChannels.length ? (
-        <p className='channel-search__results-header'>
+        <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+        font-family: Helvetica Neue, sans-serif;'>
           <i>No channels found</i>
         </p>
       ) : (
@@ -83,14 +91,17 @@ const ResultsDropdown = ({ teamChannels, directChannels, focusedId, loading, set
           />
         ))
       )}
-      <p className='channel-search__results-header'>Users</p>
+      <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+  font-family: Helvetica Neue, sans-serif;'>Users</p>
       {loading && !directChannels.length && (
-        <p className='channel-search__results-header'>
+        <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+        font-family: Helvetica Neue, sans-serif;'>
           <i>Loading...</i>
         </p>
       )}
       {!loading && !directChannels.length ? (
-        <p className='channel-search__res ults-header'>
+        <p className='w-fit flex items-center not-italic font-medium text-sm leading-[120%] text-[#858688] ml-3;
+        font-family: Helvetica Neue, sans-serif;'>
           <i>No direct messages found</i>
         </p>
       ) : (

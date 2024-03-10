@@ -5,7 +5,8 @@ const TeamChannelPreview = ({ setActiveChannel, setIsCreating, setIsEditing, set
   const { channel: activeChannel, client } = useChatContext();
 
   const ChannelPreview = () => (
-    <p className="channel-preview__item">
+    <p className="flex items-center text-sm text-white h-full w-full text-ellipsis break-all px-5 py-0;
+    font-family: Helvetica Neue, sans-serif;">
       # {channel?.data?.name || channel?.data?.id}
     </p>
   );
@@ -17,7 +18,7 @@ const TeamChannelPreview = ({ setActiveChannel, setIsCreating, setIsEditing, set
     console.log(members[0]);
 
     return (
-      <div className="channel-preview__item single">
+      <div className="mr-3;">
         <Avatar
           image={members[0]?.user?.image}
           name={members[0]?.user?.fullName || members[0]?.user?.id}

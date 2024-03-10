@@ -12,7 +12,9 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
   }
 
   return (
-    <div className="channel-name-input__wrapper">
+    <div className="text-lg text-[rgba(0,0,0,0.5)] h-[50px] w-[540px] border box-border pl-4 rounded-lg border-solid border-[rgba(0,0,0,0.1)] focus:border focus:border-[color:var(--primary-color)] focus:border-solid text-lg text-black h-[50px] w-[90%] border box-border pl-4 rounded-lg border-solid border-[rgba(0,0,0,0.1)] focus:border focus:border-[color:var(--primary-color)] focus:border-solid;
+    font-family: Helvetica Neue, sans-serif;
+    background: #f7f6f8;">
       <p>Name</p>
       <input value={channelName} onChange={handleChange} placeholder="channel-name" />
       <p>Add Members</p>
@@ -44,14 +46,15 @@ const EditChannel = ({ setIsEditing }) => {
   }
 
   return (
-    <div className="edit-channel__container">
-      <div className="edit-channel__header">
+    <div className="flex flex-col h-full;">
+      <div className="flex items-center justify-between h-[62px] shadow-[0px_1px_0px_rgba(0,0,0,0.1)] pr-5;">
         <p>Edit Channel</p>
         <CloseCreateChannel setIsEditing={setIsEditing} />
       </div>
       <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />
       <UserList setSelectedUsers={setSelectedUsers} />
-      <div className="edit-channel__button-wrapper" onClick={updateChannel}>
+      <div className="h-[82px] flex items-center justify-end rounded-br-2xl;
+  background: #f7f6f8;" onClick={updateChannel}>
         <p>Save Changes</p>
       </div>
     </div>

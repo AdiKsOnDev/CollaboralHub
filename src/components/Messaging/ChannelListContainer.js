@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ChannelList from 'stream-chat-react';
+import { ChannelList } from 'stream-chat-react';
 import { useContext } from 'react';
 import { ChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
@@ -12,12 +12,12 @@ import { LuLogOut } from "react-icons/lu";
 const cookies = new Cookies();
 
 const SideBar = ({ logout }) => (
-  <div className="w-[72px] shadow-[1px 0px 0px rgba(0,0,0,0.25)] bg-gradient-to-r from-[rgba(0,0,0,0.2)] to-[rgba(0,0,0,0.2)] var(--primary-color)">
-    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] m-3.5 rounded-full bg-gradient-to-r from-[rgba(0,0,0,0.1)] to-[rgba(0,0,0,0)] #ffffff">
+  <div className="w-[72px] shadow-[1px 0px 0px rgba(0,0,0,0.25)] bg-white var(--primary-color)">
+    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] m-3.5 rounded-full bg-black">
       <div className="h-full flex items-center justify-center font-sans">
       </div>
     </div>
-    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] cursor-pointer m-3.5 rounded-full bg-gradient-to-r from-[rgba(0,0,0,0.1)] to-[rgba(0,0,0,0)] #ffffff">
+    <div className="w-11 h-11 shadow-[0px 4px 8px rgba(0,0,0,0.33)] cursor-pointer m-3.5 rounded-full bg-white">
       <div className="h-full flex items-center justify-center font-sans" onClick={logout}>
         <LuLogOut />
       </div>
@@ -26,8 +26,8 @@ const SideBar = ({ logout }) => (
 );
 
 const CompanyHeader = () => (
-  <div className="channel-list__header">
-    <p className="channel-list__header__text">Medical Pager</p>
+  <div className="h-[62px] pl-4  bg-white">
+    <p className="h-full w-full flex justify-center items-center font-bold text-lg leading-7 text-black">Medical Pager</p>
   </div>
 )
 
@@ -59,7 +59,7 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
   return (
     <>
       <SideBar logout={logout} />
-      <div className="channel-list__list__wrapper">
+      <div className="flex flex-col w-60 bg-white">
         <CompanyHeader />
         <ChannelSearch setToggleContainer={setToggleContainer} />
         <ChannelList
@@ -117,11 +117,17 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
 
 const ChannelListContainer = () => {
   const [toggleContainer, setToggleContainer] = useState(false);
+  const [createType, setCreateType] = useState('');
+  const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   return (
     <>
-
-      <SideBar />
+      <ChannelListContent
+        setIsCreating={setIsCreating}
+        setCreateType={setCreateType}
+        setIsEditing={setIsEditing}
+      />
     </>
   )
 

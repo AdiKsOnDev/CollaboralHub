@@ -5,8 +5,8 @@ import { InviteIcon } from '../../Assets/Messaging/InviteIcon';
 
 const ListContainer = ({ children }) => {
   return (
-    <div className="user-list__container">
-      <div className="user-list__header">
+    <div className="flex flex-col h-full;">
+      <div className="flex items-center justify-between mx-5 my-0;">
         <p>User</p>
         <p>Invite</p>
       </div>
@@ -29,10 +29,10 @@ const UserItem = ({ user, setSelectedUsers }) => {
   }
 
   return (
-    <div className="user-item__wrapper" onClick={handleSelect}>
-      <div className="user-item__name-wrapper">
+    <div className="flex items-center justify-between mx-5 my-0 hover:cursor-pointer;" onClick={handleSelect}>
+      <div className="flex items-center flex-[2] text-left;">
         <Avatar image={user.image} name={user.fullName || user.id} size={32} />
-        <p className="user-item__name">{user.fullName || user.id}</p>
+        <p className="flex items-center flex-[2] text-left">{user.fullName || user.id}</p>
       </div>
       {selected ? <InviteIcon /> : <div className="user-item__invite-empty" />}
     </div>
@@ -77,7 +77,8 @@ const UserList = ({ setSelectedUsers }) => {
   if (error) {
     return (
       <ListContainer>
-        <div className="user-list__message">
+        <div className="text-base text-[#2c2c30] m-5;
+  font-family: Helvetica Neue, sans-serif;">
           Error loading, please refresh and try again.
         </div>
       </ListContainer>
@@ -87,7 +88,8 @@ const UserList = ({ setSelectedUsers }) => {
   if (listEmpty) {
     return (
       <ListContainer>
-        <div className="user-list__message">
+        <div className="text-base text-[#2c2c30] m-5;
+  font-family: Helvetica Neue, sans-serif;">
           No users found.
         </div>
       </ListContainer>
@@ -96,7 +98,8 @@ const UserList = ({ setSelectedUsers }) => {
 
   return (
     <ListContainer>
-      {loading ? <div className="user-list__message">
+      {loading ? <div className="text-base text-[#2c2c30] m-5;
+  font-family: Helvetica Neue, sans-serif;">
         Loading users...
       </div> : (
         users?.map((user, i) => (
