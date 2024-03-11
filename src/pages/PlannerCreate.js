@@ -21,7 +21,7 @@ function PlannerCreate() {
     <React.Fragment>
       {showEventModal && <EventModal />}
       <div className="flex">
-        <Navbar />
+        <Navbar page="planner" />
 
         <div className="flex flex-columns bg-primary w-full flex-col">
           <StatusBar />

@@ -11,6 +11,7 @@ import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
 import StickyNotes from './pages/StickyNotes.js';
+import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 
@@ -21,14 +22,14 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
-          <Route path="/" element={<StickyNotes />} />
+          {/* Auth */} 
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
           {/* Protected Routes */}
           <Route
             path="/"
-            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
+            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/DocxEditor"
@@ -39,12 +40,16 @@ function App() {
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
           />
           <Route
-            path="/Community"
-            element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+            path="/Dashboard"
+            element={currentUser ? <Home /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Tutorial"
             element={currentUser ? <Tutorial /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Notes"
+            element={currentUser ? <StickyNotes /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Planner"
@@ -54,7 +59,10 @@ function App() {
             path="/Call"
             element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
           />
-
+          <Route
+            path="/Groups"
+            element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+          />
         </Routes>
       </Router>
     </div>
