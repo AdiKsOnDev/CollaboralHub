@@ -87,7 +87,7 @@ const DisplayStickyNotes = () => {
     return (
 
 
-      <div className= "flex flex-row gap-4  ">
+      <div className= "grid grid-cols-6 gap-4 w-full">
          
       <CreateArea onAdd={addNote} />
       {notes.map((noteItem, index) => {

@@ -20,11 +20,11 @@ function TODOList() {
             
             <contextTodo.Provider value={{todos,dispatch,themes:[theme,updateTheme]}}>
 
-          <div className="flex flex-col p-20" >
+          <div className="flex flex-col p-20 " >
             <h1  className="text-4xl text-text-color font-semibold mb-8">TODO List</h1>
             <div className="flex flex-row">
               <div className="flex flex-row">
-              <DisplayStickyNotes/>
+                <DisplayStickyNotes/>
               </div>
           </div>
           </div>
