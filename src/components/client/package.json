@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "@tldraw/tldraw": "^2.0.0",
+    "@types/react": "^18.2.64",
+    "@vitejs/plugin-react": "^4.2.1",
+    "react": "^18.2.0",
+    "socket.io-client": "^4.7.4",
+    "vite": "^5.1.5"
+  },
+  "devDependencies": {
+    "@types/aria-query": "^5.0.4",
+    "@types/istanbul-lib-coverage": "^2.0.6"
+  }
+}
