@@ -64,10 +64,10 @@ function CreateArea(props) {
 
   return (
     <div >
-      <form className="w-[198px] h-[252px] bg-rose-600 shadow flex flex-col rounded-[15px] justify-between m-0 p-2 " >
-        <input className="w-full outline-none text-lg resize-none bg-rose-600 text-white placeholder-white "  name="title" onChange={handleChangeTitle} value={note.title} placeholder="Title" />
-        <textarea className="w-full outline-none text-lg resize-none bg-rose-600 text-white placeholder-white "  name="content" onChange={handleChangeBody} value={note.content} placeholder="Add new list..." rows="6" />
-        <button className="bg-lime-500 hover:bg-accent-red text-white font-bold py-2 px-4 rounded-full flex items-center justify-center" onClick={submitNote}>Add</button>
+      <form className="w-[198px] h-[252px] bg-accent-red shadow flex flex-col rounded-[15px] justify-between m-0 p-2 " >
+        <input className="w-full outline-none text-xl p-2 resize-none bg-accent-red text-white font-semibold placeholder-white "  name="title" onChange={handleChangeTitle} value={note.title} placeholder="Title" />
+        <textarea className="w-full outline-none text-lg p-2 resize-none bg-accent-red text-white placeholder-white "  name="content" onChange={handleChangeBody} value={note.content} placeholder="Add new list..." rows="6" />
+        <button className="bg-accent-blue hover:bg-white hover:text-primary duration-300 text-white font-bold py-2 px-4 rounded-full flex items-center justify-center" onClick={submitNote}>Add</button>
       </form>
     </div>
   );
