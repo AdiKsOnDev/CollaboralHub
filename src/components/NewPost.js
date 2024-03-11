@@ -12,9 +12,10 @@ const NewPost = () => {
 
     const postRef= React.useRef();
     const ref = collection( database, "Posts");
+
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log(postRef.current.value);
+        // console.log(postRef.current.value);
         let data = {
             userName: "New User",
             postBody: postRef.current.value,
