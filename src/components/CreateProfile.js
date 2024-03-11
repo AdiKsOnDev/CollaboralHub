@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
-import { auth, provider } from '../firebase';
-import { signInWithEmailAndPassword, signInWithPopup, setPersistence, browserLocalPersistence } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { sendPasswordResetEmail } from 'firebase/auth';
 import { useId } from 'react';
 import Avatar from '@mui/material/Avatar';
 import {storage} from "../firebase"; 
 import {ref, uploadBytes , getDownloadURL} from "firebase/storage"; 
+import { addDoc, collection } from '@firebase/firestore';
+import { database } from "../firebase";
+import { IconContext } from "react-icons";
+import { FiImage } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
 
 const CreateProfile = () => {
 
@@ -17,6 +16,7 @@ const CreateProfile = () => {
 //-------------------------------
 const [image, setImage] =useState(null);
 const [url, setUrl] =useState(null);
+const navigate = useNavigate();
 
 const handleImageChange = (e) => {
     if(e.target.files[0]) {
@@ -24,7 +24,7 @@ const handleImageChange = (e) => {
     }
 };
 const handleSubmitImage=() => {
-    const imageRef = ref(storage , "/image");
+    const imageRef =ref(storage , "/image");
     uploadBytes(imageRef, image).then(() => {
       getDownloadURL(imageRef).then((url) => {
         setUrl(url);
@@ -36,7 +36,11 @@ const handleSubmitImage=() => {
     .catch((error)=> {
         console.log(error.message);
     })
+
+
+    
 };
+
 
 
 
@@ -58,38 +62,71 @@ const handleSubmitImage=() => {
     });
   };
 
+  const profileRef= React.useRef();
+  const profDbRef = collection( database, "UserProfile");
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname, lastname ,username , aboutme  } = formData;
+    const { firstname, lastname ,username } = formData;
 
     // Basic validation - check if email and password are not empty
     if (!firstname || !lastname || !username ) {
-      setFormData({ ...formData, error: 'Please fill out the mandartory fields' });
+      setFormData({ ...formData, error: 'Please fill out the mandatory fields' });
       return;
     }
     
-    setFormData({   firstname:'', lastname:'' , username:'' , aboutme:'',  });
+    // setFormData({ firstname:'', lastname:'' , username:'' , aboutme:'',  });
+
+        let data = {
+            id:profileRef,
+            firstName: firstname,
+            lastName:lastname,
+            userName:username,
+            aboutMe:aboutme, 
+            profileImg:profileImg,
+
+        }
+
+        try {
+            addDoc(profDbRef, data);
+            navigate("/Community");
+        }
+
+        catch(e) {
+            alert("Error adding document: ", e);
+        }
+
+        
+
+    };
    
-  };
-
-
-  const { firstname, lastname ,username , aboutme  } = formData;
+  const { firstname, lastname ,username , aboutme, profileImg  } = formData;
 
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
-      <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign In</h2>
+      <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Your Profile</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
 
-        <div className="p-5 pr-0">
+        <div className="pr-0 flex flex-col justify-center items-center">
             <Avatar
             src={url}
-            sx={{ width: 80, height: 80 }}
+            sx={{ width: 100, height: 100 }}
             />
-            <input type="file" onChange={handleImageChange} />
-            <button onClick={handleSubmitImage}>Submit</button>
+            <input 
+            type="file" 
+            onChange={handleImageChange} 
+            id="profileImg"
+            name="profileImg"
+            value={profileImg}/>
+
+            <IconContext.Provider value={{ color: "white" }} >
+                <FiImage size={40} onClick={handleSubmitImage}/>
+            </IconContext.Provider>
+{/* 
+            <button onClick={handleSubmitImage}>Submit</button> */}
         </div>
 
 
@@ -117,16 +154,6 @@ const handleSubmitImage=() => {
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
-            id="lastname"
-            name="lastname"
-            value={lastname}
-            onChange={handleInputChange}
-            placeholder='Last Name'
-          />
-
-          <input
-            type="text"
-            className='mb-5 p-2 rounded-md bg-text-color'
             id="username"
             name="username"
             value={username}
@@ -137,6 +164,7 @@ const handleSubmitImage=() => {
             className='mb-5 p-2 rounded-md bg-text-color'
             id="aboutme"
             name="aboutme"
+            rows="4"
             value={aboutme}
             onChange={handleInputChange}
             placeholder='Talk a little about yourself...' />
@@ -154,6 +182,8 @@ const handleSubmitImage=() => {
     
     </div>
   );
-};
+
+  };
+
 
 export default CreateProfile;

@@ -52,6 +52,7 @@ const LoginBox = () => {
   
       setFormData({ email: '', password: '', error: "Wrong E-Mail OR Password" });
     });
+    
   };
 
   const handleResetPassword = async () => {

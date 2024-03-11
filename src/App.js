@@ -14,6 +14,7 @@ import StickyNotes from './pages/StickyNotes.js';
 import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
+import CreateProfile from './components/CreateProfile.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -29,6 +30,10 @@ function App() {
           {/* Protected Routes */}
           <Route
             path="/"
+            element={currentUser ? <CreateProfile /> : <Navigate to="/Login" replace />}
+          />
+           <Route
+            path="/Community"
             element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
           />
           <Route
