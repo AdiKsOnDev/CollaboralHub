@@ -4,6 +4,7 @@ import NewPost from "../components/NewPost";
 import NewsFeed from "../components/NewsFeed";
 import Navbar from '../components/Navbar.js';
 import StatusBar from "../components/StatusBar";
+import ProfilePic from '../components/ProfilePic.js';
 export default function Community() {
 
   return (
@@ -11,7 +12,10 @@ export default function Community() {
       <Navbar page="community" />
 
       <div className="w-full">
+      <div className="flex flex-row">
         <StatusBar />
+        <ProfilePic/>
+      </div>
 
         <div className="flex flex-row p-5 h-90">
           <div className="flex flex-col w-full">

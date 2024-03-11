@@ -5,150 +5,100 @@ import { RxCross2 } from "react-icons/rx";
 import { LuUpload } from "react-icons/lu";
 import { IconContext } from "react-icons";
 //name of firestore collection
-import {auth , upload} from '../firebase';
+import {storage} from '../firebase';
 import {ref, uploadBytes,listAll,getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid';
 import { useState , useEffect} from 'react';
 
 function PhotoLibrary(){
 
-
-  // //send img to firestore 
-  // const [imageUpload, setImageUpload] = React.useState(null);
-  // //stores array of img urls from firestore
-  // const [imageList, setImageList] = React.useState([]);
-
-
-  // // ref to all files in storage
-  // const imageListRef = ref(storage, 'images');
-
-  // const uploadImage = () => {
-  //   if(!imageUpload==null) return ;
-  //     const imageRef = ref(storage, `images/${imageUpload.name + v4() }`);
-  //     uploadBytes(imageRef, imageUpload).then((snapshot.ref) => {
-  //       alert("Image uploaded");
-  //       setImageList((prev)=>{...prev, snapshot.ref.then((url))})
-  //     });
-
-  // };git
-
-  // useEffect(() => {
-
-  //   listAll(imageListRef).then((response) => {
-  //   console.log(response);
-  //   response.items.forEach((item) => {
-  //     getDownloadURL(item).then((url) => {
-  //       setImageList((prev) => [...prev, url]);
-  //     });
-  //   });
-
-  //   });
-
-  // },[]);
-
-//--------------------------------------------------
-
-// const currentUser = auth();
-const [photo, setPhoto] = useState(null);
-const [loading, setLoading] = useState(false);
-const [photoURL, setPhotoURL] = useState("https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png");
-
-function handleChange(e) {
-  if (e.target.files[0]) {
-    setPhoto(e.target.files[0])
-  }
-}
-
-function handleClick() {
-  upload(photo, setLoading);
-}
-
-
-
-return (
-  <div className="fields">
-
-        <IconContext.Provider value={{ color: "white" }} >
-            <FiImage size={40} onClick={handleChange}/>
-        </IconContext.Provider>
-
-
-    {/* <input type="file" onChange={handleChange} /> */}
-
-    {/* <IconContext.Provider value={{ color: "white" }} >
-      <LuUpload size={20}  onClick={() => handleClick()}/>
-    </IconContext.Provider> */}
-
-
-    <button disabled={loading || !photo} onClick={handleClick}>Upload</button>
-    <img src={photoURL} alt="Avatar" className="avatar" />
-  </div>
-);
-}
-
-//----------------------------------
     //image upload
 
-    // const [images, setImages] = React.useState([]);
-    // const maxNumber = 5;
+    const [images, setImages] = React.useState([]);
+    const maxNumber = 5;
   
-    // const onChange = (imageList, addUpdateIndex) => {
-    //   // data for submit
-    //   console.log(imageList, addUpdateIndex);
-    //   setImages(imageList);
-    // };
+    const onChange = (imageList, addUpdateIndex) => {
+      // data for submit
+      console.log(imageList, addUpdateIndex);
+      setImages(imageList);
+    };
 
-//   return (
-//                     <ImageUploading
-//                         multiple
-//                         value={images}
-//                         onChange={onChange}
-//                         maxNumber={maxNumber}
-//                         dataURLKey="data_url"
-//                       >
-//                         {({
-//                           imageList,
-//                           onImageUpload,
-//                           onImageUpdate,
-//                           onImageRemove,
-//                         }) => (
-//                           <div>
-//                             {/* img icon  */}
-                          
-//                               <IconContext.Provider value={{ color: "white" }} >
-//                                 <FiImage size={40} onClick={onImageUpload}/>
-//                               </IconContext.Provider>
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUrls, setImageUrls] = useState([]);
 
-//                             {imageList.map((image, index) => (
-//                               <div key={index} className="image-item">
-//                                 <img src={image['data_url']} alt="" width="100" />
+    
 
-//                                 <div className=" flex flex-row justify-between p-2">
+    const uploadImage = () => {
+      if (imageUpload === null) return;
+    
+      const imageRef = ref(storage, `posts/${v4()}`);
+      
+      uploadBytes(imageRef, imageUpload).then(() => {
+        alert("Image Uploaded");
+      });
 
-//                                       {/* img upload icon  */}
-//                                         <IconContext.Provider value={{ color: "white" }} >
-//                                             <LuUpload size={20}  onClick={() => onImageUpdate(index)}/>
-//                                         </IconContext.Provider>
+      
+    };
+
+    
+   
+
+
+  return (
+                    <ImageUploading
+                        multiple
+                        value={images}
+                        onChange={onChange}
+                        maxNumber={maxNumber}
+                        dataURLKey="data_url"
+                      >
+                        {({
+                          imageList,
+                          onImageUpload,
+                          onImageUpdate,
+                          onImageRemove,
+                        }) => (
+                          <div>
+                             {/* add image icon  */}
+                            <input type="file" onChange={(event)=> {setImageUpload(event.target.files[0])
+                            }}/>
+
+                            <IconContext.Provider value={{ color: "white" }} >
+                              <FiImage size={40} onClick={uploadImage}/>
+                            </IconContext.Provider>
+
+                            <button onClick={uploadImage}> upload image </button>
+
+
+                            {imageList.map((image, index) => (
+                              <div key={index} className="image-item">
+                                <img src={image['data_url']} alt="" width="100" />
+
+                                <div className=" flex flex-col justify-between p-2">
+
+                                      {/* img upload icon  */}
+                                        <IconContext.Provider value={{ color: "white" }} >
+                                            <LuUpload size={20}  onClick={() => uploadImage}/>
+                                        </IconContext.Provider>
 
                                       
-//                                       {/* img remove icon  */}
-//                                         <IconContext.Provider value={{ color: "white" }} >
-//                                             <RxCross2 size={24} onClick={() => onImageRemove(index)}/>
-//                                         </IconContext.Provider>
+                                      {/* img remove icon  */}
+                                        <IconContext.Provider value={{ color: "white" }} >
+                                            <RxCross2 size={24} onClick={() => onImageRemove(index)}/>
+                                        </IconContext.Provider>
 
 
-//                                 </div>
+                                </div>
 
-//                               </div>
-//                             ))}
-//                           </div>
-//                         )}
-//                       </ImageUploading>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </ImageUploading>
 
-//   );
-// }; 
+  );
+}; 
 
 
 export default PhotoLibrary;
-
 
