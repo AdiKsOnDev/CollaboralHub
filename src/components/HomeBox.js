@@ -25,7 +25,10 @@ function HomeBox() {
         const fileSnapshot = await getDoc(fileRef);
         return fileSnapshot.data();
       }));
-      
+
+      // Sort files array by file names
+      files.sort((a, b) => a.title.localeCompare(b.title));
+
       setUserFiles(files);
     };
 
