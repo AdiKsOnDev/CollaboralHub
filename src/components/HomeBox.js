@@ -49,7 +49,7 @@ function HomeBox() {
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1>
+        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Files</h1>
 
         <div className="grid grid-cols-4"> 
           {userFiles.map((file) => (
@@ -59,7 +59,7 @@ function HomeBox() {
       </div>
       
       <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Canvases</h1>
+        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Canvases</h1>
 
         <div className="grid grid-cols-4"> 
           {userCanvases.map((canvas) => (
