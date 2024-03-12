@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
+import { Timestamp } from 'firebase/firestore';
 import { AuthContext } from "../context/AuthContext";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
@@ -48,17 +49,17 @@ function HomeBox() {
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1>
+        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Files</h1>
 
         <div className="grid grid-cols-4"> 
           {userFiles.map((file) => (
-            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} />
+            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
           ))}
         </div>
       </div>
       
       <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Canvases</h1>
+        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Canvases</h1>
 
         <div className="grid grid-cols-4"> 
           {userCanvases.map((canvas) => (
