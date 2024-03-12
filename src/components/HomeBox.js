@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
+import { Timestamp } from 'firebase/firestore';
 import { AuthContext } from "../context/AuthContext";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
@@ -52,7 +53,7 @@ function HomeBox() {
 
         <div className="grid grid-cols-4"> 
           {userFiles.map((file) => (
-            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} />
+            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
 import ReactQuill from 'react-quill';
+import { Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useContext, useState } from 'react';
@@ -98,12 +99,20 @@ const DocxEditor = () => {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
+      const accessedDate = Timestamp.now();
+      const owner = user.lastname + ", " + user.name;
 
       const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-      const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
+      const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID, accessedDate, owner}); 
     } else {
+      const accessedDate = Timestamp.now();
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const owner = user.lastname + ", " + user.name;
+
       console.log(id);
-      const response = await updateDoc(doc(database, "Files", id), {content, title, id});
+      const response = await updateDoc(doc(database, "Files", id), {content, title, id, accessedDate, owner});
     }
 
     navigate("/Dashboard");
