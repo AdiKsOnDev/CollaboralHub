@@ -5,7 +5,7 @@ const TeamChannelPreview = ({ setActiveChannel, setIsCreating, setIsEditing, set
   const { channel: activeChannel, client } = useChatContext();
 
   const ChannelPreview = () => (
-    <p className="flex items-center text-sm text-white h-full w-full text-ellipsis break-all px-5 py-0;
+    <p className="flex items-center text-sm text-black h-full w-full text-ellipsis break-all px-5 py-0;
     font-family: Helvetica Neue, sans-serif;">
       # {channel?.data?.name || channel?.data?.id}
     </p>

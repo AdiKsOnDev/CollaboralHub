@@ -6,8 +6,8 @@ const TeamChannelList = ({ setToggleContainer, children, error = false, loading,
   if (error) {
     return type === 'team' ? (
       <div className="w-full flex flex-col">
-        <p className="text-white px-4 py-0;">
-          Connection error, please wait a moment and try again.
+        <p className="text-black px-4 py-0;">
+          TeamChannelList error Connection error, please wait a moment and try again.
         </p>
       </div>
     ) : null

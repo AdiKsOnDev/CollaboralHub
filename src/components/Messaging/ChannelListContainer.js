@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { ChannelList } from 'stream-chat-react';
-import { useContext } from 'react';
-import { ChatContext } from 'stream-chat-react';
+// import { useContext } from 'react';
+// import { ChatContext } from 'stream-chat-react';
+import { useChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
-
-import ChannelSearch from './ChannelSearch';
 import TeamChannelList from './TeamChannelList';
 import TeamChannelPreview from './TeamChannelPreview';
 import { LuLogOut } from "react-icons/lu";
@@ -27,7 +26,7 @@ const SideBar = ({ logout }) => (
 
 const CompanyHeader = () => (
   <div className="h-[62px] pl-4  bg-white">
-    <p className="h-full w-full flex justify-center items-center font-bold text-lg leading-7 text-black">Medical Pager</p>
+    <p className="h-full w-full flex justify-center items-center font-bold text-lg leading-7 text-black">Messaging</p>
   </div>
 )
 
@@ -61,7 +60,6 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
       <SideBar logout={logout} />
       <div className="flex flex-col w-60 bg-white">
         <CompanyHeader />
-        <ChannelSearch setToggleContainer={setToggleContainer} />
         <ChannelList
           filters={filters}
           channelRenderFilterFn={customChannelTeamFilter}
