@@ -39,7 +39,7 @@ const customChannelMessagingFilter = (channels) => {
 }
 
 const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
-  const { client } = useContext(ChatContext);
+  const { client } = useChatContext();
 
   const logout = () => {
     cookies.remove("token");
