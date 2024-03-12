@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+//country picker 
+import Select from "react-select";
+//-------------------------------------------------------------------------
+import React, { useState, useEffect } from 'react';
 import { useId } from 'react';
 import Avatar from '@mui/material/Avatar';
 import {storage} from "../firebase"; 
@@ -8,6 +11,7 @@ import { database } from "../firebase";
 import { IconContext } from "react-icons";
 import { FiImage } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
+import { LuUpload } from "react-icons/lu";
 
 const CreateProfile = () => {
 
@@ -17,6 +21,12 @@ const CreateProfile = () => {
 const [image, setImage] =useState(null);
 const [url, setUrl] =useState(null);
 const navigate = useNavigate();
+
+const executeImageChange =(e)=>{
+    if(e=='.fileInput'){
+        handleImageChange();
+    }
+}
 
 const handleImageChange = (e) => {
     if(e.target.files[0]) {
@@ -40,8 +50,23 @@ const handleSubmitImage=() => {
 
     
 };
+//-------------------------------
+//        Country Picker 
+//-------------------------------
 
+const [countries, setCountries] = useState([]);
+const [selectedCountry, setSelectedCountry] = useState({});
 
+useEffect(() => {
+  fetch(
+    "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      setCountries(data.countries);
+      setSelectedCountry(data.userSelectValue);
+    });
+}, []);
 
 
 //-------------------------------
@@ -110,21 +135,45 @@ const handleSubmitImage=() => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
 
-        <div className="pr-0 flex flex-col justify-center items-center">
+        <div className="p-0 flex flex-row justify-center items-center">
             <Avatar
             src={url}
             sx={{ width: 100, height: 100 }}
             />
+
+
+
+        <div className="pb-4 flex flex-col justify-center items-center">
+
+            <IconContext.Provider value={{ color: "white" }}  >
+                <FiImage 
+                // type="file" 
+                size={30} 
+                className="m-5"
+                id="fileInput"
+                // name="profileImg"
+                // value={profileImg}
+                onClick={executeImageChange}/>
+            </IconContext.Provider>
+
             <input 
-            type="file" 
-            onChange={handleImageChange} 
-            id="profileImg"
-            name="profileImg"
-            value={profileImg}/>
+                type="file" 
+                onChange={handleImageChange} 
+                id="profileImg"
+                name="profileImg"
+                value={profileImg}/>
+
 
             <IconContext.Provider value={{ color: "white" }} >
-                <FiImage size={40} onClick={handleSubmitImage}/>
+                <LuUpload 
+                size={30}  
+                onClick={() => handleSubmitImage}
+                onChange={handleSubmitImage} 
+                />
             </IconContext.Provider>
+
+
+        </div>
 {/* 
             <button onClick={handleSubmitImage}>Submit</button> */}
         </div>
@@ -151,6 +200,7 @@ const handleSubmitImage=() => {
             placeholder='Last Name '
           />
 
+          {/* username */}
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
@@ -160,14 +210,22 @@ const handleSubmitImage=() => {
             onChange={handleInputChange}
             placeholder='Unique Username' />
 
-          <textarea
-            className='mb-5 p-2 rounded-md bg-text-color'
-            id="aboutme"
-            name="aboutme"
-            rows="4"
-            value={aboutme}
-            onChange={handleInputChange}
-            placeholder='Talk a little about yourself...' />
+            {/* country */}
+            <Select
+                className='mb-5 p-2 rounded-md bg-text-color' 
+                options={countries}
+                value={selectedCountry}
+                onChange={(selectedOption) => setSelectedCountry(selectedOption)}
+            />
+            {/* about me */}
+            <textarea
+                className='mb-5 p-2 rounded-md bg-text-color'
+                id="aboutme"
+                name="aboutme"
+                rows="4"
+                value={aboutme}
+                onChange={handleInputChange}
+                placeholder='Talk a little about yourself...' />
 
            
 
