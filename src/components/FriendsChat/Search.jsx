@@ -15,7 +15,7 @@ const Search = () => {
   const handleSearch = async () => {
     const q = query(
       collection(database, "Users"),
-      where("username", "==", username)
+      where("displayName", "==", username)
     );
 
     try {
@@ -41,31 +41,38 @@ const Search = () => {
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
 
+
+    console.log("combined", combinedId)
+
     try {
       const res = await getDoc(doc(database, "Chats", combinedId));
-
+      console.log("res runs", res)
       if (!res.exists()) {
         await setDoc(doc(database, "Chats", combinedId), { messages: [] });
+        console.log("update chats")
+        console.log(currentUser.uid)
+        console.log(combinedId)
         await updateDoc(doc(database, "userChats", currentUser.uid), {
           [combinedId + ".userInfo"]: {
             uid: user.uid,
-            displayName: user.username,
-            photoURL: user.photoURL
+            displayName: user.displayName,
+            // photoURL: user.photoURL
           },
           [combinedId + ".date"]: serverTimestamp()
 
         });
+        console.log("update current")
 
         await updateDoc(doc(database, "userChats", user.uid), {
           [combinedId + ".userInfo"]: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
-            photoURL: currentUser.photoURL
+            // photoURL: currentUser.photoURL
           },
           [combinedId + ".date"]: serverTimestamp()
 
         });
-
+        console.log("update user")
 
       }
     } catch (err) { }
@@ -93,7 +100,7 @@ const Search = () => {
       {user && <div className='fc-userchat' onClick={handleSelect}>
         <img src={user.photoURL} alt='' className='fc-searchimg' />
         <div className='fc-userchatinfo'>
-          <span> {user.username} </span>
+          <span> {user.displayName} </span>
         </div>
       </div>
       }

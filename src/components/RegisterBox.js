@@ -9,6 +9,7 @@ import { updateProfile } from 'firebase/auth';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     firstname: '',
     lastname: '',
@@ -31,7 +32,7 @@ const RegisterBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname, lastname, email, password, passwordConfirm } = formData;
+    const { username, firstname, lastname, email, password, passwordConfirm } = formData;
 
     // Basic validation - check if email and password are not empty
     if (!firstname || !lastname) {
@@ -39,6 +40,9 @@ const RegisterBox = () => {
       return;
     } else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+      return;
+    } else if (!username) {
+      setFormData({ ...formData, error: 'Please enter Username' });
       return;
     } else if (password.length < 8) {
       setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters' })
@@ -59,15 +63,28 @@ const RegisterBox = () => {
           displayName: username,
         });
         // Remove the next line if you don't use the 'response' variable
-        const response = await axios.post('/api/register', {
+        // const response = await axios.post('/api/register', {
+        //   email: email,
+        //   displayName: username,
+        //   name: firstname,
+        //   lastname: lastname
+        // });
+        const newUser = {
           email: email,
+          displayName: username,
           name: firstname,
           lastname: lastname
-        });
+        };
+
+        if (newUser) {
+          await setDoc(doc(database, "Users", email), newUser);
+
+          // res.status(201).json(user);
+        }
 
         navigate("/Tutorial");
         console.log(user);
-        console.log(response);
+        // console.log(response);
       })
 
       .catch((error) => {
@@ -77,7 +94,7 @@ const RegisterBox = () => {
         console.log(errorCode, errorMessage);
 
         // Reset the form fields
-        setFormData({ firstname: '', lastname: '', email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
+        setFormData({ username: '', firstname: '', lastname: '', email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
         // remove the error being reseted to show that email is in use , it will always throw up error 
         return;
       });
@@ -103,13 +120,23 @@ const RegisterBox = () => {
       });
   };
 
-  const { email, firstname, lastname, password, passwordConfirm, error } = formData;
+  const { username, email, firstname, lastname, password, passwordConfirm, error } = formData;
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
       <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
+
+          <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleInputChange}
+            placeholder='Username'
+          />
 
           <input
             type="text"

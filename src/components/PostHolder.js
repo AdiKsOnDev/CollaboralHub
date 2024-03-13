@@ -22,10 +22,6 @@ const getLiked = () => {
   const post = getPosts()
 }
 
-sconst getLiked = () => {
-  const post = getPosts()
-}
-
 function PostHolder() {
   const [postData, setPostData] = useState([]);
   const [userData, setUserData] = useState();

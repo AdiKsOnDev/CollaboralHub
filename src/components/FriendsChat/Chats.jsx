@@ -9,7 +9,6 @@ function Chats() {
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   const { currentUser } = useContext(AuthContext);
   const { dispatch } = useContext(ChatContext);
 
@@ -19,12 +18,10 @@ function Chats() {
         setChats(doc.data());
         setLoading(false);
       });
-
       return () => {
         unsub();
       };
     };
-
     currentUser.uid && getChats();
   }, [currentUser.uid]);
 

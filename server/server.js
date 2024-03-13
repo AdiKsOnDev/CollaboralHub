@@ -45,9 +45,10 @@ app.get("/api/currentUser", async (req, res) => {
   */
 app.post("/api/register", async (req, res) => {
     try {
-        const { email, name, lastname } = req.body;
+        const { email, displayName, name, lastname } = req.body;
         const newUser = {
             email,
+            displayName,
             name,
             lastname,
         };
