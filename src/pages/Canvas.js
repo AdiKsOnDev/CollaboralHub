@@ -1,12 +1,17 @@
-import CanvasHeader from '../components/Canvas/CanvasHeader.js';
-import { Excalidraw } from "@excalidraw/excalidraw";
+import React from 'react';
 
 function Canvas() {
   return (
-    <div data-testid="excalidraw-canvas" className="w-full h-full flex flex-col">
-      <CanvasHeader />
-      <Excalidraw  theme="dark" />
-    </div>
+    <>
+      <div className="mt-12" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
+        <iframe
+          src='https://www.tldraw.com'
+          title='Web Whiteboard'
+          width="1300"
+          height="600"
+        />
+      </div>
+    </>
   );
 }
 
