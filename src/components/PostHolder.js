@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ReactComponent as HeartSVG } from "../Assets/Like-Icon.svg";
 import { database } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -22,10 +22,6 @@ const getLiked = () => {
   const post = getPosts()
 }
 
-const handleLike = () => {
-
-}
-
 const PostHolder= () => {
   const [postData, setPostData] = useState([]);
   const [userData, setUserData] = useState();
@@ -39,10 +35,28 @@ const PostHolder= () => {
     fetchData();
   }, []);
 
-  useEffect(async () => {
-    const userRef = doc(collection(database, "Users"), currentUser.email);
-    const userSnapshot = await getDoc(userRef);
-    setUserData(userSnapshot.data());
+  const handleLike = async (post) => {
+    const postRef = doc(database, "Posts", post.id) 
+
+    if (post.likedUsers.includes(userData.email)) {
+      console.log(post); 
+      const updatedLikedUsers = post.likedUsers.filter(email => email !== userData.email);
+      const querySnapshot = await updateDoc(postRef, { likedUsers: updatedLikedUsers, likeCount: post.likeCount - 1 });
+      setPostData(await getPosts());
+    } else {
+      const querySnapshot = await updateDoc(postRef, { likedUsers: [...post.likedUsers, userData.email], likeCount: post.likeCount + 1 });
+      setPostData(await getPosts());
+    }
+  }
+
+  useEffect(() => {
+    const getUser = async () => {
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      setUserData(userSnapshot.data());
+    }
+
+    getUser();
   }, [])
 
   return (
@@ -63,8 +77,8 @@ const PostHolder= () => {
 
                 <div>
                   <p className={"flex justify-start items-center w-full"}>
-                    <HeartSVG 
-                      onClick={handleLike} 
+                    <HeartSVG
+                      onClick={() => handleLike(post)} 
                       className={`h-7 w-7 mr-2 ${post.likedUsers && post.likedUsers.includes(userData.email) ? 'fill-accent-red' : ''} hover:fill-accent-red duration-300`} 
                     /> 
                     {post.likeCount}

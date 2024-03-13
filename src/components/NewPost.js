@@ -24,7 +24,7 @@ const NewPost = () => {
       const user = userSnapshot.data();
       
       let data = {
-          userName: user.name,
+          userName: user.name + " " + user.lastname,
           userEmail: user.email,
           postBody: postRef.current.value,
           likeCount: 0,
@@ -45,7 +45,7 @@ const NewPost = () => {
       setTimeout(() => {
         setIsOpen(false);
         window.location.reload(true);
-     }, 6000);
+     }, 1000);
 
   };
 
