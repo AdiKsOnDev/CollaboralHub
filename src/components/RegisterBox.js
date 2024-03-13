@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
-import { auth, provider } from '../firebase';
+import { auth, database, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { setDoc, doc } from 'firebase/firestore';
+import { updateProfile } from 'firebase/auth';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
@@ -50,7 +52,12 @@ const RegisterBox = () => {
       .then(async (userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        const uid = user.uid;
+        setDoc(doc(database, "userChats", uid), {});
 
+        updateProfile(user, {
+          displayName: username,
+        });
         // Remove the next line if you don't use the 'response' variable
         const response = await axios.post('/api/register', {
           email: email,
@@ -71,6 +78,7 @@ const RegisterBox = () => {
 
         // Reset the form fields
         setFormData({ firstname: '', lastname: '', email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
+        // remove the error being reseted to show that email is in use , it will always throw up error 
         return;
       });
   };

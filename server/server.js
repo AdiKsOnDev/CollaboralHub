@@ -23,7 +23,7 @@ app.use(express.static(path.join("../", 'build')));
   *
   * @return {[JSON]} 
   */
-app.get("/api/currentUser", async(req, res) => {
+app.get("/api/currentUser", async (req, res) => {
     try {
         const { email } = req.body;
 
@@ -43,9 +43,9 @@ app.get("/api/currentUser", async(req, res) => {
   *
   * @return HTTP status code
   */
-app.post("/api/register", async(req, res) => {
+app.post("/api/register", async (req, res) => {
     try {
-        const {email, name, lastname} = req.body;
+        const { email, name, lastname } = req.body;
         const newUser = {
             email,
             name,
@@ -53,7 +53,7 @@ app.post("/api/register", async(req, res) => {
         };
 
         if (newUser) {
-            const user = await setDoc(doc(database, "Users", email), newUser); 
+            const user = await setDoc(doc(database, "Users", email), newUser);
 
             res.status(201).json(user);
         }
@@ -69,10 +69,10 @@ app.post("/api/register", async(req, res) => {
  *
  * @return index.html
 */
-app.get("/*", async(req, res) => {
+app.get("/*", async (req, res) => {
     res.sendFile('index.html', { root: "../build" });
 });
-            
+
 app.listen(port, () => {
     console.log(`Listening to the server at http://localhost:${port}`);
 }); 

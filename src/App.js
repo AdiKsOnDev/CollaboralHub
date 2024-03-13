@@ -14,6 +14,7 @@ import StickyNotes from './pages/StickyNotes.js';
 import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
+import { FriendsChat } from './components/FriendsChat/FriendsChat.jsx';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -22,7 +23,7 @@ function App() {
     <div className="App bg-primary w-screen h-screen">
       <Router>
         <Routes>
-          {/* Auth */} 
+          {/* Auth */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
 
@@ -34,7 +35,7 @@ function App() {
           <Route
             path="/DocxEditor"
             element={currentUser ? <DocxEditor /> : <Navigate to="/Login" replace />}
-          /> 
+          />
           <Route
             path="/Canvas"
             element={currentUser ? <Canvas /> : <Navigate to="/Login" replace />}
@@ -62,6 +63,10 @@ function App() {
           <Route
             path="/Groups"
             element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Messaging"
+            element={currentUser ? <FriendsChat /> : <Navigate to="/Login" replace />}
           />
         </Routes>
       </Router>
