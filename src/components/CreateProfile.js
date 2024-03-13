@@ -430,6 +430,7 @@ import { addDoc, collection } from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { LuUpload } from 'react-icons/lu';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProfile = () => {
   const [fullname, setfullname] = useState('');
@@ -444,6 +445,10 @@ const CreateProfile = () => {
   const [url, setUrl] = useState(null);
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({});
+
+  const navigate= useNavigate();
+
+//   const country = formData.selectedCountry;
 
   const [formData, setFormData] = useState({
     fullname: '',
@@ -506,9 +511,10 @@ const handleInputChange = (e) => {
         .catch((error) => {
           console.log(error.message);
         });
-    } else {
-      alert('Please select an image first.');
-    }
+    } 
+    // else {
+    //   alert('Please select an image first.');
+    // }
   };
 
   const handleSubmit = async (e) => {
@@ -530,10 +536,11 @@ const handleInputChange = (e) => {
       aboutme: formData.aboutme,
       Company: formData.Company,
       handle: formData.handle,
-      profileImg: image,
+      profileImg: url,
     };
 
     try {
+      handleSubmitImage();
       await addDoc(profDbRef, data);
     } catch (e) {
       alert('Error adding document: ', e);
@@ -542,6 +549,11 @@ const handleInputChange = (e) => {
     // setTimeout(() => {
     //   window.location.reload(true);
     // }, 6000);
+
+    setFormData({ fullname: '', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',profileImg: '', });
+    navigate("/Community");
+
+ 
   };
 
   useEffect(() => {
@@ -574,12 +586,12 @@ const handleInputChange = (e) => {
                 name="profileImg"
               />
 
-              <button
+              {/* <button
                 onClick={handleSubmitImage}
                 className="w-45 p-2 rounded-md bg-text-color"
               >
                 Upload
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -639,6 +651,7 @@ const handleInputChange = (e) => {
                 });
             }}
             />
+
 
 
           <input

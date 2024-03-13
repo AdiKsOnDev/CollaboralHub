@@ -32,9 +32,13 @@ function App() {
             path="/"
             element={currentUser ? <CreateProfile /> : <Navigate to="/Login" replace />}
           />
-           <Route
+          <Route
             path="/Community"
             element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/DocxEditor"
+            element={currentUser ? <DocxEditor /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/DocxEditor"
