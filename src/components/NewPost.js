@@ -28,6 +28,7 @@ const NewPost = () => {
           userEmail: user.email,
           postBody: postRef.current.value,
           likeCount: 0,
+          likedUsers: [],
           uploaded: Timestamp.now()
       }
 
