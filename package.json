@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@excalidraw/excalidraw": "^0.17.3",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.18",
     "@mantine/hooks": "^7.6.1",
     "@syncfusion/ej2-react-schedule": "^24.1.41",
