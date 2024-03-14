@@ -451,7 +451,8 @@ const CreateProfile = () => {
 //   const country = formData.selectedCountry;
 
   const [formData, setFormData] = useState({
-    fullname: '',
+    firstName: '',
+    lastName: '',
     username: '',
     Occupation: '',
     selectedCountry:'',
@@ -459,6 +460,7 @@ const CreateProfile = () => {
     Company: '',
     handle: '',
     profileImg: '',
+    Skills:'',
   });
   
 
@@ -529,7 +531,8 @@ const handleInputChange = (e) => {
     //   handle:handle,
     //   image: url,
 
-      fullname: formData.fullname,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
       username: formData.username,
       Occupation: formData.Occupation,
       selectedCountry: formData.selectedCountry,
@@ -550,7 +553,7 @@ const handleInputChange = (e) => {
     //   window.location.reload(true);
     // }, 6000);
 
-    setFormData({ fullname: '', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',profileImg: '', });
+    setFormData({ firstName: '',lastName:'', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',profileImg: '',Skills:'',});
     navigate("/Community");
 
  
@@ -568,20 +571,29 @@ const handleInputChange = (e) => {
   }, []);
 
   return (
-    <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">
-      <h2 className="font-semibold text-center mb-7 text-3xl text-text-color">
+    <>
+     {/* <div className="flex flex-col bg-secondary w-screen h-screen p-10 items-center rounded-lg"> */}
+
+      <form onSubmit={handleSubmit}  className="flex flex-col bg-secondary w-screen h-screen p-20 rounded-lg">
+
+
+      <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
         Your Profile
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="flex flex-col justify-center items-center">
-          <div className="p-0 flex flex-row justify-center items-center">
-            <Avatar src={url} sx={{ width: 100, height: 100 }} />
 
-            <div className="pb-4 flex flex-col justify-center items-center">
+      <div class="grid grid-rows-8  grid-flow-col gap-4 ">
+        <div class="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
+          
+          <div className="p-0 flex flex-col justify-center items-center">
+            <Avatar src={url} sx={{ width: 150, height: 150 }}  className="m-4 "/>
+
+            <div className="pb-5 flex flex-col justify-center items-center text-text-color">
+
+           
               <input
                 type="file"
                 onChange={handleImageChange}
-                className="w-3/4"
+                className="w-3/4 p-0 m-0"
                 id="profileImg"
                 name="profileImg"
               />
@@ -594,8 +606,234 @@ const handleInputChange = (e) => {
               </button> */}
             </div>
           </div>
+          
+        </div>
+        {/* <div class="col-span-2  bg-gray-400 items-center rounded-lg">02</div> */}
+        <div class="row-span-8 col-span-8 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+        
+        <div class="text-2xl font-semibold mb-2 text-text-color ">
+           About Me
+        </div>
+        
+        
+        <textarea
+            className='p-2 rounded-md w-full object-contain '
+            id="aboutme"
+            name="aboutme"
+            rows="8"
+            cols="1"
+            value={formData.aboutme}
+            onChange={handleInputChange}
+            placeholder='Talk a little about yourself...' />
+        
+        </div>
+      </div>
 
+
+
+
+      <div class="grid grid-cols-4 gap-4 m-2">
+
+        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+
+        {/* <div class="text-2xl font-semibold mb-2 text-text-color ">
+           About Me
+        </div> */}
+
+
+        <input
+            type="text"
+            className=" p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="fullname"
+            name="fullname"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            placeholder="First Name *"
+          />
+
+        </div>
+
+        <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+
+        <input
+            type="text"
+            className=" p-2 rounded-md w-full object-contain border-2 border-rose-600 "
+            id="fullname"
+            name="fullname"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            placeholder="Last Name *"
+          />
+        
+        </div>
+      </div>
+
+{/*  */}
+
+
+
+
+<div class="grid grid-cols-4 gap-4 m-2">
+
+        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+
+        {/* <div class="text-2xl font-semibold mb-2 text-text-color ">
+           About Me
+        </div> */}
           <input
+            type="text"
+            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="username"
+            name="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            placeholder="Unique Username *"
+          />
+
+
+        </div>
+
+        <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+
+        <Select
+            className="rounded-md w-full object-contain border-2 border-rose-600"
+            options={countries}
+            value={selectedCountry}
+            onChange={(selectedOption) => {
+                setSelectedCountry(selectedOption);
+                handleInputChange({
+                target: { name: 'Country', value: selectedOption.code },
+                });
+            }}
+            />
+        
+        </div>
+      </div>
+
+
+
+{/*  */}
+
+
+
+<div class="grid grid-cols-4 gap-4 m-2">
+
+        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+
+        {/* <div class="text-2xl font-semibold mb-2 text-text-color ">
+           About Me
+        </div> */}
+          <input
+            type="text"
+            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="Occupation"
+            name="Occupation"
+            value={formData.Occupation}
+            onChange={handleInputChange}
+            placeholder="Education * "
+          />
+
+
+        </div>
+
+        <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+
+        <input
+            type="text"
+            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="Company"
+            name="Company"
+            value={formData.Company}
+            onChange={handleInputChange}
+            placeholder="Company Name (if employed)..."
+          />
+
+        
+        </div>
+      </div>
+
+
+{/*  */}
+
+
+
+{/*  */}
+<div class="grid grid-cols-4 gap-4 m-2">
+
+        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+
+        {/* <div class="text-2xl font-semibold mb-2 text-text-color ">
+           About Me
+        </div> */}
+          <input
+            type="url"
+            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="handle"
+            name="handle"
+            value={formData.handle}
+            onChange={handleInputChange}
+            placeholder="Links to relevant social media handles "
+          />
+
+
+        </div>
+
+        <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+
+        <input
+            type="text"
+            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            id="Skills"
+            name="Skills"
+            value={formData.Skills}
+            onChange={handleInputChange}
+            placeholder="Skills"
+          />
+
+        
+        </div>
+      </div>
+
+{/*  */}
+
+
+</form>
+
+<button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" onClick={handleSubmit}>Get Started</button>
+
+
+
+
+
+
+
+{/*  */}
+
+        {/* <div className="flex flex-col justify-center items-center"> */}
+
+          {/* Profile image  */}
+          {/* <div className="p-0 flex flex-row justify-center items-center">
+            <Avatar src={url} sx={{ width: 100, height: 100 }} /> */}
+
+            {/* <div className="pb-4 flex flex-col justify-center items-center"> */}
+              {/* <input
+                type="file"
+                onChange={handleImageChange}
+                className="w-3/4"
+                id="profileImg"
+                name="profileImg"
+              /> */}
+
+              {/* <button
+                onClick={handleSubmitImage}
+                className="w-45 p-2 rounded-md bg-text-color"
+              >
+                Upload
+              </button> */}
+            {/* </div> */}
+          {/* </div> */}
+
+          {/* <input
             type="text"
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             id="fullname"
@@ -603,9 +841,9 @@ const handleInputChange = (e) => {
             value={formData.fullname}
             onChange={handleInputChange}
             placeholder="Full Name *"
-          />
+          /> */}
 
-          <input
+          {/* <input
             type="text"
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             id="username"
@@ -613,7 +851,7 @@ const handleInputChange = (e) => {
             value={formData.username}
             onChange={handleInputChange}
             placeholder="Unique Username *"
-          />
+          /> */}
 
           {/* Country
           <Select
@@ -640,7 +878,7 @@ const handleInputChange = (e) => {
             }}
             /> */}
 
-            <Select
+            {/* <Select
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             options={countries}
             value={selectedCountry}
@@ -650,11 +888,11 @@ const handleInputChange = (e) => {
                 target: { name: 'Country', value: selectedOption.code },
                 });
             }}
-            />
+            /> */}
 
 
 
-          <input
+          {/* <input
             type="text"
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             id="Occupation"
@@ -662,9 +900,9 @@ const handleInputChange = (e) => {
             value={formData.Occupation}
             onChange={handleInputChange}
             placeholder="Occupation * "
-          />
+          /> */}
 
-          <input
+          {/* <input
             type="text"
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             id="Company"
@@ -672,9 +910,9 @@ const handleInputChange = (e) => {
             value={formData.Company}
             onChange={handleInputChange}
             placeholder="Company Name (if employed)..."
-          />
+          /> */}
 
-          <input
+          {/* <input
             type="url"
             className="mb-5 p-2 w-3/4 rounded-md bg-text-color"
             id="handle"
@@ -682,27 +920,21 @@ const handleInputChange = (e) => {
             value={formData.handle}
             onChange={handleInputChange}
             placeholder="Links to relevant social media handles "
-          />
+          /> */}
 
-           <textarea
-            className='mb-5 p-2 w-3/4 rounded-md bg-text-color'
-            id="aboutme"
-            name="aboutme"
-            rows="4"
-            col="5"
-            value={formData.aboutme}
-            onChange={handleInputChange}
-            placeholder='Talk a little about yourself...' />
+      
 
-          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" onClick={handleSubmit}>Get Started</button>
+        
 
-
-        </div>
-      </form>
+{/* 
+        </div> */}
+      {/* </form> */}
 
 
     
-    </div>
+    {/* // </div> */}
+
+    </>
   );
 
   };
