@@ -544,6 +544,9 @@ const handleInputChange = (e) => {
 
     try {
       handleSubmitImage();
+       setTimeout(() => {
+      // window.location.reload(true);
+    }, 6000);
       await addDoc(profDbRef, data);
     } catch (e) {
       alert('Error adding document: ', e);
@@ -571,10 +574,10 @@ const handleInputChange = (e) => {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col bg-secondary w-screen h-screen p-20 rounded-lg">
      {/* <div className="flex flex-col bg-secondary w-screen h-screen p-10 items-center rounded-lg"> */}
 
-      <form onSubmit={handleSubmit}  className="flex flex-col bg-secondary w-screen h-screen p-20 rounded-lg">
+      <form onSubmit={handleSubmit}>
 
 
       <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
@@ -644,8 +647,8 @@ const handleInputChange = (e) => {
         <input
             type="text"
             className=" p-2 rounded-md w-full object-contain border-2 border-rose-600"
-            id="fullname"
-            name="fullname"
+            id="firstName"
+            name="firstName"
             value={formData.firstName}
             onChange={handleInputChange}
             placeholder="First Name *"
@@ -658,8 +661,8 @@ const handleInputChange = (e) => {
         <input
             type="text"
             className=" p-2 rounded-md w-full object-contain border-2 border-rose-600 "
-            id="fullname"
-            name="fullname"
+            id="lastName"
+            name="lastName"
             value={formData.lastName}
             onChange={handleInputChange}
             placeholder="Last Name *"
@@ -797,9 +800,11 @@ const handleInputChange = (e) => {
 {/*  */}
 
 
+<button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" onClick={handleSubmit}>Get Started</button>
+
+
 </form>
 
-<button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" onClick={handleSubmit}>Get Started</button>
 
 
 
@@ -934,7 +939,7 @@ const handleInputChange = (e) => {
     
     {/* // </div> */}
 
-    </>
+    </div>
   );
 
   };

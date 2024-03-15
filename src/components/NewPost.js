@@ -104,10 +104,10 @@ const NewPost = () => {
                     </div>
 
 
+
+                  {/* TO DO !!!! */}
                   {/* Image upload goes here */}
                     <div className="flex flex-row ">
-                      {/* <input type="file"/> */}
-                      <PhotoLibrary />
 
                     </div> 
 

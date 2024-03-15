@@ -15,7 +15,6 @@ export default function Community() {
       <div className="w-full">
       <div className="flex flex-row">
         <StatusBar />
-        <ProfilePic/>
       </div>
 
         <div className="flex flex-row p-5 h-90">
