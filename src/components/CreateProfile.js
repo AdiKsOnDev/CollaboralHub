@@ -459,7 +459,6 @@ const CreateProfile = () => {
     aboutme: '',
     Company: '',
     handle: '',
-    profileImg: '',
     Skills:'',
   });
   
@@ -490,6 +489,7 @@ const handleInputChange = (e) => {
   };
 
   const handleImageChange = (e) => {
+    handleSubmitImage();
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
@@ -503,6 +503,7 @@ const handleInputChange = (e) => {
           getDownloadURL(imageRef)
             .then((url) => {
               setUrl(url);
+              console.log(url);
             })
             .catch((error) => {
               console.log(error.message, ' error getting the image url ');
@@ -543,10 +544,7 @@ const handleInputChange = (e) => {
     };
 
     try {
-      handleSubmitImage();
-       setTimeout(() => {
-      // window.location.reload(true);
-    }, 6000);
+      // handleSubmitImage();
       await addDoc(profDbRef, data);
     } catch (e) {
       alert('Error adding document: ', e);
@@ -556,7 +554,7 @@ const handleInputChange = (e) => {
     //   window.location.reload(true);
     // }, 6000);
 
-    setFormData({ firstName: '',lastName:'', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',profileImg: '',Skills:'',});
+    setFormData({ firstName: '',lastName:'', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
     navigate("/Community");
 
  
