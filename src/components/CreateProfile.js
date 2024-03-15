@@ -428,25 +428,48 @@ import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection } from '@firebase/firestore';
 import { database, storage } from '../firebase';
-import { LuUpload } from 'react-icons/lu';
+// import { LuUpload } from 'react-icons/lu';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
+
 const CreateProfile = () => {
-  const [fullname, setfullname] = useState('');
-  const [username, setusername] = useState('');
-  const [Occupation, setOccupation] = useState('');
+  // const [fullname, setfullname] = useState('');
+  // const [username, setusername] = useState('');
+  // const [Occupation, setOccupation] = useState('');
 //   const [Country, setcountry] = useState('');
-  const [aboutme, setaboutme] = useState('');
-  const [Company, setCompany] = useState('');
-  const [handle, sethandle] = useState('');
-  const [profileImg, setprofileImg] = useState(null);
+  // const [aboutme, setaboutme] = useState('');
+  // const [Company, setCompany] = useState('');
+  // const [handle, sethandle] = useState('');
+  // const [profileImg, setprofileImg] = useState(null);
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
+
+  //======================   
+  //Country Picker 
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({});
-
   const navigate= useNavigate();
+
+  //======================    
+  //country picker 
+  useEffect(() => {
+    fetch(
+      "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.countries);
+        setSelectedCountry(data.userSelectValue);
+      });
+  }, []);
+
+
+  
+  //======================    
+
+
+  
 
 //   const country = formData.selectedCountry;
 
@@ -454,7 +477,7 @@ const CreateProfile = () => {
     firstName: '',
     lastName: '',
     username: '',
-    Occupation: '',
+    Education: '',
     selectedCountry:'',
     aboutme: '',
     Company: '',
@@ -535,7 +558,7 @@ const handleInputChange = (e) => {
       firstName: formData.firstName,
       lastName: formData.lastName,
       username: formData.username,
-      Occupation: formData.Occupation,
+      Education: formData.Education,
       selectedCountry: formData.selectedCountry,
       aboutme: formData.aboutme,
       Company: formData.Company,
@@ -554,7 +577,7 @@ const handleInputChange = (e) => {
     //   window.location.reload(true);
     // }, 6000);
 
-    setFormData({ firstName: '',lastName:'', username: '',Occupation: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
+    setFormData({ firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
     navigate("/Community");
 
  
@@ -696,17 +719,36 @@ const handleInputChange = (e) => {
 
         <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
 
-        <Select
-            className="rounded-md w-full object-contain border-2 border-rose-600"
+
+        {/* <Select
+            className='rounded-md w-full object-contain border-2 border-rose-600' 
             options={countries}
             value={selectedCountry}
-            onChange={(selectedOption) => {
-                setSelectedCountry(selectedOption);
-                handleInputChange({
-                target: { name: 'Country', value: selectedOption.code },
-                });
-            }}
-            />
+            placeholder='Located In *' 
+            onChange={(selectedOption) => setSelectedCountry(selectedOption)}
+            /> */}
+
+
+        {/* <CountryDropdown
+          value={formData.country}
+          onChange={handleSelect}
+          className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+          countries={countries.map((country) => ({
+            label: country.name.common,
+            value: country.cca2,
+                  }))}      /> */}
+
+
+          <Select
+                className="rounded-md w-full object-contain border-2 border-rose-600"
+                id="selectedCountry"
+                name="selectedCountry"
+                options={countries}
+                value={selectedCountry}
+                placeholder="Country of Residence *"
+                onChange={'(selectedOption) => setSelectedCountry(selectedOption);  handleInputChange;' }
+              />
+
         
         </div>
       </div>
@@ -727,9 +769,9 @@ const handleInputChange = (e) => {
           <input
             type="text"
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
-            id="Occupation"
-            name="Occupation"
-            value={formData.Occupation}
+            id="Education"
+            name="Education"
+            value={formData.Education}
             onChange={handleInputChange}
             placeholder="Education * "
           />
