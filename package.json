@@ -19,6 +19,7 @@
     "fns": "^1.0.0",
     "fuse": "^0.10.0",
     "i": "^0.3.7",
+    "openai": "^4.29.1",
     "perfect-freehand": "^1.2.0",
     "react": "^18.2.0",
     "react-big-calendar": "^1.8.6",

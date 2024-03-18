@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
       unsubscribe();
 
       // Clear the user data from localStorage when the user logs out
-      localStorage.removeItem('currentUser');
+      // localStorage.removeItem('currentUser');
     };
   }, []);
 
