@@ -1,4 +1,5 @@
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
+import { ReactComponent as RobotSVG } from "../Assets/AI-Icon.svg";
 
 import ReactQuill from 'react-quill';
 import { Timestamp } from 'firebase/firestore';
@@ -11,13 +12,18 @@ import '../Quill.css';
 import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
 import { useSearchParams } from "react-router-dom";
+import OpenAI from "openai";
+
 
 const DocxEditor = () => {
+  const [aiInput, setAIInput] = useState("");
+  const [showAIWindow, setShowAIWindow] = useState(false); // This is for showAIWindow
   const [searchParams, setSearchParams] = useSearchParams();
   const { currentUser } = useContext(AuthContext);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
+  const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
 
   const modules = {
     toolbar: [
@@ -53,7 +59,7 @@ const DocxEditor = () => {
   const handleChange = (value) => {
     setContent(value.toString());
   };
- 
+
   useEffect(() => {
     const getContent = async () => {
       try {
@@ -74,10 +80,6 @@ const DocxEditor = () => {
 
     getContent();
     }, [searchParams])  
-
-  const handleName = (value) => {
-    setTitle(value.toString());
-  } 
 
   const handleSave = async () => {
     if (!content) {
@@ -118,53 +120,46 @@ const DocxEditor = () => {
     navigate("/Dashboard");
   };
  
-  const handlePrint = () => {
-    console.log("Print document:", content);
+  const handleAI = async () => {
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a text generating agent, and whatever you generate has to be styled using HTML tags" }, { role: "user", content: aiInput }],
+      model: "gpt-3.5-turbo",
+    });
+
+    setContent(content + " " + completion.choices[0].message.content);
   };
  
-  const handleInsertImage = () => {
-    const imageUrl = prompt("Enter image URL:");
-    if (imageUrl) {
-      const cursorPosition = content.length;
-      setContent(`${content}\n![Image]( ${imageUrl} )\n`);
-      setTimeout(() => {
-        const quill = document.querySelector('.ql-editor');
-        if (quill) quill.setSelection(cursorPosition, 0);
-      }, 0);
-    }
+  const handleAIWindow = () => {
+    setShowAIWindow(!showAIWindow);
   };
- 
-  const handleInsertLink = () => {
-    const linkUrl = prompt("Enter link URL:");
-    if (linkUrl) {
-      const selectedText = window.getSelection().toString();
-      const linkText = selectedText || prompt("Enter link text:") || "Link";
-      const cursorPosition = content.length;
-      setContent(`${content}\n[${linkText}](${linkUrl})\n`);
-      setTimeout(() => {
-        const quill = document.querySelector('.ql-editor');
-        if (quill) quill.setSelection(cursorPosition, 0);
-      }, 0);
-    }
-  };
- 
-  const handleInsertCodeBlock = () => {
-    const cursorPosition = content.length;
-    setContent(`${content}\n\`\`\`\n// Your code here\n\`\`\`\n`);
-    setTimeout(() => {
-      const quill = document.querySelector('.ql-editor');
-      if (quill) quill.setSelection(cursorPosition + 4, 0);
-    }, 0);
-  };
- 
+
   return (
     <div>
       <div className="bg-secondary w-full text-white font-semibold flex">
-        <a className="px-6 hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-6" /></a>
+        <a className="px-6 flex justify-center items-center hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-7 h-7" /></a>
 
         <input id="title" name="title" type="text" placeholder="Title" className="p-2 bg-secondary border-white border-b-4 m-4 border-solid placeholder-white font-semibold focus:outline-none" value={title} onChange={(e)=> setTitle(e.target.value)} />
         <button className="p-5 hover:bg-accent-red duration-300" onClick={handleSave}>Save</button>
-        <button className="p-5 hover:bg-accent-red duration-300" onClick={handlePrint}>Share</button>
+        <button className="p-5 hover:bg-accent-red duration-300">Share</button>
+        <button className="px-5 hover:bg-accent-red duration-300" onClick={handleAIWindow}>
+          <RobotSVG className="w-9 h-9" />
+        </button>
+
+        {showAIWindow && (
+          <div className="flex justify-center items-center bg-none p-4">
+            <input
+              type="text"
+              placeholder="Enter your AI input"
+              value={aiInput}
+              onChange={(e) => setAIInput(e.target.value)}
+              className="border border-gray-300 text-primary p-2 outline-none"
+            />
+            <button onClick={handleAI} className="bg-accent-red text-white rounded-r-md hover:bg-accent-blue duration-300 px-4 py-2">
+              Generate
+            </button>
+          </div>
+          )
+        }
       </div>
 
       <ReactQuill 
