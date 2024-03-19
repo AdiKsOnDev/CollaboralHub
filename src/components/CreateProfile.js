@@ -1,14 +1,51 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef , useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection } from '@firebase/firestore';
+import { addDoc, collection ,doc,getDoc } from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
+import { useSearchParams } from "react-router-dom";
+
+
 
 
 const CreateProfile = () => {
+//=======================================//
+//          User Verification            //
+//=======================================//
+
+//*************** Adils code ******************// 
+const { currentUser } = useContext(AuthContext);
+const [searchParams, setSearchParams] = useSearchParams();
+const [email, setEmail] = useState("");
+
+useEffect(() => {
+
+  const getContent = async () => {
+    try {
+      const useremail = searchParams.get("email").toString();
+
+      console.log(useremail);
+
+      const UserRef = doc(collection(database, "Users"), useremail);
+      const fileSnapshot = await getDoc(UserRef);
+      const file = fileSnapshot.data();
+
+      setEmail(file.email);
+      // setTitle(file.title);
+    } catch (Exception) {
+      console.log("NO EMAIL");
+    }
+  };
+
+  getContent();
+  }, [searchParams])  
+
+//*********************************************// 
+
 const navigate= useNavigate();
 
 //=======================================//
@@ -65,13 +102,11 @@ const navigate= useNavigate();
   const [url, setUrl] = useState(null);
   
   const handleImageChange = (e) => {
-    handleSubmitImage();
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
 
-  // upload image to firebase  
   const handleSubmitImage = () => {
     const imageRef = ref(storage, `image/${uuidv4()}`);
     if (image) {
@@ -92,6 +127,9 @@ const navigate= useNavigate();
           console.log(error.message);
         });
     } 
+    else {
+      alert('Please select an image first.');
+    }
   };
   //=======================================//
 
@@ -117,10 +155,27 @@ const navigate= useNavigate();
     } catch (e) {
       alert('Error adding document: ', e);
     }
+   //================
+ 
+   //*************** Adils code ******************// 
+  //  if (id === null) {
+  //   const fileID = uuidv4();
 
+  //   const userRef = doc(collection(database, "Users"), currentUser.email);
+  //   const userSnapshot = await getDoc(userRef);
+  //   const user = userSnapshot.data();
+
+  //   const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
+  //   const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
+  // } else {
+  //   console.log(id);
+  //   const response = await updateDoc(doc(database, "Files", id), {content, title, id});
+  // }
+    //*********************************************// 
+  
     // clearing the form and navigating to new page 
     setFormData({ firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
-    navigate("/Community");
+    // navigate("/Community");
 
  
   };
@@ -136,8 +191,11 @@ const navigate= useNavigate();
       });
   }, []);
 
+
+
 return (
 <>
+{
 <div className="flex flex-col bg-secondary w-screen h-screen p-20 rounded-lg">
 
   <form onSubmit={handleSubmit}>
@@ -153,13 +211,22 @@ return (
         <div className="p-0 flex flex-col justify-center items-center">
           <Avatar src={url} sx={{ width: 150, height: 150 }}  className="m-4 "/>
 
-          <div className="pb-5 flex flex-col justify-center items-center text-text-color">   
+          <div className="pb-5 flex flex-row justify-center items-center text-text-color"> 
+             
+
             <input
               type="file"
               onChange={handleImageChange}
               className="w-3/4 p-0 m-0"
               id="profileImg"
               name="profileImg"/>
+
+
+            <button 
+            onClick={handleSubmitImage}
+            className="w-3/4 p-0 m-0 text-text-color">
+            Set Image</button> 
+
           </div>
         </div>    
       </div>
@@ -285,6 +352,7 @@ return (
 
   </form>
 </div>
+}
 </>  
   );
 };
