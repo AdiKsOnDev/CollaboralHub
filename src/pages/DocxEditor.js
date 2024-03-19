@@ -13,17 +13,80 @@ import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } fro
 import { database } from "../firebase.js";
 import { useSearchParams } from "react-router-dom";
 import OpenAI from "openai";
+import io, { Socket } from "socket.io-client";
 
+const filterIncomingChanges = (incomingChanges) => {
+  // No conflict resolution needed for HTML content
+  return incomingChanges;
+};
+
+// Function to apply changes (replace entire content with new HTML)
+const applyChanges = (currentContent, changes) => {
+  // Simply replace the entire content with the new HTML
+  return changes;
+};
 
 const DocxEditor = () => {
   const [aiInput, setAIInput] = useState("");
-  const [showAIWindow, setShowAIWindow] = useState(false); // This is for showAIWindow
+  const [showAIWindow, setShowAIWindow] = useState(false);
+  const [showRoomWindow, setShowRoomWindow] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const { currentUser } = useContext(AuthContext);
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
   const navigate = useNavigate();
   const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
+
+  // Socket.io Variables
+  let changes = {};
+  const [socket, setSocket] = useState();
+  const [room, setRoom] = useState("");
+
+  useEffect(() => {
+    // Create a Socket
+    const socket = io.connect("http://localhost:8080");
+
+    setSocket(socket);
+
+    // Clean up the connection when the component unmounts
+    return () => {
+      console.log("DISCONNECTED");
+      socket.disconnect();
+    }
+  }, []);  
+
+  useEffect(() => {
+    changes = content;
+    console.log(changes);
+
+    sendBoard();
+  }, [content]);
+
+  const sendBoard = () => {
+    if (socket) {
+      socket?.emit("board sent", changes, room);
+      console.log("Sent the changes to room --> " + room);
+    }
+  };
+
+  // useEffect() when new message arrives
+  useEffect(() => {
+    console.log("INCOMING");
+    // Handle incoming messages
+     socket?.on("board rec", (incomingChanges) => {
+        console.log("Incoming Changes: " + incomingChanges);
+        const filteredChanges = filterIncomingChanges(incomingChanges);
+        const newContent = applyChanges(content, filteredChanges);
+
+        if (newContent !== content) {
+          setContent(newContent);
+        }
+    });
+  }, [socket]);
+
+  const setRoomfunc = (event, room) => {
+    event.preventDefault(setRoom(room));
+  };
 
   const modules = {
     toolbar: [
@@ -133,6 +196,10 @@ const DocxEditor = () => {
     setShowAIWindow(!showAIWindow);
   };
 
+  const handleRoomWindow = () => {
+    setShowRoomWindow(!showRoomWindow);
+  };
+
   return (
     <div>
       <div className="bg-secondary w-full text-white font-semibold flex">
@@ -140,7 +207,21 @@ const DocxEditor = () => {
 
         <input id="title" name="title" type="text" placeholder="Title" className="p-2 bg-secondary border-white border-b-4 m-4 border-solid placeholder-white font-semibold focus:outline-none" value={title} onChange={(e)=> setTitle(e.target.value)} />
         <button className="p-5 hover:bg-accent-red duration-300" onClick={handleSave}>Save</button>
-        <button className="p-5 hover:bg-accent-red duration-300">Share</button>
+        <button className="p-5 hover:bg-accent-red duration-300" onClick={handleRoomWindow}>Share</button>
+        {showRoomWindow && (
+          <div className="flex justify-center items-center bg-none p-4">
+            <input
+              placeholder="Enter the Room Code"
+              className="border border-gray-300 text-primary p-2 outline-none"
+              type="text"
+              onChange={(event) => setRoomfunc(event, event.target.value)}
+            />
+            <button className="bg-accent-red text-white rounded-r-md hover:bg-accent-blue duration-300 px-4 py-2" onClick={() => socket?.emit("join room", room)}>
+              {" "}
+              Join Room
+            </button>
+          </div>
+        )}
         <button className="px-5 hover:bg-accent-red duration-300" onClick={handleAIWindow}>
           <RobotSVG className="w-9 h-9" />
         </button>
