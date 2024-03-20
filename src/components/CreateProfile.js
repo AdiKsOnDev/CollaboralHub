@@ -22,6 +22,7 @@ const { currentUser } = useContext(AuthContext);
 const [searchParams, setSearchParams] = useSearchParams();
 const [email, setEmail] = useState("");
 
+
 useEffect(() => {
 
   const getContent = async () => {
@@ -35,7 +36,7 @@ useEffect(() => {
       const file = fileSnapshot.data();
 
       setEmail(file.email);
-      // setTitle(file.title);
+
     } catch (Exception) {
       console.log("NO EMAIL");
     }
@@ -46,7 +47,6 @@ useEffect(() => {
 
 //*********************************************// 
 
-const navigate= useNavigate();
 
 //=======================================//
 //           Country Picker              //
@@ -68,6 +68,7 @@ const navigate= useNavigate();
  //=======================================//
 
   const [formData, setFormData] = useState({
+    email:'',
     firstName: '',
     lastName: '',
     username: '',
@@ -131,54 +132,7 @@ const navigate= useNavigate();
       alert('Please select an image first.');
     }
   };
-  //=======================================//
-
-  const profDbRef = collection(database, 'UserProfile');
-  // send data to firebase  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    let data = {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      username: formData.username,
-      Education: formData.Education,
-      selectedCountry: selectedCountry.label,
-      aboutme: formData.aboutme,
-      Company: formData.Company,
-      handle: formData.handle,
-      profileImg: url,
-    };
-
-    try {
-      await addDoc(profDbRef, data);
-    } catch (e) {
-      alert('Error adding document: ', e);
-    }
-   //================
- 
-   //*************** Adils code ******************// 
-  //  if (id === null) {
-  //   const fileID = uuidv4();
-
-  //   const userRef = doc(collection(database, "Users"), currentUser.email);
-  //   const userSnapshot = await getDoc(userRef);
-  //   const user = userSnapshot.data();
-
-  //   const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-  //   const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID}); 
-  // } else {
-  //   console.log(id);
-  //   const response = await updateDoc(doc(database, "Files", id), {content, title, id});
-  // }
-    //*********************************************// 
   
-    // clearing the form and navigating to new page 
-    setFormData({ firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
-    // navigate("/Community");
-
- 
-  };
 
   useEffect(() => {
     fetch(
@@ -191,7 +145,39 @@ const navigate= useNavigate();
       });
   }, []);
 
+//=======================================//
 
+const profDbRef = collection(database, 'Users');
+const navigate= useNavigate();
+// send data to firebase  
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  let data = {
+    email: email,
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    username: formData.username,
+    Education: formData.Education,
+    selectedCountry: selectedCountry.label,
+    aboutme: formData.aboutme,
+    Company: formData.Company,
+    handle: formData.handle,
+    profileImg: url,
+  };
+
+  try {
+    await addDoc(profDbRef, data);
+    // navigate("/Community");
+  
+  } catch (e) {
+    alert('Error adding document: ', e);
+  }
+ //================
+  // clearing the form and navigating to new page 
+  setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
+  
+};
 
 return (
 <>
@@ -224,8 +210,9 @@ return (
 
             <button 
             onClick={handleSubmitImage}
-            className="w-3/4 p-0 m-0 text-text-color">
-            Set Image</button> 
+            className="text-text-color px-1 py-1 'hover:bg-red-700 bg-accent-red cursor-pointer' w-25 rounded-md justify-center items-center duration-300" >
+              Set Image
+            </button> 
 
           </div>
         </div>    
