@@ -108,7 +108,8 @@ useEffect(() => {
     }
   };
 
-  const handleSubmitImage = () => {
+  const handleSubmitImage = async (e) => {
+    e.preventDefault(); 
     const imageRef = ref(storage, `image/${uuidv4()}`);
     if (image) {
       uploadBytes(imageRef, image)
@@ -168,7 +169,7 @@ const handleSubmit = async (e) => {
 
   try {
     await addDoc(profDbRef, data);
-    // navigate("/Community");
+    navigate("/Community");
   
   } catch (e) {
     alert('Error adding document: ', e);
