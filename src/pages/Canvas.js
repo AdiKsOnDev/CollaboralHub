@@ -29,6 +29,7 @@ export default function () {
 
   store.listen((entry) => {
     changes = entry.changes;
+
     if (entry.source === "user") {
       sendBoard();
     }
@@ -42,6 +43,7 @@ export default function () {
   //use Effect if message recevied
   useEffect(() => {
     // handle the incoming messages
+    console.log("INCOMING CHANGES");
     socket?.on("board rec", (changes: any) => {
       const toRemove = [];
       const toPut = [];
