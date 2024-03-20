@@ -19,33 +19,8 @@ const CreateProfile = () => {
 
 //*************** Adils code ******************// 
 const { currentUser } = useContext(AuthContext);
-const [searchParams, setSearchParams] = useSearchParams();
-const [email, setEmail] = useState("");
+const userRef = doc(collection(database, "Users"), currentUser.email);
 
-
-useEffect(() => {
-
-  const getContent = async () => {
-    try {
-      const useremail = searchParams.get("email").toString();
-
-      console.log(useremail);
-
-      const UserRef = doc(collection(database, "Users"), useremail);
-      const fileSnapshot = await getDoc(UserRef);
-      const file = fileSnapshot.data();
-
-      setEmail(file.email);
-
-    } catch (Exception) {
-      console.log("NO EMAIL");
-    }
-  };
-
-  getContent();
-  }, [searchParams])  
-
-//*********************************************// 
 
 
 //=======================================//
@@ -155,7 +130,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   let data = {
-    email: email,
+    email: userRef,
     firstName: formData.firstName,
     lastName: formData.lastName,
     username: formData.username,
@@ -166,6 +141,11 @@ const handleSubmit = async (e) => {
     handle: formData.handle,
     profileImg: url,
   };
+
+  // ============================================//
+
+
+  //==============================================//
 
   try {
     await addDoc(profDbRef, data);
@@ -178,11 +158,19 @@ const handleSubmit = async (e) => {
   // clearing the form and navigating to new page 
   setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
   
+
+
+
+
+
+
+  //If logged in 
 };
 
 return (
 <>
-{
+{/* If not logged in  */}
+
 <div className="flex flex-col bg-secondary w-screen h-screen p-20 rounded-lg">
 
   <form onSubmit={handleSubmit}>
@@ -322,7 +310,7 @@ return (
             placeholder="Links to relevant social media handles "/>
           </div>
 
-        <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
           <input
             type="text"
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -334,13 +322,18 @@ return (
         </div>
     </div>
 
-    <button className="text-text-color {{ disabled ? 'bg-gray-400 cursor-not-allowed' : 'hover:bg-red-700 bg-accent-red cursor-pointer' }} font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300" disabled={!url} Click={handleSubmit}>Get Started</button>
+    <button className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300" disabled={!url} Click={handleSubmit}>Get Started</button>
 
 
 
   </form>
 </div>
-}
+{/* end of not logged in */}
+{/* ================== */}
+{/* If logged in  */}
+
+
+{/* end of logged in */}
 </>  
   );
 };
