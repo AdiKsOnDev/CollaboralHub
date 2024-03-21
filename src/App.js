@@ -15,6 +15,7 @@ import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 import CreateProfile from './components/CreateProfile.js';
+import DisplayProfile from './components/DisplayProfile.js';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -72,6 +73,12 @@ function App() {
             path="/Groups"
             element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
           />
+
+          <Route
+            path="/DisplayProfile"
+            element={currentUser ? <DisplayProfile /> : <Navigate to="/Login" replace />}
+          />
+
         </Routes>
       </Router>
     </div>

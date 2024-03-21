@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef , useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection ,doc,getDoc } from '@firebase/firestore';
+import { addDoc, collection ,doc, getDoc, updateDoc } from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -129,8 +129,9 @@ const navigate= useNavigate();
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+
   let data = {
-    email: userRef,
+    email: currentUser.email,
     firstName: formData.firstName,
     lastName: formData.lastName,
     username: formData.username,
@@ -158,13 +159,28 @@ const handleSubmit = async (e) => {
   // clearing the form and navigating to new page 
   setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
   
+ 
+
+//=======================================//
+//               Logged In               //
+//=======================================//
 
 
 
 
 
 
-  //If logged in 
+
+
+
+
+
+
+
+
+//=======================================//
+//                                       //
+//=======================================//
 };
 
 return (
