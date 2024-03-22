@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef , useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection ,doc, getDoc, updateDoc } from '@firebase/firestore';
+import { addDoc, collection ,doc, getDoc, updateDoc, setDoc} from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,6 @@ const CreateProfile = () => {
 
 //*************** Adils code ******************// 
 const { currentUser } = useContext(AuthContext);
-const userRef = doc(collection(database, "Users"), currentUser.email);
 
 
 
@@ -149,15 +148,19 @@ const handleSubmit = async (e) => {
   //==============================================//
 
   try {
-    await addDoc(profDbRef, data);
+
+    await setDoc(doc(database, "Users", currentUser.email), data); 
+    
+    // clearing the form and navigating to new page 
+    setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
+
     navigate("/Community");
   
   } catch (e) {
     alert('Error adding document: ', e);
   }
  //================
-  // clearing the form and navigating to new page 
-  setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
+ 
   
  
 

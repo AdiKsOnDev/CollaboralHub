@@ -2,84 +2,96 @@ import React, { useState, useEffect, useRef , useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection ,doc, getDocs, updateDoc } from '@firebase/firestore';
+import { addDoc, collection ,doc, getDocs, updateDoc, getDoc } from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
 import { useSearchParams } from "react-router-dom";
 
-
-
-
 const DisplayProfile = () => {
     const { currentUser } = useContext(AuthContext);
-      // const [email, setemail] = useState("");
-    // const [firstName, setfirstName] = useState("");
-    // const [lastName, setlastName] = useState("");
-    // const [username, setusername] = useState("");
-    // const [Education, setEducation] = useState("");
-    // const [selectedCountry, setselectedCountry] = useState("");
-    // const [aboutme, setaboutme] = useState("");
-    // const [Company, setCompany] = useState("");
-    // const [handle, sethandle] = useState("");
-    // const [Skills, setSkills] = useState("");
-    // const [profileImg, setprofileImg]= useState("");
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [email, setemail] = useState("");
+    const [firstName, setfirstName] = useState("");
+    const [lastName, setlastName] = useState("");
+    const [username, setusername] = useState("");
+    const [Education, setEducation] = useState("");
+    const [selectedCountry, setselectedCountry] = useState("");
+    const [aboutme, setaboutme] = useState("");
+    const [Company, setCompany] = useState("");
+    const [handle, sethandle] = useState("");
+    const [Skills, setSkills] = useState("");
+    const [profileImg, setprofileImg]= useState("");
 
-    const fetchData = async () => {
-        const userRef = doc(collection(database, "Users"), currentUser.email);
-        const querySnapshot = await getDocs(userRef);
-        querySnapshot.forEach((doc) => {
-          console.log(doc.id, " => ", doc.data());
-        });
-      };
+    // =====================================================//
+
+        const [userData, setUserData] = useState(null);
+        // const uniqueId = "YOUR_UNIQUE_ID"; // Replace this with the actual unique ID
+        // const uniqueId = doc(collection(database, "Users"), currentUser.email);
+
+        useEffect(() => {
+          const fetchData = async () => {
+            try {
+                // console.log(currentUser);
+                const docRef = doc(collection(database, "Users"), currentUser.email);
+
+
+              if (docRef.exists) {
+                setUserData(docRef.data());
+                // console.log(docRef.data());
+              } else {
+                console.log("No such document!");
+              }
+            } catch (error) {
+              console.error("Error fetching document: ", error);
+            }
+          };
       
-      fetchData(); // Call the async function
-
-  
-
-    // async function getPosts() {
-    //     const querySnapshot = await getDocs(collection(database, "Users"));
-    //     const Users=[];
+          fetchData();
       
-    //     querySnapshot.forEach((doc) => {
-    //         Users.push({ id:doc.id, ...doc.data() });
-    //     })
-    //     return Users;
-    //   }
+          // Clean up function to unsubscribe when the component unmounts
+          return () => {};
+        }, []); 
+
+    // =====================================================//
+
+    // const userRef = doc(collection(database, "Users"), currentUser.email);
+    // console.log(userRef);
+
+    // useEffect(() => {
+    //     const getContent = async () => {
+    //       try {
+    //         // const id = searchParams.get("id").toString();
+
+    //         // const userRef = doc(collection(database, "Users"), currentUser.id);
+    //         // console.log(userRef);
+    //         // const userRef = doc(collection(database, "Users"), id);
+    //         // const userSnapshot = await getDoc(userRef);
+    //         // console.log(userSnapshot);
+    //         // const user = userSnapshot.data();
       
-//   const [searchParams, setSearchParams] = useSearchParams();
-//   const { currentUser } = useContext(AuthContext);
+    //         // console.log(user);
+    //         // console.log(user.firstName);
+    //         // setemail(currentUser.email);
+    //         // setfirstName(user.firstName);
+    //         // setlastName(user.lastName);
+    //         // setusername(user.username);
+    //         // setEducation(user.Education);
+    //         // setselectedCountry(user.selectedCountry);
+    //         // setaboutme(user.aboutme);
+    //         // setCompany(user.Company);
+    //         // sethandle(user.handle);
+    //         // setSkills(user.Skills);
+    //         // setprofileImg(user.setprofileImg);
 
-
-
-
-// useEffect(() => {
-//     async function fetchData() {
-//       const Users = await getPosts();
-//         setemail(Users.email);
-//         setfirstName(Users.firstName);
-//         setlastName(Users.lastName);
-//         setusername(Users.username); 
-//         setEducation(Users.Education);
-//         setselectedCountry(Users.selectedCountry);
-//         setaboutme(Users.aboutme);
-//         setCompany(Users.Company);
-//         sethandle(Users.handle);
-//         setSkills(Users.Skills);
-//         setprofileImg(Users.profileImg);
-
-//     }
-//     fetchData();
-//   }, []);
-
-    //   } catch (Exception) {
-    //     console.log("NO ID");
-    //   }
-    // };
-
-    // getContent();
-    // }, [searchParams])  
+    //       } catch (Exception) {
+    //         console.log("Error getting docs ");
+    //       }
+    //     };
+    
+    //     getContent();
+    //     }, [searchParams])  
 
 
 return (
@@ -102,7 +114,7 @@ return (
       <div class="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
         <div className="p-0 flex flex-col justify-center items-center">
           <Avatar
-        //    src={profileImg}
+        //    src={currentUser.photoUrl}
            sx={{ width: 150, height: 150 }}  className="m-4 "/>
 
           <div className="pb-5 flex flex-row justify-center items-center text-text-color"> 
@@ -135,7 +147,7 @@ return (
           name="aboutme"
           rows="8"
           cols="1"
-        //   value={aboutme}
+          value={aboutme}
         //   onChange={handleInputChange}
           placeholder='Talk a little about yourself...' />
       </div>
@@ -149,7 +161,7 @@ return (
           className=" p-2 rounded-md w-full object-contain border-2 border-rose-600"
           id="firstName"
           name="firstName"
-        //   value={firstName}
+          value={currentUser.displayName}
         //   onChange={handleInputChange}
           placeholder="First Name *"/>
       </div>
@@ -160,7 +172,7 @@ return (
           className=" p-2 rounded-md w-full object-contain border-2 border-rose-600 "
           id="lastName"
           name="lastName"
-        //   value={lastName}
+          value={lastName}
         //   onChange={handleInputChange}
           placeholder="Last Name *"/>
       </div>
@@ -169,14 +181,17 @@ return (
     {/*Input box for Username and Country   */}
     <div class="grid grid-cols-4 gap-4 m-2">
       <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-        <input
-          type="text"
+        <div
+        //   type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
-          id="username"
-          name="username"
+        //   id="username"
+        //   name="username"
         //   value={username}
         //   onChange={handleInputChange}
-          placeholder="Unique Username *"/>
+          placeholder="Unique Username *">
+            {username}
+            </div>
+
       </div>
 
       <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
@@ -185,7 +200,7 @@ return (
           id="selectedCountry"
           name="selectedCountry"
         //   options={countries}
-        //   value={selectedCountry}
+          value={selectedCountry}
           placeholder="Country of Residence *"
         //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
           />
@@ -200,7 +215,7 @@ return (
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
           id="Education"
           name="Education"
-        //   value={Education}
+          value={Education}
         //   onChange={handleInputChange}
         //   placeholder="Education * "
           />
@@ -212,7 +227,7 @@ return (
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
           id="Company"
           name="Company"
-        //   value={Company}
+          value={Company}
         //   onChange={handleInputChange}
           placeholder="Company Name (if employed)..."/>
       </div>
@@ -226,7 +241,7 @@ return (
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
             id="handle"
             name="handle"
-            // value={handle}
+            value={handle}
             // onChange={handleInputChange}
             placeholder="Links to relevant social media handles "/>
           </div>
@@ -237,7 +252,7 @@ return (
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
             id="Skills"
             name="Skills"
-            // value={Skills}
+            value={Skills}
             // onChange={handleInputChange}
             placeholder="Skills"/>
         </div>
