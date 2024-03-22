@@ -18,7 +18,7 @@ const DisplayProfile = () => {
     const [lastName, setlastName] = useState("");
     const [username, setusername] = useState("");
     const [Education, setEducation] = useState("");
-    // const [selectedCountry, setselectedCountry] = useState("");
+    const [selectedCountry, setselectedCountry] = useState("");
     const [aboutme, setaboutme] = useState("");
     const [Company, setCompany] = useState("");
     const [handle, sethandle] = useState("");
@@ -45,7 +45,7 @@ const DisplayProfile = () => {
             setlastName(user.lastName);
             setusername(user.username); 
             setEducation(user.Education);
-            // setselectedCountry(user.selectedCountry);
+            setselectedCountry(user.selectedCountry);
             setaboutme(user.aboutme);
             setCompany(user.Company);
             sethandle(user.handle);
@@ -166,7 +166,7 @@ return (
           id="selectedCountry"
           name="selectedCountry"
         //   options={countries}
-        //   value={selectedCountry}
+          value={selectedCountry}
           placeholder="Country of Residence *"
         //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
           />
