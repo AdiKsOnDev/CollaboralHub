@@ -25,7 +25,7 @@ const NewPost = () => {
       
       let data = {
           userName: user.name + " " + user.lastname,
-          user: user.username,
+          user: user.displayName,
           userEmail: user.email,
           postBody: postRef.current.value,
           likeCount: 0,
