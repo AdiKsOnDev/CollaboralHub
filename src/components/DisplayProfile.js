@@ -9,15 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
 import { useSearchParams } from "react-router-dom";
 
+
 const DisplayProfile = () => {
     const { currentUser } = useContext(AuthContext);
     const [searchParams, setSearchParams] = useSearchParams();
-    const [email, setemail] = useState("");
+    // const [email, setemail] = useState("");
     const [firstName, setfirstName] = useState("");
     const [lastName, setlastName] = useState("");
     const [username, setusername] = useState("");
     const [Education, setEducation] = useState("");
-    const [selectedCountry, setselectedCountry] = useState("");
+    // const [selectedCountry, setselectedCountry] = useState("");
     const [aboutme, setaboutme] = useState("");
     const [Company, setCompany] = useState("");
     const [handle, sethandle] = useState("");
@@ -26,73 +27,38 @@ const DisplayProfile = () => {
 
     // =====================================================//
 
-        const [userData, setUserData] = useState(null);
-        // const uniqueId = "YOUR_UNIQUE_ID"; // Replace this with the actual unique ID
-        // const uniqueId = doc(collection(database, "Users"), currentUser.email);
-
-        useEffect(() => {
-          const fetchData = async () => {
-            try {
-                // console.log(currentUser);
-                const docRef = doc(collection(database, "Users"), currentUser.email);
-
-
-              if (docRef.exists) {
-                setUserData(docRef.data());
-                // console.log(docRef.data());
-              } else {
-                console.log("No such document!");
-              }
-            } catch (error) {
-              console.error("Error fetching document: ", error);
-            }
-          };
-      
-          fetchData();
-      
-          // Clean up function to unsubscribe when the component unmounts
-          return () => {};
-        }, []); 
-
-    // =====================================================//
-
-    // const userRef = doc(collection(database, "Users"), currentUser.email);
-    // console.log(userRef);
-
-    // useEffect(() => {
-    //     const getContent = async () => {
-    //       try {
-    //         // const id = searchParams.get("id").toString();
-
-    //         // const userRef = doc(collection(database, "Users"), currentUser.id);
-    //         // console.log(userRef);
-    //         // const userRef = doc(collection(database, "Users"), id);
-    //         // const userSnapshot = await getDoc(userRef);
-    //         // console.log(userSnapshot);
-    //         // const user = userSnapshot.data();
-      
-    //         // console.log(user);
-    //         // console.log(user.firstName);
-    //         // setemail(currentUser.email);
-    //         // setfirstName(user.firstName);
-    //         // setlastName(user.lastName);
-    //         // setusername(user.username);
-    //         // setEducation(user.Education);
-    //         // setselectedCountry(user.selectedCountry);
-    //         // setaboutme(user.aboutme);
-    //         // setCompany(user.Company);
-    //         // sethandle(user.handle);
-    //         // setSkills(user.Skills);
-    //         // setprofileImg(user.setprofileImg);
-
-    //       } catch (Exception) {
-    //         console.log("Error getting docs ");
-    //       }
-    //     };
+    useEffect(() => {
+        const getContent = async () => {
+          try {
+            // const id = searchParams.get("id").toString();
     
-    //     getContent();
-    //     }, [searchParams])  
+            // console.log(id);
+    
+            const userRef = doc(collection(database, "Users"), currentUser.email);
+            const userSnapshot = await getDoc(userRef);
+            const user = userSnapshot.data();
+    
+            // setContent(file.content);
+            // setTitle(file.title);
 
+            setfirstName(user.firstName);
+            setlastName(user.lastName);
+            setusername(user.username); 
+            setEducation(user.Education);
+            // setselectedCountry(user.selectedCountry);
+            setaboutme(user.aboutme);
+            setCompany(user.Company);
+            sethandle(user.handle);
+            setSkills(user.Skills);
+            setprofileImg(user.profileImg);
+
+          } catch (Exception) {
+            console.log("NO ID");
+          }
+        };
+    
+        getContent();
+    });  
 
 return (
 <>
@@ -114,24 +80,24 @@ return (
       <div class="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
         <div className="p-0 flex flex-col justify-center items-center">
           <Avatar
-        //    src={currentUser.photoUrl}
+           src={profileImg}
            sx={{ width: 150, height: 150 }}  className="m-4 "/>
 
           <div className="pb-5 flex flex-row justify-center items-center text-text-color"> 
              
-
+{/* 
             <input
               type="file"
             //   onChange={handleImageChange}
               className="w-3/4 p-0 m-0"
               id="profileImg"
-              name="profileImg"/>
+              name="profileImg"/> */}
 
 
             <button 
             // onClick={handleSubmitImage}
             className="text-text-color px-1 py-1 'hover:bg-red-700 bg-accent-red cursor-pointer' w-25 rounded-md justify-center items-center duration-300" >
-              Set Image
+              Edit 
             </button> 
 
           </div>
@@ -161,7 +127,7 @@ return (
           className=" p-2 rounded-md w-full object-contain border-2 border-rose-600"
           id="firstName"
           name="firstName"
-          value={currentUser.displayName}
+          value={firstName}
         //   onChange={handleInputChange}
           placeholder="First Name *"/>
       </div>
@@ -181,16 +147,16 @@ return (
     {/*Input box for Username and Country   */}
     <div class="grid grid-cols-4 gap-4 m-2">
       <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-        <div
+        <input
         //   type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
         //   id="username"
         //   name="username"
-        //   value={username}
+          value={username}
         //   onChange={handleInputChange}
-          placeholder="Unique Username *">
-            {username}
-            </div>
+          placeholder="Unique Username *"/>
+            {/* {username}
+            </div> */}
 
       </div>
 
@@ -200,7 +166,7 @@ return (
           id="selectedCountry"
           name="selectedCountry"
         //   options={countries}
-          value={selectedCountry}
+        //   value={selectedCountry}
           placeholder="Country of Residence *"
         //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
           />
@@ -264,10 +230,8 @@ return (
     >Get Started</button>
 
 
-
   </form>
 </div>
-end of not logged in
 
 </>  
   );

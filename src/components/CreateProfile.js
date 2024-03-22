@@ -130,7 +130,6 @@ const handleSubmit = async (e) => {
 
 
   let data = {
-    email: currentUser.email,
     firstName: formData.firstName,
     lastName: formData.lastName,
     username: formData.username,
