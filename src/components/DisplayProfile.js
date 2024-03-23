@@ -29,8 +29,6 @@ const DisplayProfile = () => {
   const [tempSkills, setSkills] = useState("");
   const [tempprofileImg, setprofileImg] = useState("");
 
-
-
   //=======================================//
   //           Country Picker              //
   //=======================================//
@@ -68,7 +66,6 @@ const DisplayProfile = () => {
         sethandle(user.handle);
         setSkills(user.Skills);
         setprofileImg(user.profileImg);
-
       } catch (Exception) {
         console.log("Error making copy ");
       }
@@ -81,26 +78,28 @@ const DisplayProfile = () => {
   // send data to firebase
   const handleSave = async (e) => {
     e.preventDefault();
+    
 
     let data = {
-      firstName:tempfirstName,
-      lastName:templastName,
-      username:tempusername,
-      Education:tempEducation,
-      selectedCountry:tempselectedCountry,
-      aboutme:tempaboutme,
-      Company:tempCompany,
-      handle:temphandle,
-      Skills:tempSkills,
-      profileImg:tempprofileImg,
+      firstName: tempfirstName,
+      lastName: templastName,
+      username: tempusername,
+      Education: tempEducation,
+      selectedCountry: tempselectedCountry,
+      aboutme: tempaboutme,
+      Company: tempCompany,
+      handle: temphandle,
+      Skills: tempSkills,
+      profileImg: tempprofileImg,
     };
     console.log(data);
-    
+
     // ============================================//
-    try { 
-      await updateDoc(doc(database, "Users", currentUser.email), data);
-      alert("Profile Saved ! ", e);
-    
+    try {
+      const response = await updateDoc(doc(database, "Users", currentUser.email), data);
+
+      console.log(response);
+      alert("Profile Saved !");
     } catch (e) {
       alert("Error adding document: ", e);
     }
@@ -110,9 +109,7 @@ const DisplayProfile = () => {
   return (
     <>
       <div className="flex flex-col bg-secondary w-screen h-screen p-10 rounded-lg">
-        <form 
-          onSubmit={handleSave}
-        >
+        <form onSubmit={handleSave}>
           {/* page title */}
           <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
             Your Profile
@@ -123,14 +120,13 @@ const DisplayProfile = () => {
             {/* Image upload */}
             <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
-              <Avatar
+                <Avatar
                   src={tempprofileImg}
                   sx={{ width: 150, height: 150 }}
                   className="m-4 "
                 />
 
                 <div className="pb-5 flex flex-row justify-center items-center text-text-color">
-
                   <button
                     // onClick={handleSubmitImage}
                     className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
@@ -153,19 +149,18 @@ const DisplayProfile = () => {
                 rows="8"
                 cols="1"
                 defaultValue={tempaboutme}
-                onChange={
-                  (event) => setaboutme(event.target.value)
-                }
+                onChange={(event) => {setaboutme(event.target.value)}}
                 placeholder="Talk a little about yourself..."
               />
-              
             </div>
           </div>
 
           {/*Input box for first and last name   */}
           <div className="grid grid-cols-4 gap-4 m-2">
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-              <label className="text-xl font-semibold mb-2 text-text-color ">First Name </label>
+              <label className="text-xl font-semibold mb-2 text-text-color ">
+                First Name{" "}
+              </label>
               <input
                 type="text"
                 className=" p-2 rounded-md w-full object-contain font-semibold"
@@ -173,24 +168,21 @@ const DisplayProfile = () => {
                 name="tempfirstName"
                 defaultValue={tempfirstName}
                 placeholder="First Name *"
-                onChange={
-                  (event) => setfirstName(event.target.value)
-                }
+                onChange={(event) => {setfirstName(event.target.value)}}
               />
-              
             </div>
 
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-            <label className="text-xl font-semibold text-text-color ">Last Name </label>
+              <label className="text-xl font-semibold text-text-color ">
+                Last Name{" "}
+              </label>
               <input
                 type="text"
                 className=" p-2 rounded-md w-full object-contain font-semibold "
                 id="templastName"
                 name="templastName"
                 defaultValue={templastName}
-                onChange={
-                  (event) => setlastName(event.target.value)
-                }
+                onChange={(event) => {setlastName(event.target.value)}}
                 placeholder="Last Name *"
               />
             </div>
@@ -199,16 +191,16 @@ const DisplayProfile = () => {
           {/*Input box for Username and Country   */}
           <div className="grid grid-cols-4 gap-4 m-2">
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold text-text-color ">Username </label>
+              <label className="text-xl font-semibold text-text-color ">
+                Username{" "}
+              </label>
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain border-2 font-semibold"
                 id="tempusername"
                 name="tempusername"
                 defaultValue={tempusername}
-                onChange={
-                  (event) => setusername(event.target.value)
-                }
+                onChange={(event) => {setusername(event.target.value)}}
                 placeholder="Unique Username *"
               />
               {/* {username}
@@ -216,17 +208,12 @@ const DisplayProfile = () => {
             </div>
 
             <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-              {/* <Select
-          className="rounded-md w-full object-contain border-2 border-rose-600"
-          id="selectedCountry"
-          name="selectedCountry"
-          options={countries}
-          value={Country}
-          placeholder="Country of Residence *"
-        //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
-          /> */}
-              <label className="text-xl font-semibold text-text-color "> Country </label>
-              
+    
+              <label className="text-xl font-semibold text-text-color ">
+                {" "}
+                Country{" "}
+              </label>
+
               <Select
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="selectedCountry"
@@ -244,31 +231,33 @@ const DisplayProfile = () => {
           {/*Input box for Education and Company   */}
           <div className="grid grid-cols-4 gap-4 m-2">
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold text-text-color "> Education </label>
+              <label className="text-xl font-semibold text-text-color ">
+                {" "}
+                Education{" "}
+              </label>
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempEducation"
                 name="tempEducation"
                 defaultValue={tempEducation}
-                onChange={
-                  (event) => setEducation(event.target.value)
-                }
+                onChange={(event) => {setEducation(event.target.value)}}
                 placeholder="Education * "
               />
             </div>
 
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-            <label className="text-xl font-semibold text-text-color "> Company Name </label>
+              <label className="text-xl font-semibold text-text-color ">
+                {" "}
+                Company Name{" "}
+              </label>
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempCompany"
                 name="tempCompany"
                 defaultValue={tempCompany}
-                onChange={
-                  (event) => setCompany(event.target.value)
-                }
+                onChange={(event) => {setCompany(event.target.value)}}
                 placeholder="Company Name (if employed)..."
               />
             </div>
@@ -277,31 +266,33 @@ const DisplayProfile = () => {
           {/*Input box for Social Media Handles and Skills   */}
           <div className="grid grid-cols-4 gap-4 m-2">
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold text-text-color "> Social Media </label>
+              <label className="text-xl font-semibold text-text-color ">
+                {" "}
+                Social Media{" "}
+              </label>
               <input
                 type="url"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="temphandle"
                 name="temphandle"
                 defaultValue={temphandle}
-                onChange={
-                  (event) => sethandle(event.target.value)
-                }
+                onChange={(event) => {sethandle(event.target.value)}}
                 placeholder="Links to relevant social media handles "
               />
             </div>
 
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-              <label className="text-xl font-semibold text-text-color "> Social Media </label>
+              <label className="text-xl font-semibold text-text-color ">
+                {" "}
+                Social Media{" "}
+              </label>
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempSkills"
                 name="tempSkills"
                 defaultValue={tempSkills}
-                onChange={
-                  (event) => sethandle(event.target.value)
-                }
+                onChange={(event) => {sethandle(event.target.value)}}
                 placeholder="Skills"
               />
             </div>
@@ -309,7 +300,8 @@ const DisplayProfile = () => {
 
           <button
             className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-            onClick={handleSave}>
+            onClick={handleSave}
+          >
             Save
           </button>
         </form>
