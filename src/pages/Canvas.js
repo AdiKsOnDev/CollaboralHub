@@ -7,16 +7,26 @@ import {
   useEditor,
 } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
+import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../context/AuthContext";
+import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { database } from "../firebase.js";
+import { useSearchParams } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 import io, { Socket } from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
 export default function () {
   let changes = {};
   const [showRoomWindow, setShowRoomWindow] = useState(false);
   const [title, setTitle] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
   const [socket, setSocket] = useState();
   const [room, setRoom] = useState("");
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const store = createTLStore({
     shapeUtils: defaultShapeUtils,
@@ -43,9 +53,44 @@ export default function () {
     console.log(room);
   };
 
-  const handleSave = () => {
-    console.log("SAVE");
-  }
+  const handleSave = async () => {
+    if (!store) {
+      return;
+    }
+    
+    let id = null;
+
+    try {
+      id = searchParams.get("id").toString();
+    } catch (Exception) {
+      console.log("NO ID Passed");
+    }
+
+    if (id === null) {
+      const fileID = uuidv4();
+
+      console.log("SAVED: " + title)
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const accessedDate = Timestamp.now();
+      const owner = user.lastname + ", " + user.name;
+
+      const userChange = await updateDoc(userRef, {canvases: [...user.files, fileID]})
+      const response = await setDoc(doc(database, "Canvases", fileID), {store, title, fileID, accessedDate, owner}); 
+    } else {
+      const accessedDate = Timestamp.now();
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const owner = user.lastname + ", " + user.name;
+
+      console.log(id);
+      const response = await updateDoc(doc(database, "Canvases", id), {store, title, id, accessedDate, owner});
+    }
+
+    navigate("/Dashboard");
+  };
 
   //use Effect if message recevied
   useEffect(() => {
