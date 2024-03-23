@@ -73,7 +73,9 @@ const RegisterBox = () => {
           email: email,
           displayName: username,
           name: firstname,
-          lastname: lastname
+          lastname: lastname,
+          files: [],
+          canvases: [],
         };
 
         if (newUser) {

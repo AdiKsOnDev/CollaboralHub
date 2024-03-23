@@ -11,7 +11,7 @@
     "@syncfusion/ej2-react-schedule": "^24.1.41",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
-    "@tldraw/tldraw": "^1.29.2",
+    "@tldraw/tldraw": "^2.0.0-canary.261079087377",
     "@zegocloud/zego-uikit-prebuilt": "^1.10.2",
     "axios": "^1.6.7",
     "emoji-picker-react": "^3.5.1",
