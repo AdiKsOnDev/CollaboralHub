@@ -78,9 +78,13 @@ const DisplayProfile = () => {
   // send data to firebase
   const handleSave = async (e) => {
     e.preventDefault();
-    
+
+    const userRef = doc(collection(database, "Users"), currentUser.email);
+    const userSnapshot = await getDoc(userRef);
+    const user = userSnapshot.data();
 
     let data = {
+      email: user.email,
       firstName: tempfirstName,
       lastName: templastName,
       username: tempusername,
@@ -96,10 +100,11 @@ const DisplayProfile = () => {
 
     // ============================================//
     try {
-      const response = await updateDoc(doc(database, "Users", currentUser.email), data);
+      console.log("USER IS --> " + user.email);
+      const response = await updateDoc(doc(database, "Users", user.email), data);
 
       console.log(response);
-      alert("Profile Saved !");
+      alert("Profile Saved!");
     } catch (e) {
       alert("Error adding document: ", e);
     }

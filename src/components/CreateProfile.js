@@ -148,7 +148,7 @@ const handleSubmit = async (e) => {
 
   try {
 
-    await setDoc(doc(database, "Users", currentUser.email), data); 
+    await updateDoc(doc(database, "Users", currentUser.email), data); 
     
     // clearing the form and navigating to new page 
     setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:''});
