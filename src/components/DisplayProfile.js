@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useSearchParams } from "react-router-dom";
-import { EditText, EditTextarea } from "react-edit-text";
+// import { EditText, EditTextarea } from "react-edit-text";
 
 
 
@@ -25,22 +25,22 @@ const DisplayProfile = () => {
 
     //=======================================//
 
-    const [tempData, setTempData] = useState({
-      tempfirstName: "",
-      templastName: "",
-      tempusername: "",
-      tempEducation: "",
-      tempselectedCountry: "",
-      tempaboutme: "",
-      tempCompany: "",
-      temphandle: "",
-      tempSkills: "",
-      tempprofileImg: "",
-    });
+    // const [tempData, setTempData] = useState({
+    //   tempfirstName: "",
+    //   templastName: "",
+    //   tempusername: "",
+    //   tempEducation: "",
+    //   tempselectedCountry: "",
+    //   tempaboutme: "",
+    //   tempCompany: "",
+    //   temphandle: "",
+    //   tempSkills: "",
+    //   tempprofileImg: "",
+    // });
   
     //=======================================//
   // const [firstName, setfirstName] = useState();
-  const [tempfirstName, setfirstName] = useState();
+  const [tempfirstName, setfirstName] = useState("");
   const [templastName, setlastName] = useState("");
   const [tempusername, setusername] = useState("");
   const [tempEducation, setEducation] = useState("");
@@ -104,17 +104,17 @@ const DisplayProfile = () => {
   });
 
   // =====================================================//
-
-
+ 
+ 
   // =====================================================//
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target; // Corrected line
-    setTempData({
-      ...tempData,
-      [name]: value,
-    });
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target; // Corrected line
+  //   setTempData({
+  //     ...tempData,
+  //     [name]: value,
+  //   });
+  // };
 
   // //emoji picker
   // const [inputStr, setInputStr] = useState("");
@@ -130,18 +130,18 @@ const DisplayProfile = () => {
   const handleSave = async (e) => {
     e.preventDefault();
 
-    let tempDataSave = {
-      firstName: tempData.tempfirstName,
-      lastName: tempData.templastName,
-      username: tempData.tempusername,
-      Education: tempData.tempEducation,
-      selectedCountry: tempselectedCountry.label,
-      aboutme: tempData.tempaboutme,
-      Company: tempData.tempCompany,
-      Skills: tempData.tempSkills,
-      handle: tempData.temphandle,
-      // profileImg: url,
-    };
+    // let tempDataSave = {
+    //   firstName: tempData.tempfirstName,
+    //   lastName: tempData.templastName,
+    //   username: tempData.tempusername,
+    //   Education: tempData.tempEducation,
+    //   selectedCountry: tempselectedCountry.label,
+    //   aboutme: tempData.tempaboutme,
+    //   Company: tempData.tempCompany,
+    //   Skills: tempData.tempSkills,
+    //   handle: tempData.temphandle,
+    //   // profileImg: url,
+    // };
 
     // ============================================//
 
@@ -149,20 +149,20 @@ const DisplayProfile = () => {
     //==============================================//
 
     try {
-      await setDoc(doc(database, "Users", currentUser.email), tempDataSave);
+      // await setDoc(doc(database, "Users", currentUser.email), tempDataSave);
       // clearing the form and navigating to new page
-      setTempData({
-        email: "",
-        firstName: "",
-        lastName: "",
-        username: "",
-        Education: "",
-        selectedCountry: "",
-        aboutme: "",
-        Company: "",
-        handle: "",
-        Skills: "",
-      });
+      // setTempData({
+      //   email: "",
+      //   firstName: "",
+      //   lastName: "",
+      //   username: "",
+      //   Education: "",
+      //   selectedCountry: "",
+      //   aboutme: "",
+      //   Company: "",
+      //   handle: "",
+      //   Skills: "",
+      // });
     } catch (e) {
       alert("Error adding document: ", e);
     }
@@ -187,7 +187,7 @@ const DisplayProfile = () => {
             <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
                 <Avatar
-                  //  src={profileImg}
+                   src={tempprofileImg}
                   sx={{ width: 150, height: 150 }}
                   className="m-4 "
                 />
@@ -216,76 +216,74 @@ const DisplayProfile = () => {
               <div className="text-2xl font-semibold mb-2 text-text-color ">
                 About Me
               </div>
-              <EditText
+              <textarea
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempaboutme"
                 name="tempaboutme"
                 rows="8"
                 cols="1"
-                value={tempaboutme}
-                onChange={handleInputChange}
+                defaultValue={tempaboutme}
+                onChange={
+                  (event) => setaboutme(event.target.value)
+                }
                 placeholder="Talk a little about yourself..."
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
               />
             </div>
           </div>
 
           {/*Input box for first and last name   */}
           <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold mb-2 text-text-color ">First Name </label>
-              <EditText
+              <input
                 type="text"
-                className=" p-2 rounded-md w-full object-contain  font-semibold"
+                className=" p-2 rounded-md w-full object-contain font-semibold"
                 id="tempfirstName"
                 name="tempfirstName"
-                value={tempfirstName}
+                defaultValue={tempfirstName}
                 placeholder="First Name *"
-                onChange={(e) => {
-                  setfirstName(e.target.value);
-                }}
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
+                onChange={
+                  (event) => setfirstName(event.target.value)
+                }
               />
             </div>
 
-            <div className="col-span-2 row-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-            <label className="text-xl font-semibold mb-2 text-text-color ">Last Name </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <label className="text-xl font-semibold text-text-color ">Last Name </label>
+              <input
                 type="text"
                 className=" p-2 rounded-md w-full object-contain font-semibold "
                 id="templastName"
                 name="templastName"
-                value={templastName}
-                onChange={handleInputChange}
+                defaultValue={templastName}
+                onChange={
+                  (event) => setlastName(event.target.value)
+                }
                 placeholder="Last Name *"
-                editButtonProps={{ style: { marginLeft: "1px", width: 16 } }}
-                showEditButton
               />
             </div>
           </div>
 
           {/*Input box for Username and Country   */}
           <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold mb-2 text-text-color ">Username </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+            <label className="text-xl font-semibold text-text-color ">Username </label>
+              <input
                 type="text"
-                // className="p-2 rounded-md w-full object-contain border-2 border-rose-600 font-semibold"
+                className="p-2 rounded-md w-full object-contain border-2 font-semibold"
                 id="tempusername"
                 name="tempusername"
-                value={tempusername}
-                onChange={handleInputChange}
+                defaultValue={tempusername}
+                onChange={
+                  (event) => setusername(event.target.value)
+                }
                 placeholder="Unique Username *"
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
               />
               {/* {username}
             </div> */}
             </div>
 
-            <div class="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
               {/* <Select
           className="rounded-md w-full object-contain border-2 border-rose-600"
           id="selectedCountry"
@@ -295,79 +293,84 @@ const DisplayProfile = () => {
           placeholder="Country of Residence *"
         //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
           /> */}
-              <label className="text-xl font-semibold mb-2 text-text-color "> Country </label>
+              <label className="text-xl font-semibold text-text-color "> Country </label>
               
-              <EditText
-                className="p-2 rounded-md w-3/4 object-contain font-semibold"
-                value={tempselectedCountry}
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
+              <Select
+                className="p-2 rounded-md w-full object-contain font-semibold"
+                id="selectedCountry"
+                name="selectedCountry"
+                value={selectedCountry}
+                options={countries}
+                onChange={(selectedOption) => {
+                  setSelectedCountry(selectedOption);
+                  setCountry(selectedOption);
+                }}
               />
             </div>
           </div>
 
           {/*Input box for Education and Company   */}
           <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold mb-2 text-text-color "> Education </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+            <label className="text-xl font-semibold text-text-color "> Education </label>
+              <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempEducation"
                 name="tempEducation"
-                value={tempEducation}
-                onChange={handleInputChange}
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
+                defaultValue={tempEducation}
+                onChange={
+                  (event) => setEducation(event.target.value)
+                }
                 placeholder="Education * "
               />
             </div>
 
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-            <label className="text-xl font-semibold mb-2 text-text-color "> Company Name </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <label className="text-xl font-semibold text-text-color "> Company Name </label>
+              <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempCompany"
                 name="tempCompany"
-                value={tempCompany}
-                onChange={handleInputChange}
+                defaultValue={tempCompany}
+                onChange={
+                  (event) => setCompany(event.target.value)
+                }
                 placeholder="Company Name (if employed)..."
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
               />
             </div>
           </div>
 
           {/*Input box for Social Media Handles and Skills   */}
           <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-            <label className="text-xl font-semibold mb-2 text-text-color "> Social Media </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+            <label className="text-xl font-semibold text-text-color "> Social Media </label>
+              <input
                 type="url"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="temphandle"
                 name="temphandle"
-                value={temphandle}
-                onChange={handleInputChange}
+                defaultValue={temphandle}
+                onChange={
+                  (event) => sethandle(event.target.value)
+                }
                 placeholder="Links to relevant social media handles "
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
               />
             </div>
 
-            <div className="col-span-2 row-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-              <label className="text-xl font-semibold mb-2 text-text-color "> Social Media </label>
-              <EditText
+            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+              <label className="text-xl font-semibold text-text-color "> Social Media </label>
+              <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="tempSkills"
                 name="tempSkills"
-                value={tempSkills}
-                onChange={handleInputChange}
+                defaultValue={tempSkills}
+                onChange={
+                  (event) => sethandle(event.target.value)
+                }
                 placeholder="Skills"
-                editButtonProps={{ style: { marginLeft: "5px", width: 16 } }}
-                showEditButton
               />
             </div>
           </div>
