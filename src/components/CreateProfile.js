@@ -42,7 +42,6 @@ const { currentUser } = useContext(AuthContext);
  //=======================================//
 
   const [formData, setFormData] = useState({
-    email:'',
     firstName: '',
     lastName: '',
     username: '',
@@ -122,7 +121,7 @@ const { currentUser } = useContext(AuthContext);
 
 //=======================================//
 
-const profDbRef = collection(database, 'Users');
+// const profDbRef = collection(database, 'Users');
 const navigate= useNavigate();
 // send data to firebase  
 const handleSubmit = async (e) => {
@@ -159,7 +158,7 @@ const handleSubmit = async (e) => {
   } catch (e) {
     alert('Error adding document: ', e);
   }
- //================
+ //===============================================//
  
   
  
@@ -198,10 +197,10 @@ return (
     <h2 className="font-semibold text-center mb-5 text-3xl text-text-color"> Your Profile </h2>
 
     {/* Image upload and about me box */}
-    <div class="grid grid-rows-8 grid-flow-col gap-4 ">
+    <div className="grid grid-rows-8 grid-flow-col gap-4 ">
 
       {/* Image upload */}
-      <div class="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
+      <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
         <div className="p-0 flex flex-col justify-center items-center">
           <Avatar src={url} sx={{ width: 150, height: 150 }}  className="m-4 "/>
 
@@ -227,8 +226,8 @@ return (
       </div>
 
       {/*Input box for about me */}
-      <div class="row-span-8 col-span-8 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
-        <div class="text-2xl font-semibold mb-2 text-text-color "> About Me </div>
+      <div className="row-span-8 col-span-8 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+        <div className="text-2xl font-semibold mb-2 text-text-color "> About Me </div>
         <textarea
           className='p-2 rounded-md w-full object-contain '
           id="aboutme"
@@ -242,8 +241,8 @@ return (
     </div>
 
     {/*Input box for first and last name   */}
-    <div class="grid grid-cols-4 gap-4 m-2">
-      <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+    <div className="grid grid-cols-4 gap-4 m-2">
+      <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
         <input
           type="text"
           className=" p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -254,7 +253,7 @@ return (
           placeholder="First Name *"/>
       </div>
 
-      <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+      <div className="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
         <input
           type="text"
           className=" p-2 rounded-md w-full object-contain border-2 border-rose-600 "
@@ -267,8 +266,8 @@ return (
     </div>
 
     {/*Input box for Username and Country   */}
-    <div class="grid grid-cols-4 gap-4 m-2">
-      <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+    <div className="grid grid-cols-4 gap-4 m-2">
+      <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
         <input
           type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -279,7 +278,7 @@ return (
           placeholder="Unique Username *"/>
       </div>
 
-      <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+      <div className="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
         <Select
           className="rounded-md w-full object-contain border-2 border-rose-600"
           id="selectedCountry"
@@ -292,8 +291,8 @@ return (
     </div>
 
     {/*Input box for Education and Company   */}
-    <div class="grid grid-cols-4 gap-4 m-2">
-      <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+    <div className="grid grid-cols-4 gap-4 m-2">
+      <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
         <input
           type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -304,7 +303,7 @@ return (
           placeholder="Education * "/>
       </div>
 
-      <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+      <div className="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
         <input
           type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -317,8 +316,8 @@ return (
     </div>
 
     {/*Input box for Social Media Handles and Skills   */}
-    <div class="grid grid-cols-4 gap-4 m-2">
-        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+    <div className="grid grid-cols-4 gap-4 m-2">
+        <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
           <input
             type="url"
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
@@ -329,7 +328,7 @@ return (
             placeholder="Links to relevant social media handles "/>
           </div>
 
-        <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+        <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
           <input
             type="text"
             className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
