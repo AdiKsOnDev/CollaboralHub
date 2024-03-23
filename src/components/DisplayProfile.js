@@ -18,12 +18,30 @@ const DisplayProfile = () => {
     const [lastName, setlastName] = useState("");
     const [username, setusername] = useState("");
     const [Education, setEducation] = useState("");
-    const [selectedCountry, setselectedCountry] = useState("");
+    const [Country, setCountry] = useState("");
     const [aboutme, setaboutme] = useState("");
     const [Company, setCompany] = useState("");
     const [handle, sethandle] = useState("");
     const [Skills, setSkills] = useState("");
     const [profileImg, setprofileImg]= useState("");
+
+
+    //=======================================//
+    //           Country Picker              //
+    //=======================================//
+    const [countries, setCountries] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState({});
+  
+    useEffect(() => {
+      fetch(
+        "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setCountries(data.countries);
+          setSelectedCountry(data.userSelectValue); 
+        });
+    }, []);
 
     // =====================================================//
 
@@ -45,7 +63,7 @@ const DisplayProfile = () => {
             setlastName(user.lastName);
             setusername(user.username); 
             setEducation(user.Education);
-            setselectedCountry(user.selectedCountry);
+            setCountry(user.selectedCountry);
             setaboutme(user.aboutme);
             setCompany(user.Company);
             sethandle(user.handle);
@@ -161,15 +179,19 @@ return (
       </div>
 
       <div class="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-        <Select
+        {/* <Select
           className="rounded-md w-full object-contain border-2 border-rose-600"
           id="selectedCountry"
           name="selectedCountry"
-        //   options={countries}
-          value={selectedCountry}
+          options={countries}
+          value={Country}
           placeholder="Country of Residence *"
         //   onChange={(selectedOption) => setSelectedCountry(selectedOption)}
-          />
+          /> */}
+
+          <input 
+          className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+          value={Country}/>
       </div>
     </div>
 
