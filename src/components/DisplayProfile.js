@@ -82,8 +82,9 @@ const DisplayProfile = () => {
     const userRef = doc(collection(database, "Users"), currentUser.email);
     const userSnapshot = await getDoc(userRef);
     const user = userSnapshot.data();
+    // console.log(user);
 
-    let data = {
+    const data = {
       email: user.email,
       firstName: tempfirstName,
       lastName: templastName,
@@ -96,12 +97,12 @@ const DisplayProfile = () => {
       Skills: tempSkills,
       profileImg: tempprofileImg,
     };
-    console.log(data);
 
+    console.log("DATA IS --> " + JSON.stringify(data, null, 2));
     // ============================================//
     try {
       console.log("USER IS --> " + user.email);
-      const response = await updateDoc(doc(database, "Users", user.email), data);
+      const response = await updateDoc(doc(collection(database, "Users"), user.email), data);
 
       console.log(response);
       alert("Profile Saved!");
