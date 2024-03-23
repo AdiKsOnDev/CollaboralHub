@@ -12,34 +12,12 @@ import {
   setDoc,
 } from "@firebase/firestore";
 import { database, storage } from "../firebase";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { useSearchParams } from "react-router-dom";
-// import { EditText, EditTextarea } from "react-edit-text";
-
-
 
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
-
-    //=======================================//
-
-    // const [tempData, setTempData] = useState({
-    //   tempfirstName: "",
-    //   templastName: "",
-    //   tempusername: "",
-    //   tempEducation: "",
-    //   tempselectedCountry: "",
-    //   tempaboutme: "",
-    //   tempCompany: "",
-    //   temphandle: "",
-    //   tempSkills: "",
-    //   tempprofileImg: "",
-    // });
-  
-    //=======================================//
-  // const [firstName, setfirstName] = useState();
+  //=======================================//
   const [tempfirstName, setfirstName] = useState("");
   const [templastName, setlastName] = useState("");
   const [tempusername, setusername] = useState("");
@@ -75,17 +53,12 @@ const DisplayProfile = () => {
   useEffect(() => {
     const getContent = async () => {
       try {
-        // const id = searchParams.get("id").toString();
-
-        // console.log(id);
-
         const userRef = doc(collection(database, "Users"), currentUser.email);
         const userSnapshot = await getDoc(userRef);
         const user = userSnapshot.data();
 
         //Creating a copy
         setfirstName(user.firstName);
-        //==============================//
         setlastName(user.lastName);
         setusername(user.username);
         setEducation(user.Education);
@@ -95,6 +68,7 @@ const DisplayProfile = () => {
         sethandle(user.handle);
         setSkills(user.Skills);
         setprofileImg(user.profileImg);
+
       } catch (Exception) {
         console.log("Error making copy ");
       }
@@ -104,65 +78,29 @@ const DisplayProfile = () => {
   });
 
   // =====================================================//
- 
- 
-  // =====================================================//
-
-  // const handleInputChange = (e) => {
-  //   const { name, value } = e.target; // Corrected line
-  //   setTempData({
-  //     ...tempData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // //emoji picker
-  // const [inputStr, setInputStr] = useState("");
-  // const [showPicker, setShowPicker] = useState(false);
-
-  // const onEmojiClick = (event, emojiObject) => {
-  // setInputStr(prevInput=> prevInput + emojiObject.emoji);
-  // setShowPicker(false);
-  // };
-  //=======================================//
-
   // send data to firebase
   const handleSave = async (e) => {
     e.preventDefault();
 
-    // let tempDataSave = {
-    //   firstName: tempData.tempfirstName,
-    //   lastName: tempData.templastName,
-    //   username: tempData.tempusername,
-    //   Education: tempData.tempEducation,
-    //   selectedCountry: tempselectedCountry.label,
-    //   aboutme: tempData.tempaboutme,
-    //   Company: tempData.tempCompany,
-    //   Skills: tempData.tempSkills,
-    //   handle: tempData.temphandle,
-    //   // profileImg: url,
-    // };
-
+    let data = {
+      firstName:tempfirstName,
+      lastName:templastName,
+      username:tempusername,
+      Education:tempEducation,
+      selectedCountry:tempselectedCountry,
+      aboutme:tempaboutme,
+      Company:tempCompany,
+      handle:temphandle,
+      Skills:tempSkills,
+      profileImg:tempprofileImg,
+    };
+    console.log(data);
+    
     // ============================================//
-
-
-    //==============================================//
-
-    try {
-      // await setDoc(doc(database, "Users", currentUser.email), tempDataSave);
-      // clearing the form and navigating to new page
-      // setTempData({
-      //   email: "",
-      //   firstName: "",
-      //   lastName: "",
-      //   username: "",
-      //   Education: "",
-      //   selectedCountry: "",
-      //   aboutme: "",
-      //   Company: "",
-      //   handle: "",
-      //   Skills: "",
-      // });
+    try { 
+      await updateDoc(doc(database, "Users", currentUser.email), data);
+      alert("Profile Saved ! ", e);
+    
     } catch (e) {
       alert("Error adding document: ", e);
     }
@@ -171,10 +109,9 @@ const DisplayProfile = () => {
 
   return (
     <>
-      {/* If not logged in  */}
-
       <div className="flex flex-col bg-secondary w-screen h-screen p-10 rounded-lg">
-        <form //   onSubmit={handleSubmit}
+        <form 
+          onSubmit={handleSave}
         >
           {/* page title */}
           <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
@@ -186,20 +123,13 @@ const DisplayProfile = () => {
             {/* Image upload */}
             <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
-                <Avatar
-                   src={tempprofileImg}
+              <Avatar
+                  src={tempprofileImg}
                   sx={{ width: 150, height: 150 }}
                   className="m-4 "
                 />
 
                 <div className="pb-5 flex flex-row justify-center items-center text-text-color">
-                  {/* 
-            <input
-              type="file"
-            //   onChange={handleImageChange}
-              className="w-3/4 p-0 m-0"
-              id="profileImg"
-              name="profileImg"/> */}
 
                   <button
                     // onClick={handleSubmitImage}
@@ -228,6 +158,7 @@ const DisplayProfile = () => {
                 }
                 placeholder="Talk a little about yourself..."
               />
+              
             </div>
           </div>
 
@@ -246,6 +177,7 @@ const DisplayProfile = () => {
                   (event) => setfirstName(event.target.value)
                 }
               />
+              
             </div>
 
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
