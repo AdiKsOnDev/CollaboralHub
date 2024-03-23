@@ -3,7 +3,7 @@ import { Timestamp } from 'firebase/firestore';
 import { addDoc, collection } from '@firebase/firestore';
 import { doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { AuthContext } from "../context/AuthContext";
@@ -13,21 +13,31 @@ import { RxCross2 } from "react-icons/rx";
 
 const NewPost = () => {
   const { currentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState("");
   const postRef= React.useRef();
   const ref = collection( database, "Posts");
+
+  useEffect(() => {
+    const getUser = async () => { 
+      let userRef = doc(collection(database, "Users"), currentUser.email);
+      let userSnapshot = await getDoc(userRef);
+      let user = userSnapshot.data();
+      setUserData(user);
+    };
+
+    getUser();
+  }, [currentUser]);
+
   const handleSubmit = async(e) => {
       e.preventDefault();
       console.log(postRef.current.value);
 
-      const userRef = doc(collection(database, "Users"), currentUser.email);
-      const userSnapshot = await getDoc(userRef);
-      const user = userSnapshot.data();
-      
       let data = {
-          userName: user.name + " " + user.lastname,
-          user: user.displayName,
-          userEmail: user.email,
+          userName: userData.name + " " + userData.lastname,
+          user: userData.displayName,
+          userEmail: userData.email,
           postBody: postRef.current.value,
+          userPFP: userData.profileImg,
           likeCount: 0,
           likedUsers: [],
           uploaded: Timestamp.now()
@@ -69,7 +79,7 @@ const NewPost = () => {
       {!isOpen ? (
         <div class="w-full bg-secondary flex flex-col rounded-2xl p-5">
           <div className="flex flex-row justify-between mb-5">
-            <img src="" alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4"/>          
+            <img src={userData.profileImg} alt="profile img" className="rounded-full h-14 w-14 mr-5 border-accent-red border-4"/>          
             <button onClick={() => setIsOpen(true)} class="text-left newPostInput w-full bg-white text-placeholder font-semibold rounded-full px-5" > Scribble away </button>
           </div>
 
