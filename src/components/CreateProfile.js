@@ -137,6 +137,7 @@ const handleSubmit = async (e) => {
     selectedCountry: selectedCountry.label,
     aboutme: formData.aboutme,
     Company: formData.Company,
+    Skills: formData.Skills,
     handle: formData.handle,
     profileImg: url,
   };
@@ -151,7 +152,7 @@ const handleSubmit = async (e) => {
     await setDoc(doc(database, "Users", currentUser.email), data); 
     
     // clearing the form and navigating to new page 
-    setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:'',});
+    setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:''});
 
     navigate("/Community");
   

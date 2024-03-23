@@ -13,24 +13,24 @@ function HomeBox() {
   const [userFiles, setUserFiles] = useState([]);
   const [userCanvases, setUserCanvases] = useState([]);
 
-  useEffect(() => {
-    const getFiles = async () => {
-      const userRef = doc(collection(database, "Users"), currentUser.email);
-      const userSnapshot = await getDoc(userRef);
-      const user = userSnapshot.data();
+  // useEffect(() => {
+  //   const getFiles = async () => {
+  //     const userRef = doc(collection(database, "Users"), currentUser.email);
+  //     const userSnapshot = await getDoc(userRef);
+  //     const user = userSnapshot.data();
 
-      // Getting the files from collection Files
-      const files = await Promise.all(user.files.map(async (file) => {
-        const fileRef = doc(collection(database, "Files"), file);
-        const fileSnapshot = await getDoc(fileRef);
-        return fileSnapshot.data();
-      }));
+  //     // Getting the files from collection Files
+  //     const files = await Promise.all(user.files.map(async (file) => {
+  //       const fileRef = doc(collection(database, "Files"), file);
+  //       const fileSnapshot = await getDoc(fileRef);
+  //       return fileSnapshot.data();
+  //     }));
       
-      setUserFiles(files);
-    };
+  //     setUserFiles(files);
+  //   };
 
-    getFiles();
-  }, [currentUser]);
+  //   getFiles();
+  // }, [currentUser]);
   
   useEffect(() => {
     const getCanvases = async () => {
@@ -51,25 +51,25 @@ function HomeBox() {
       <ProfilePicture/>
       <StatusBar />
 
-      <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1>
+      {/* <div data-testid="canvases" className="p-24">
+        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Files</h1> */}
 
-        <div className="grid grid-cols-4"> 
+        {/* <div className="grid grid-cols-4"> 
           {userFiles.map((file) => (
             <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} />
           ))}
-        </div>
-      </div>
+        </div> */}
+      {/* </div>
       
       <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Canvases</h1>
+        <h1 className="text-4xl text-text-color font-semibold mb-8">Your Canvases</h1> */}
 
-        <div className="grid grid-cols-4"> 
+        {/* <div className="grid grid-cols-4"> 
           {userCanvases.map((canvas) => (
             <Project image={PreviewImage} title={canvas} />
           ))}
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </div>
   );
 };
