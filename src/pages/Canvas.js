@@ -77,7 +77,7 @@ export default function () {
       const owner = user.lastname + ", " + user.name;
 
       const userChange = await updateDoc(userRef, {canvases: [...user.files, fileID]})
-      const response = await setDoc(doc(database, "Canvases", fileID), {store, title, fileID, accessedDate, owner}); 
+      const response = await setDoc(doc(database, "Canvases", fileID), {changes, title, fileID, accessedDate, owner}); 
     } else {
       const accessedDate = Timestamp.now();
       const userRef = doc(collection(database, "Users"), currentUser.email);
@@ -86,7 +86,7 @@ export default function () {
       const owner = user.lastname + ", " + user.name;
 
       console.log(id);
-      const response = await updateDoc(doc(database, "Canvases", id), {store, title, id, accessedDate, owner});
+      const response = await updateDoc(doc(database, "Canvases", id), {changes, title, id, accessedDate, owner});
     }
 
     navigate("/Dashboard");
@@ -133,7 +133,7 @@ export default function () {
   };
 
   return (
-    <>
+    <div>
       <div className="bg-secondary w-full text-white font-semibold flex">
         <a className="px-6 flex justify-center items-center hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-7 h-7" /></a>
 
@@ -162,6 +162,6 @@ export default function () {
       <div style={{ position: "fixed", inset: 80 }}>
         <Tldraw store={store} />
       </div>
-    </>
+    </div>
   );
 }
