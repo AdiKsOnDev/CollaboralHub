@@ -125,7 +125,7 @@ const DisplayProfile = () => {
       lastName: formData.lastName,
       username: formData.username,
       Education: formData.Education,
-      selectedCountry: formData.selectedCountry,
+      selectedCountry: selectedCountry.label,
       aboutme: formData.aboutme,
       Company: formData.Company,
       Skills: formData.Skills,
@@ -136,49 +136,12 @@ const DisplayProfile = () => {
 
     try {
       await updateDoc(doc(database, "Users", currentUser.email), data);
+      alert("Profile Saved !");
     } catch (e) {
       alert("Error adding document: ", e);
     }
   };
   // =====================================================//
-
-  // // =====================================================//
-  // // send data to firebase
-  // const handleSave = async (e) => {
-  //   e.preventDefault();
-
-  //   // const userRef = doc(collection(database, "Users"), currentUser.email);
-  //   // const userSnapshot = await getDoc(userRef);
-  //   // const user = userSnapshot.data();
-  //   // console.log(user);
-
-  //   const data = {
-  //     email: currentUser.email,
-  //     firstName: tempfirstName,
-  //     lastName: templastName,
-  //     username: tempusername,
-  //     Education: tempEducation,
-  //     selectedCountry: tempselectedCountry,
-  //     aboutme: tempaboutme,
-  //     Company: tempCompany,
-  //     handle: temphandle,
-  //     Skills: tempSkills,
-  //     profileImg: tempprofileImg,
-  //   };
-
-  //   console.log("DATA IS --> " + JSON.stringify(data, null, 2));
-  //   // ============================================//
-  //   try {
-  //     console.log("USER IS --> " + currentUser.email);
-  //     const response = await updateDoc(doc(collection(database, "Users"), currentUser.email), data);
-
-  //     console.log(response);
-  //     alert("Profile Saved!");
-  //   } catch (e) {
-  //     alert("Error adding document: ", e);
-  //   }
-  // };
-  // //===============================================//
 
   return (
     <>
@@ -289,11 +252,11 @@ const DisplayProfile = () => {
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="selectedCountry"
                 name="selectedCountry"
-                value={formData.selectedCountry}
+                deafultValue={selectedCountry || ''}
+                placeholder={formData.selectedCountry}
                 options={countries}
                 onChange={(selectedOption) => {
-                  setSelectedCountry(selectedOption);
-                  setFormData({ selectedCountry: selectedOption });
+                  setSelectedCountry(selectedOption); 
                 }}
               />
             </div>
