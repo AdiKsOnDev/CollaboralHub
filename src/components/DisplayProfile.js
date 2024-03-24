@@ -12,6 +12,7 @@ import {
   setDoc,
 } from "@firebase/firestore";
 import { database, storage } from "../firebase";
+import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -81,7 +82,6 @@ const DisplayProfile = () => {
           Skills: user.Skills,
           profileImg: user.profileImg,
         });
-  
       } catch (Exception) {
         console.log("Error making copy ");
       }
@@ -116,6 +116,67 @@ const DisplayProfile = () => {
       });
   }, []);
 
+ //=======================================//
+  //=======================================//
+  const [buttonPressed, setButtonPressed] = useState(false);
+  const [changed, isChanged] = useState(false);
+  const handleButtonPress = (e) => {
+    e.preventDefault(); 
+
+    // Toggle buttonPressed state
+    setButtonPressed(prevState => !prevState);
+
+    // Toggle changed state based on the new value of buttonPressed
+    isChanged(prevState => !prevState);
+  };
+  //=======================================//
+  //          Image Uploading              //
+  //=======================================//
+
+
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState(null);
+  
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleSubmitImage = async (e) => {
+    e.preventDefault(); 
+    const imageRef = ref(storage, `image/${uuidv4()}`);
+    if (image) {
+      uploadBytes(imageRef, image)
+        .then(() => {
+          getDownloadURL(imageRef)
+            .then((url) => {
+              setUrl(url);
+
+            })
+            .catch((error) => {
+              console.log(error.message, ' error getting the image url ');
+            });
+          setImage(null);
+          alert('Image Uploaded');
+
+          setTimeout(() => {
+            setButtonPressed(false);
+          }, 2000);
+          
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } 
+    else {
+      alert('Please select an image first.');
+    }
+
+  };
+  
+  //=======================================//
+
   // =====================================================//
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -130,7 +191,7 @@ const DisplayProfile = () => {
       Company: formData.Company,
       Skills: formData.Skills,
       handle: formData.handle,
-      profileImg: formData.profileImg,
+      profileImg: url,
     };
 
 
@@ -157,19 +218,52 @@ const DisplayProfile = () => {
             {/* Image upload */}
             <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
-                <Avatar
-                  src={formData.profileImg}
-                  sx={{ width: 150, height: 150 }}
-                  className="m-4 "
-                />
 
+                    {changed ? 
+                      <Avatar
+                        src={url}
+                        sx={{ width: 150, height: 150 }}
+                        className="m-4 "
+                      />
+
+                    : 
+                      <Avatar
+                        src={formData.profileImg}
+                        sx={{ width: 150, height: 150 }}
+                        className="m-4 "
+                      />
+                    }
+                  
                 <div className="pb-5 flex flex-row justify-center items-center text-text-color">
-                  <button
-                    // onClick={handleSubmitImage}
-                    className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-                  >
-                    Edit
-                  </button>
+                  
+                  
+                  {!buttonPressed && (
+                        <button
+                          onClick={handleButtonPress}
+                          className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
+                        >
+                          Edit
+                        </button>
+                      )}
+               
+                  {buttonPressed && (
+                      <>
+                        <input
+                          type="file"
+                          onChange={handleImageChange}
+                          className="w-3/4 p-0 m-0 text-text-color 'hover:bg-red-700  "
+                          id="profileImg"
+                          name="profileImg"
+                        />
+                        <button
+                          onClick={handleSubmitImage}
+                          className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
+                        >
+                          Upload
+                        </button>
+                      </>
+                    )}
+
                 </div>
               </div>
             </div>
