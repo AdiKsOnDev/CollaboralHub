@@ -60,8 +60,12 @@ function App() {
             element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
           />
           <Route
-            path="/Groups"
-            element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+            path="/groupsPanel"
+            element={currentUser ? <GroupsPanel /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/GroupPage/:groupName"
+            element={currentUser ? <GroupPage /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/Messaging"
