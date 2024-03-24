@@ -141,6 +141,9 @@ const handleSubmit = async (e) => {
 
   // ============================================//
 
+  if (!data.firstName || !data.lastName || !data.profileImg || !data.username) {
+    alert('Please fill out all mandatory fields');
+  } else {
 
   //==============================================//
 
@@ -156,31 +159,10 @@ const handleSubmit = async (e) => {
   } catch (e) {
     alert('Error adding document: ', e);
   }
+}
  //===============================================//
  
-  
- 
 
-//=======================================//
-//               Logged In               //
-//=======================================//
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//=======================================//
-//                                       //
-//=======================================//
 };
 
 return (
@@ -200,7 +182,7 @@ return (
       {/* Image upload */}
       <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
         <div className="p-0 flex flex-col justify-center items-center">
-          <Avatar src={url} sx={{ width: 150, height: 150 }}  className="m-4 "/>
+          <Avatar src={url} sx={{ width: 150, height: 150, }}  className="m-4 border-2 border-rose-600"/>
 
           <div className="pb-5 flex flex-row justify-center items-center text-text-color"> 
              
@@ -278,12 +260,12 @@ return (
 
       <div className="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
         <Select
-          className="rounded-md w-full object-contain border-2 border-rose-600"
+          className="rounded-md w-full object-contain border-2 border-zinc-50"
           id="selectedCountry"
           name="selectedCountry"
           options={countries}
           value={selectedCountry}
-          placeholder="Country of Residence *"
+          placeholder="Country of Residence "
           onChange={(selectedOption) => setSelectedCountry(selectedOption)}/>
       </div>
     </div>
@@ -293,18 +275,18 @@ return (
       <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
         <input
           type="text"
-          className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+          className="p-2 rounded-md w-full object-contain border-2 border-zinc-50"
           id="Education"
           name="Education"
           value={formData.Education}
           onChange={handleInputChange}
-          placeholder="Education * "/>
+          placeholder="Education  "/>
       </div>
 
       <div className="col-span-2  bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
         <input
           type="text"
-          className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+          className="p-2 rounded-md w-full object-contain border-2 border-zinc-50"
           id="Company"
           name="Company"
           value={formData.Company}
@@ -318,7 +300,7 @@ return (
         <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
           <input
             type="url"
-            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            className="p-2 rounded-md w-full object-contain border-2 border-zinc-50"
             id="handle"
             name="handle"
             value={formData.handle}
@@ -329,7 +311,7 @@ return (
         <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
           <input
             type="text"
-            className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
+            className="p-2 rounded-md w-full object-contain border-2 border-zinc-50"
             id="Skills"
             name="Skills"
             value={formData.Skills}

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Select from "react-select";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { BsHouse } from "react-icons/bs";
+import { IconContext } from "react-icons";
 import {
   addDoc,
   collection,
@@ -18,17 +20,6 @@ import { AuthContext } from "../context/AuthContext";
 
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
-  //=======================================//
-  // const [tempfirstName, setfirstName] = useState("");
-  // const [templastName, setlastName] = useState("");
-  // const [tempusername, setusername] = useState("");
-  // const [tempEducation, setEducation] = useState("");
-  // const [tempselectedCountry, setCountry] = useState("");
-  // const [tempaboutme, setaboutme] = useState("");
-  // const [tempCompany, setCompany] = useState("");
-  // const [temphandle, sethandle] = useState("");
-  // const [tempSkills, setSkills] = useState("");
-  // const [tempprofileImg, setprofileImg] = useState("");
 
   //=======================================//
   //           Country Picker              //
@@ -176,7 +167,11 @@ const DisplayProfile = () => {
   };
   
   //=======================================//
-
+  const navigate= useNavigate();
+  const back = (e) => {
+    e.preventDefault();
+    navigate("/Community");
+  }
   // =====================================================//
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -206,13 +201,20 @@ const DisplayProfile = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-secondary w-screen h-screen p-10 rounded-lg">
+      <div className="flex flex-col bg-secondary w-screen h-screen p-2 rounded-lg overflow-hidden">
+
         <form onSubmit={handleSubmit}>
           {/* page title */}
-          <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
-            Your Profile
-          </h2>
+            <div className="flex flex-row p-0 ">
+              <IconContext.Provider value={{ color: "white" }}  >
+                <BsHouse size={20} onClick={back} />
+              </IconContext.Provider>
 
+              <h2 className="font-semibold text-center text-3xl pl-14 pb-2 text-text-color">
+                My Profile
+              </h2>
+            </div>
+      
           {/* Image upload and about me box */}
           <div className="grid grid-rows-8 grid-flow-col gap-4 ">
             {/* Image upload */}

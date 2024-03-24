@@ -5,7 +5,6 @@ import { useState } from 'react'
 import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { IconContext } from "react-icons";
-import PhotoLibrary from "./PhotoLibrary";
 import { RxCross2 } from "react-icons/rx";
 
 const NewPost = () => {
