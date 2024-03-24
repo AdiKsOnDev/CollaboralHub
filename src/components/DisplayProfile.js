@@ -74,18 +74,19 @@ const DisplayProfile = () => {
     getContent();
   });
 
+  
   // =====================================================//
   // send data to firebase
   const handleSave = async (e) => {
     e.preventDefault();
 
-    const userRef = doc(collection(database, "Users"), currentUser.email);
-    const userSnapshot = await getDoc(userRef);
-    const user = userSnapshot.data();
+    // const userRef = doc(collection(database, "Users"), currentUser.email);
+    // const userSnapshot = await getDoc(userRef);
+    // const user = userSnapshot.data();
     // console.log(user);
 
     const data = {
-      email: user.email,
+      email: currentUser.email,
       firstName: tempfirstName,
       lastName: templastName,
       username: tempusername,
@@ -101,8 +102,8 @@ const DisplayProfile = () => {
     console.log("DATA IS --> " + JSON.stringify(data, null, 2));
     // ============================================//
     try {
-      console.log("USER IS --> " + user.email);
-      const response = await updateDoc(doc(collection(database, "Users"), user.email), data);
+      console.log("USER IS --> " + currentUser.email);
+      const response = await updateDoc(doc(collection(database, "Users"), currentUser.email), data);
 
       console.log(response);
       alert("Profile Saved!");
@@ -155,7 +156,17 @@ const DisplayProfile = () => {
                 rows="8"
                 cols="1"
                 defaultValue={tempaboutme}
-                onChange={(event) => {setaboutme(event.target.value)}}
+                // onChange={
+                //   (event) => {
+                  // console.log(event.target.value);
+                  // setaboutme(...tempaboutme, event.target.value);
+                  // console.log(tempaboutme);
+                  // event.preventDefault();
+
+                // }
+
+                onChange={()=>{this._handleChangeEvent(this.state.data);}
+              }
                 placeholder="Talk a little about yourself..."
               />
             </div>
