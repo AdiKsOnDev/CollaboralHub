@@ -18,16 +18,16 @@ import { AuthContext } from "../context/AuthContext";
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
   //=======================================//
-  const [tempfirstName, setfirstName] = useState("");
-  const [templastName, setlastName] = useState("");
-  const [tempusername, setusername] = useState("");
-  const [tempEducation, setEducation] = useState("");
-  const [tempselectedCountry, setCountry] = useState("");
-  const [tempaboutme, setaboutme] = useState("");
-  const [tempCompany, setCompany] = useState("");
-  const [temphandle, sethandle] = useState("");
-  const [tempSkills, setSkills] = useState("");
-  const [tempprofileImg, setprofileImg] = useState("");
+  // const [tempfirstName, setfirstName] = useState("");
+  // const [templastName, setlastName] = useState("");
+  // const [tempusername, setusername] = useState("");
+  // const [tempEducation, setEducation] = useState("");
+  // const [tempselectedCountry, setCountry] = useState("");
+  // const [tempaboutme, setaboutme] = useState("");
+  // const [tempCompany, setCompany] = useState("");
+  // const [temphandle, sethandle] = useState("");
+  // const [tempSkills, setSkills] = useState("");
+  // const [tempprofileImg, setprofileImg] = useState("");
 
   //=======================================//
   //           Country Picker              //
@@ -48,75 +48,142 @@ const DisplayProfile = () => {
 
   // =====================================================//
 
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    Education: "",
+    selectedCountry: "",
+    aboutme: "",
+    Company: "",
+    handle: "",
+    Skills: "",
+    profileImg:""
+  });
+  // =====================================================//
+
   useEffect(() => {
     const getContent = async () => {
       try {
         const userRef = doc(collection(database, "Users"), currentUser.email);
         const userSnapshot = await getDoc(userRef);
         const user = userSnapshot.data();
-
-        //Creating a copy
-        setfirstName(user.firstName);
-        setlastName(user.lastName);
-        setusername(user.username);
-        setEducation(user.Education);
-        setCountry(user.selectedCountry);
-        setaboutme(user.aboutme);
-        setCompany(user.Company);
-        sethandle(user.handle);
-        setSkills(user.Skills);
-        setprofileImg(user.profileImg);
+  
+        setFormData({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          username: user.username,
+          Education: user.Education,
+          selectedCountry: user.selectedCountry,
+          aboutme: user.aboutme,
+          Company: user.Company,
+          handle: user.handle,
+          Skills: user.Skills,
+          profileImg: user.profileImg,
+        });
+  
       } catch (Exception) {
         console.log("Error making copy ");
       }
     };
-
-    getContent();
-  });
-
   
+    getContent();
+  }, []);
+
   // =====================================================//
-  // send data to firebase
-  const handleSave = async (e) => {
+  //=======================================//
+  //          Text Field Uploading         //
+  //=======================================//
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  //=======================================//
+
+  useEffect(() => {
+    fetch(
+      "https://valid.layercode.workers.dev/list/countries?format=select&flags=true&value=code"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCountries(data.countries);
+        setSelectedCountry(data.userSelectValue);
+      });
+  }, []);
+
+  // =====================================================//
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const userRef = doc(collection(database, "Users"), currentUser.email);
-    // const userSnapshot = await getDoc(userRef);
-    // const user = userSnapshot.data();
-    // console.log(user);
-
-    const data = {
-      email: currentUser.email,
-      firstName: tempfirstName,
-      lastName: templastName,
-      username: tempusername,
-      Education: tempEducation,
-      selectedCountry: tempselectedCountry,
-      aboutme: tempaboutme,
-      Company: tempCompany,
-      handle: temphandle,
-      Skills: tempSkills,
-      profileImg: tempprofileImg,
+    let data = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      username: formData.username,
+      Education: formData.Education,
+      selectedCountry: formData.selectedCountry,
+      aboutme: formData.aboutme,
+      Company: formData.Company,
+      Skills: formData.Skills,
+      handle: formData.handle,
+      profileImg: formData.profileImg,
     };
 
-    console.log("DATA IS --> " + JSON.stringify(data, null, 2));
-    // ============================================//
-    try {
-      console.log("USER IS --> " + currentUser.email);
-      const response = await updateDoc(doc(collection(database, "Users"), currentUser.email), data);
 
-      console.log(response);
-      alert("Profile Saved!");
+    try {
+      await updateDoc(doc(database, "Users", currentUser.email), data);
     } catch (e) {
       alert("Error adding document: ", e);
     }
   };
-  //===============================================//
+  // =====================================================//
+
+  // // =====================================================//
+  // // send data to firebase
+  // const handleSave = async (e) => {
+  //   e.preventDefault();
+
+  //   // const userRef = doc(collection(database, "Users"), currentUser.email);
+  //   // const userSnapshot = await getDoc(userRef);
+  //   // const user = userSnapshot.data();
+  //   // console.log(user);
+
+  //   const data = {
+  //     email: currentUser.email,
+  //     firstName: tempfirstName,
+  //     lastName: templastName,
+  //     username: tempusername,
+  //     Education: tempEducation,
+  //     selectedCountry: tempselectedCountry,
+  //     aboutme: tempaboutme,
+  //     Company: tempCompany,
+  //     handle: temphandle,
+  //     Skills: tempSkills,
+  //     profileImg: tempprofileImg,
+  //   };
+
+  //   console.log("DATA IS --> " + JSON.stringify(data, null, 2));
+  //   // ============================================//
+  //   try {
+  //     console.log("USER IS --> " + currentUser.email);
+  //     const response = await updateDoc(doc(collection(database, "Users"), currentUser.email), data);
+
+  //     console.log(response);
+  //     alert("Profile Saved!");
+  //   } catch (e) {
+  //     alert("Error adding document: ", e);
+  //   }
+  // };
+  // //===============================================//
 
   return (
     <>
       <div className="flex flex-col bg-secondary w-screen h-screen p-10 rounded-lg">
-        <form onSubmit={handleSave}>
+        <form onSubmit={handleSubmit}>
           {/* page title */}
           <h2 className="font-semibold text-center mb-5 text-3xl text-text-color">
             Your Profile
@@ -128,7 +195,7 @@ const DisplayProfile = () => {
             <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
                 <Avatar
-                  src={tempprofileImg}
+                  src={formData.profileImg}
                   sx={{ width: 150, height: 150 }}
                   className="m-4 "
                 />
@@ -151,22 +218,12 @@ const DisplayProfile = () => {
               </div>
               <textarea
                 className="p-2 rounded-md w-full object-contain font-semibold"
-                id="tempaboutme"
-                name="tempaboutme"
+                id="aboutme"
+                name="aboutme"
                 rows="8"
                 cols="1"
-                defaultValue={tempaboutme}
-                // onChange={
-                //   (event) => {
-                  // console.log(event.target.value);
-                  // setaboutme(...tempaboutme, event.target.value);
-                  // console.log(tempaboutme);
-                  // event.preventDefault();
-
-                // }
-
-                onChange={()=>{this._handleChangeEvent(this.state.data);}
-              }
+                defaultValue={formData.aboutme}
+                onChange={handleInputChange}
                 placeholder="Talk a little about yourself..."
               />
             </div>
@@ -181,11 +238,11 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className=" p-2 rounded-md w-full object-contain font-semibold"
-                id="tempfirstName"
-                name="tempfirstName"
-                defaultValue={tempfirstName}
+                id="firstName"
+                name="firstName"
+                defaultValue={formData.firstName}
                 placeholder="First Name *"
-                onChange={(event) => {setfirstName(event.target.value)}}
+                onChange={handleInputChange}
               />
             </div>
 
@@ -196,10 +253,10 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className=" p-2 rounded-md w-full object-contain font-semibold "
-                id="templastName"
-                name="templastName"
-                defaultValue={templastName}
-                onChange={(event) => {setlastName(event.target.value)}}
+                id="lastName"
+                name="lastName"
+                defaultValue={formData.lastName}
+                onChange={handleInputChange}
                 placeholder="Last Name *"
               />
             </div>
@@ -214,18 +271,15 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain border-2 font-semibold"
-                id="tempusername"
-                name="tempusername"
-                defaultValue={tempusername}
-                onChange={(event) => {setusername(event.target.value)}}
+                id="username"
+                name="username"
+                defaultValue={formData.username}
+                onChange={handleInputChange}
                 placeholder="Unique Username *"
               />
-              {/* {username}
-            </div> */}
             </div>
 
             <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
-    
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Country{" "}
@@ -235,11 +289,11 @@ const DisplayProfile = () => {
                 className="p-2 rounded-md w-full object-contain font-semibold"
                 id="selectedCountry"
                 name="selectedCountry"
-                value={selectedCountry}
+                value={formData.selectedCountry}
                 options={countries}
                 onChange={(selectedOption) => {
                   setSelectedCountry(selectedOption);
-                  setCountry(selectedOption);
+                  setFormData({ selectedCountry: selectedOption });
                 }}
               />
             </div>
@@ -255,10 +309,10 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
-                id="tempEducation"
-                name="tempEducation"
-                defaultValue={tempEducation}
-                onChange={(event) => {setEducation(event.target.value)}}
+                id="Education"
+                name="Education"
+                defaultValue={formData.Education}
+                onChange={handleInputChange}
                 placeholder="Education * "
               />
             </div>
@@ -271,10 +325,10 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
-                id="tempCompany"
-                name="tempCompany"
-                defaultValue={tempCompany}
-                onChange={(event) => {setCompany(event.target.value)}}
+                id="Company"
+                name="Company"
+                defaultValue={formData.Company}
+                onChange={handleInputChange}
                 placeholder="Company Name (if employed)..."
               />
             </div>
@@ -290,10 +344,10 @@ const DisplayProfile = () => {
               <input
                 type="url"
                 className="p-2 rounded-md w-full object-contain font-semibold"
-                id="temphandle"
-                name="temphandle"
-                defaultValue={temphandle}
-                onChange={(event) => {sethandle(event.target.value)}}
+                id="handle"
+                name="handle"
+                defaultValue={formData.handle}
+                onChange={handleInputChange}
                 placeholder="Links to relevant social media handles "
               />
             </div>
@@ -301,15 +355,15 @@ const DisplayProfile = () => {
             <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
-                Social Media{" "}
+                Skills{" "}
               </label>
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain font-semibold"
-                id="tempSkills"
-                name="tempSkills"
-                defaultValue={tempSkills}
-                onChange={(event) => {sethandle(event.target.value)}}
+                id="Skills"
+                name="Skills"
+                defaultValue={formData.Skills}
+                onChange={handleInputChange}
                 placeholder="Skills"
               />
             </div>
@@ -317,7 +371,7 @@ const DisplayProfile = () => {
 
           <button
             className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-            onClick={handleSave}
+            onClick={handleSubmit}
           >
             Save
           </button>

@@ -20,8 +20,6 @@ const CreateProfile = () => {
 //*************** Adils code ******************// 
 const { currentUser } = useContext(AuthContext);
 
-
-
 //=======================================//
 //           Country Picker              //
 //=======================================//
