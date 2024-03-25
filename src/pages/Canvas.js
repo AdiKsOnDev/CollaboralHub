@@ -1,7 +1,13 @@
 import { T, TLRecord, Tldraw, createTLStore, defaultShapeUtils } from "@tldraw/tldraw";
+import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext, useState, useCallback } from 'react';
+import { useSearchParams } from "react-router-dom";
+import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { database } from "../firebase.js";
+import { AuthContext } from "../context/AuthContext";
 import "@tldraw/tldraw/tldraw.css";
 import io from "socket.io-client";
-import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
@@ -12,11 +18,34 @@ export default function Canvas() {
   const [title, setTitle] = useState("");
   const [socket, setSocket] = useState();
   const [room, setRoom] = useState(roomID);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const store = createTLStore({
     shapeUtils: defaultShapeUtils,
   });
 
+  useEffect(() => {
+    const getContent = async () => {
+      try {
+        const id = searchParams.get("id").toString();
+
+        console.log(id);
+
+        const fileRef = doc(collection(database, "Canvases"), id);
+        const fileSnapshot = await getDoc(fileRef);
+        const file = fileSnapshot.data();
+
+        store.loadSnapshot(file.content);
+        setTitle(file.title);
+      } catch (Exception) {
+        console.log("NO ID");
+      }
+    };
+
+    getContent();
+    }, [searchParams, store])  
   useEffect(() => {
     // create the socket connection only once
     const socket = io.connect("https://synergyserver-dev-eddj.1.us-1.fl0.io");
@@ -39,8 +68,40 @@ export default function Canvas() {
     console.log(room);
   };
 
-  const handleSave = () => {
-    console.log("SAVE");
+  const handleSave = async () => {
+    let id = null;
+
+    try {
+      id = searchParams.get("id").toString();
+    } catch (Exception) {
+      console.log("NO ID Passed");
+    }
+    const content = store.getSnapshot();
+
+    if (id === null) {
+      const canvasID = uuidv4();
+
+      console.log("SAVED: " + title)
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const accessedDate = Timestamp.now();
+      const owner = user.displayName;
+
+      await updateDoc(userRef, {canvases: [...user.canvases, canvasID]})
+      await setDoc(doc(database, "Canvases", canvasID), {content, title, canvasID, accessedDate, owner}); 
+    } else {
+      const accessedDate = Timestamp.now();
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const owner = user.displayName; 
+
+      console.log(id);
+      await updateDoc(doc(database, "Canvases", id), {content, title, id, accessedDate, owner});
+    }
+
+    navigate("/Dashboard");
   }
 
   //use Effect if message received
@@ -69,7 +130,7 @@ export default function Canvas() {
         toRemove.push(record.id);
       }
 
-      console.log("TO ADD --->" + toRemove);
+      console.log("TO ADD --->" + toPut);
       store.mergeRemoteChanges(() => {
         if (toRemove.length) store.remove(toRemove);
         if (toPut.length) store.put(toPut);
