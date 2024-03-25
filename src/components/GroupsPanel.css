@@ -1,0 +1,660 @@
+/* body {
+  background-color: #0f0c2b;
+  background-size: cover;
+
+  color: #ffffff;
+  /* Sets the default text color to a dark gray */
+/* font-family: 'Arial',
+sans-serif;
+} */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  /* Semi-transparent black */
+  display: none;
+  /* Hidden by default */
+  z-index: 100;
+  /* Ensures it's on top of other elements */
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.groups-panel {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 50px;
+
+  display: flex;
+
+  /* Increased from 20px */
+  /* Cover the entire area of the div */
+}
+
+.groups-panel-navbar-container {
+  z-index: 95;
+  /* flex-grow: 1; */
+}
+
+.groups-panel-container {
+  padding-left: 30px;
+  height: 100vh;
+  width: 92vw;
+}
+
+
+.search-container {
+  /* Adjust as needed */
+  text-align: center;
+  margin-bottom: 5px;
+  padding-top: 20px;
+  position: relative;
+  width: 100vw;
+  top: 0px;
+  z-index: 90;
+  /* Increased from 20px */
+}
+
+.search-bar {
+  width: 50%;
+  height: 30px;
+  font-size: larger;
+  /* Increase font size */
+  border-radius: 30px;
+  /* Rounded corners */
+}
+
+.filter-button {
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  /* Removes the default border */
+
+  background-color: #ffffff;
+  margin-left: 20px;
+  color: #000000;
+  /* Black outline */
+  cursor: pointer;
+  width: fit-content;
+  padding-left: 14px;
+  padding-right: 13px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  transition: background-color 0.2s;
+  font-size: larger;
+  /* Increase font size */
+  border-radius: 15px;
+  /* Rounded corners */
+  margin-bottom: 5px;
+}
+
+.filter-button:hover {
+  background-color: #DC2034;
+}
+
+.filter-image {
+  vertical-align: middle;
+  margin-right: 15px;
+  width: 30px;
+  height: 30px;
+  object-fit: fill;
+  overflow: hidden;
+  border-radius: 10px;
+  opacity: 1;
+  /* You might want to move this to the .group-preview class */
+
+}
+
+.groups-panel-menu-btns-contianer {
+
+  margin-left: 19%;
+  margin-right: 19%;
+  margin-bottom: 25px;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+}
+
+#your-groups-btn {
+  margin-top: 10px;
+}
+
+#discover-groups-btn {
+  margin-top: 10px;
+}
+
+#create-groups-btn {
+  margin-top: 10px;
+}
+
+
+
+
+#discover-groups-btn {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#create-groups-btn {
+  margin-left: auto;
+}
+
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 2fr));
+  grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+  justify-items: stretch;
+
+  /* Increased minmax from 150px */
+  column-gap: 30px;
+  row-gap: 10px;
+  /* Increased from 20px */
+}
+
+.category-grid-item {
+  height: 100px;
+  background-color: #433e72;
+  /* Adjust color to match your design */
+  padding: 0px;
+  border-radius: 10px;
+  /* Adjusted to match the design */
+  overflow: hidden;
+  /* To ensure the image corners are also rounded */
+  margin-bottom: 20px;
+  /* Space between cards */
+  box-shadow: 0 4px 8px rgba(138, 60, 255, 0.344);
+  /* Optional: Adds a subtle shadow for depth */
+  color: white;
+  /* For the text color */
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.5s ease;
+  /* For absolute positioning of child elements */
+}
+
+.category-grid-item:hover {
+  background-color: #5a579e;
+  /* Adjust color to match your design */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+
+}
+
+.category-grid-image {
+  display: block;
+  /* Add this line */
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  opacity: 0.6;
+  transition: transform 0.5s ease;
+  /* You might want to move this to the .group-preview class */
+}
+
+.category-grid-item:hover img {
+
+  opacity: 1;
+  transform: scale(1.15);
+
+}
+
+
+
+/* Style for the group name */
+.category-name {
+  text-align: left;
+  font-size: x-large;
+  /* Space from the top of the image */
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.category-banner-image {
+  display: block;
+  /* Add this line */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  overflow: hidden;
+  margin-bottom: 20px;
+  opacity: 1;
+  /* You might want to move this to the .group-preview class */
+
+}
+
+.category-banner-name {
+  text-align: left;
+
+  /* Space from the top of the image */
+  position: absolute;
+  top: 250px;
+  left: 50%;
+
+}
+
+.group-grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 2fr));
+  grid-template-rows: repeat(auto-fill, minmax(300px, 2fr));
+  gap: 30px;
+}
+
+.group-grid-info-container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+
+}
+
+.group-grid-item {
+  height: 300px;
+  background-color: #DC2034;
+  /* Adjust color to match your design */
+  padding: 10px;
+  border-radius: 10px;
+  /* Adjusted to match the design */
+  overflow: hidden;
+  /* To ensure the image corners are also rounded */
+  text-align: left;
+  font-size: larger;
+  color: white;
+  /* For the text color */
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.5s ease;
+  /* For absolute positioning of child elements */
+}
+
+.group-grid-item:hover {
+  background-color: #DC2034;
+  /* Adjust color to match your design */
+  transform: scale(1.05);
+}
+
+
+.group-grid-image {
+  display: block;
+  /* Add this line */
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  opacity: 1;
+  transition: transform 0.5s ease;
+  /* You might want to move this to the .group-preview class */
+}
+
+.group-grid-item:hover img {
+
+  transform: scale(1.15);
+
+}
+
+.group-grid-member-icons-container {
+
+  display: flex;
+  /* Align icons in a row */
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  flex-grow: 1;
+
+}
+
+
+.group-grid-member-icon {
+
+  width: 30px;
+  /* Adjust based on desired size */
+  height: 30px;
+  /* Adjust based on desired size */
+  border-radius: 50%;
+  /* Make icons circular */
+  object-fit: cover;
+  /* Ensure images cover the area */
+  margin-left: -10px;
+  /* Negative margin for overlap */
+  border: 2px solid white;
+  transition: transform 0.5s ease;
+
+}
+
+
+/* Style for the group name */
+.groups-name {
+  text-align: left;
+  font-size: larger;
+  /* Space from the top of the image */
+}
+
+
+
+.white-line {
+  height: 2px;
+  /* Thickness of the line */
+  background-color: white;
+  /* Color of the line */
+  width: 100%;
+  margin-bottom: 10px;
+  /* Length of the line */
+  /* You can set a fixed width if you want a specific length */
+}
+
+.return-btn {
+  background-color: #6b3aff00;
+  border-radius: 20px;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid white;
+  width: 150px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: bold;
+  position: absolute;
+  top: 230px;
+  left: 175px;
+}
+
+.return-btn:hover {
+
+  background-color: #6b3aff;
+
+}
+
+.popup-form {
+  position: fixed;
+  top: 10%;
+  left: 25%;
+
+  background-color: #272727;
+  padding: 0px;
+  /* Increased from 20px */
+  z-index: 1000;
+  border-radius: 10px;
+  /* Rounded corners */
+  width: 50%;
+  height: 82%;
+
+
+  animation: slideUp 0.5s ease-out;
+}
+
+.popup-form-form {
+
+  position: relative;
+  height: 68%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+.popup-form-cloud-icon {
+
+  scale: 0.75;
+  position: absolute;
+  left: -120px;
+  top: -85px;
+  transform: rotateY(180deg);
+
+}
+
+.popup-form-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #6b3aff00;
+
+  border-radius: 50px;
+  color: white;
+  padding: 5px 5px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.popup-form-close-btn:hover {
+  background-color: red;
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.popup-form-container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+
+  width: 90%;
+  height: 95%;
+
+}
+
+.popup-form-title {
+
+  text-align: left;
+  font-size: xx-large;
+  margin-top: 0px;
+  margin-bottom: 10px;
+
+}
+
+.popup-form-subtitle {
+
+  text-align: left;
+  font-size: large;
+  margin-top: 10px;
+  margin-bottom: 5px;
+
+}
+
+.popup-form-text {
+
+  text-align: left;
+  font-size: medium;
+  margin-top: 0px;
+  margin-bottom: 5px;
+
+}
+
+.popup-form-tags-container {
+
+  width: 95%;
+  height: auto;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.popup-form-unselected-tag {
+
+  text-align: left;
+  font-size: medium;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: black;
+  width: fit-content;
+  height: 22px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.popup-form-selected-tag {
+
+  text-align: left;
+  font-size: medium;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  background-color: #6b3aff;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  color: white;
+  width: fit-content;
+  height: 22px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+}
+
+.popup-form-member-icons-container {
+
+  display: flex;
+  /* Align icons in a row */
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 15px;
+
+}
+
+.popup-form-member-icon {
+
+  width: 30px;
+  /* Adjust based on desired size */
+  height: 30px;
+  /* Adjust based on desired size */
+  border-radius: 50%;
+  /* Make icons circular */
+  object-fit: cover;
+  /* Ensure images cover the area */
+  margin-left: -10px;
+  /* Negative margin for overlap */
+  border: 2px solid white;
+
+}
+
+
+.popup-form-input,
+.popup-form-textarea {
+  margin-bottom: 10px;
+  /* Increased from 10px */
+  padding: 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  /* Increased from 10px */
+  font-size: medium;
+  /* Increase font size */
+  border-radius: 20px;
+  /* Rounded corners */
+  width: 96%;
+  resize: none;
+  /* Black outline */
+}
+
+.popup-form-div {
+
+  width: 100%;
+
+
+}
+
+.popup-form-image {
+
+  /* Add this line */
+  position: relative;
+  top: 0px;
+  width: 100%;
+  height: 30%;
+  object-fit: cover;
+  overflow: hidden;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  margin-bottom: 0px;
+
+  opacity: 1;
+  /* You might want to move this to the .group-preview class */
+}
+
+
+#join-group-btn {
+
+  margin-left: auto;
+
+}
+
+#create-group-btn {
+
+  margin-left: auto;
+  margin-right: 5%;
+  margin-top: 15px;
+
+}
+
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.discover-title {
+  color: white;
+  padding-left: 2vh;
+}
