@@ -7,6 +7,7 @@ import PreviewImage from "../Assets/canvas.png";
 import PreviewDocx from "../Assets/PreviewDocx.png";
 import StatusBar from "./StatusBar.js";
 import Project from "./Project.js";
+import ProfilePicture from "./ProfilePicture.js"
  
 function HomeBox() {
   const { currentUser } = useContext(AuthContext);
@@ -47,8 +48,11 @@ function HomeBox() {
     getCanvases();
   }, [currentUser]);
 
+
+
   return (
     <div className="flex flex-col w-full h-full bg-primary overflow-scroll">
+
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">
@@ -58,7 +62,7 @@ function HomeBox() {
           {userFiles.map((file) => (
             <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
           ))}
-        </div>
+        </div> 
       </div>
       
       <div data-testid="canvases" className="p-24">

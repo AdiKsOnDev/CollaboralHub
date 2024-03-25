@@ -11,8 +11,8 @@ const RegisterBox = () => {
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    firstname: '',
-    lastname: '',
+    // firstname: '',
+    // lastname: '',
     password: '',
     passwordConfirm: '',
     error: '',
@@ -38,7 +38,8 @@ const RegisterBox = () => {
     if (!firstname || !lastname) {
       setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
       return;
-    } else if (!email || !password) {
+    } 
+    else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     } else if (!username) {
@@ -96,8 +97,9 @@ const RegisterBox = () => {
         console.log(errorCode, errorMessage);
 
         // Reset the form fields
-        setFormData({ username: '', firstname: '', lastname: '', email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
-        // remove the error being reseted to show that email is in use , it will always throw up error 
+        setFormData({ 
+          firstname: '', lastname: '',
+          email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
         return;
       });
   };
@@ -133,16 +135,6 @@ const RegisterBox = () => {
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
-            id="username"
-            name="username"
-            value={username}
-            onChange={handleInputChange}
-            placeholder='Username'
-          />
-
-          <input
-            type="text"
-            className='mb-5 p-2 rounded-md bg-text-color'
             id="firstname"
             name="firstname"
             value={firstname}
@@ -153,12 +145,22 @@ const RegisterBox = () => {
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleInputChange}
+            placeholder='Username'
+          />
+
+          <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
             id="lastname"
             name="lastname"
             value={lastname}
             onChange={handleInputChange}
             placeholder='Last Name'
-          />
+          /> 
 
           <input
             type="text"

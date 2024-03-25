@@ -14,6 +14,8 @@ import StickyNotes from './pages/StickyNotes.js';
 import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
+import CreateProfile from './components/CreateProfile.js';
+import DisplayProfile from './components/DisplayProfile.js';
 import { FriendsChat } from './components/FriendsChat/FriendsChat.jsx';
 
 function App() {
@@ -26,11 +28,16 @@ function App() {
           {/* Auth */}
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/CreateProfile" element={<CreateProfile />} />
 
           {/* Protected Routes */}
           <Route
             path="/"
             element={currentUser ? <Community /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/DocxEditor"
+            element={currentUser ? <DocxEditor /> : <Navigate to="/Login" replace />}
           />
           <Route
             path="/DocxEditor"
@@ -64,6 +71,12 @@ function App() {
             path="/Groups"
             element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
           />
+
+          <Route
+            path="/DisplayProfile"
+            element={currentUser ? <DisplayProfile /> : <Navigate to="/Login" replace />}
+          />
+
           <Route
             path="/Messaging"
             element={currentUser ? <FriendsChat /> : <Navigate to="/Login" replace />}
