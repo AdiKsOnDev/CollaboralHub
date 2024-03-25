@@ -14,6 +14,7 @@ import StickyNotes from './pages/StickyNotes.js';
 import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
+import { FriendsChat } from './components/FriendsChat/FriendsChat.jsx';
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -70,6 +71,10 @@ function App() {
           <Route
             path="/Messaging"
             element={currentUser ? <Messaging /> : <Navigate to="/Login" replace />}
+          />
+          <Route
+            path="/Messaging"
+            element={currentUser ? <FriendsChat /> : <Navigate to="/Login" replace />}
           />
         </Routes>
       </Router>

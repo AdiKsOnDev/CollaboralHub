@@ -14,6 +14,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      console.log(user);
       // Store the user data in localStorage
       localStorage.setItem('currentUser', JSON.stringify(user));
     });
@@ -22,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
       unsubscribe();
 
       // Clear the user data from localStorage when the user logs out
-      localStorage.removeItem('currentUser');
+      // localStorage.removeItem('currentUser');
     };
   }, []);
 
