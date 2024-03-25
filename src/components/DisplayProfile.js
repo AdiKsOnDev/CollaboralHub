@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 import Avatar from "@mui/material/Avatar";
 import Select from "react-select";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -198,24 +199,22 @@ const DisplayProfile = () => {
 
   return (
     <>
-      <div className="flex flex-col bg-secondary w-screen h-screen p-2 rounded-lg overflow-hidden">
+      <div className="flex flex-col justify-center bg-primary w-screen h-screen overflow-scroll">
 
         <form onSubmit={handleSubmit}>
           {/* page title */}
-            <div className="flex flex-row p-0 ">
-              <IconContext.Provider value={{ color: "white" }}  >
-                <BsHouse size={20} onClick={back} />
-              </IconContext.Provider>
+            <div className="flex flex-row items-center">
+              <a className="p-9 flex justify-center items-center hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-9 h-9" /></a>
 
-              <h2 className="font-semibold text-center text-3xl pl-14 pb-2 text-text-color">
+              <h2 className="font-semibold text-center text-3xl text-text-color w-full">
                 My Profile
               </h2>
             </div>
       
           {/* Image upload and about me box */}
-          <div className="grid grid-rows-8 grid-flow-col gap-4 ">
+          <div className="grid grid-rows-8 grid-flow-col gap-4 px-9">
             {/* Image upload */}
-            <div className="row-span-8 col-span-1 bg-zinc-700  rounded-lg p-2">
+            <div className="row-span-8 col-span-1 bg-secondary  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
 
                     {changed ? 
@@ -239,7 +238,7 @@ const DisplayProfile = () => {
                   {!buttonPressed && (
                         <button
                           onClick={handleButtonPress}
-                          className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
+                          className="text-text-color hover:bg-accent-blue bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
                         >
                           Edit
                         </button>
@@ -268,7 +267,7 @@ const DisplayProfile = () => {
             </div>
 
             {/*Input box for about me */}
-            <div className="row-span-8 col-span-8 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+            <div className="row-span-8 col-span-8 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <div className="text-2xl font-semibold mb-2 text-text-color ">
                 About Me
               </div>
@@ -286,8 +285,8 @@ const DisplayProfile = () => {
           </div>
 
           {/*Input box for first and last name   */}
-          <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+          <div className="grid grid-cols-4 gap-4 px-7 m-2 mt-9">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold mb-2 text-text-color ">
                 First Name{" "}
               </label>
@@ -302,7 +301,7 @@ const DisplayProfile = () => {
               />
             </div>
 
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4 ">
               <label className="text-xl font-semibold text-text-color ">
                 Last Name{" "}
               </label>
@@ -319,8 +318,8 @@ const DisplayProfile = () => {
           </div>
 
           {/*Input box for Username and Country   */}
-          <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+          <div className="grid grid-cols-4 gap-4 px-7 m-2">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold text-text-color ">
                 Username{" "}
               </label>
@@ -335,7 +334,7 @@ const DisplayProfile = () => {
               />
             </div>
 
-            <div class="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <div class="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4 ">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Country{" "}
@@ -356,8 +355,8 @@ const DisplayProfile = () => {
           </div>
 
           {/*Input box for Education and Company   */}
-          <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+          <div className="grid grid-cols-4 gap-4 px-7 m-2">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Education{" "}
@@ -373,7 +372,7 @@ const DisplayProfile = () => {
               />
             </div>
 
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4 ">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Company Name{" "}
@@ -391,8 +390,8 @@ const DisplayProfile = () => {
           </div>
 
           {/*Input box for Social Media Handles and Skills   */}
-          <div className="grid grid-cols-4 gap-4 m-2">
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
+          <div className="grid grid-cols-4 gap-4 px-7 m-2">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Social Media{" "}
@@ -408,7 +407,7 @@ const DisplayProfile = () => {
               />
             </div>
 
-            <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4 ">
+            <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4 ">
               <label className="text-xl font-semibold text-text-color ">
                 {" "}
                 Skills{" "}
@@ -425,12 +424,14 @@ const DisplayProfile = () => {
             </div>
           </div>
 
-          <button
-            className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-            onClick={handleSubmit}
-          >
-            Save
-          </button>
+          <div className="flex w-full justify-center items-center mt-5">
+            <button
+              className="text-text-color bg-accent-red hover:bg-accent-blue duration-300 font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center"
+              onClick={handleSubmit}
+            >
+              Save
+            </button>
+          </div>
         </form>
       </div>
     </>
