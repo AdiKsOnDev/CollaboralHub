@@ -6,6 +6,7 @@ import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg
 import { ReactComponent as MenuBarSVG } from "../Assets/Menu-Bar.svg";
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 import { ReactComponent as DocxSVG } from "../Assets/Docx-Icon.svg";
+import { ReactComponent as PlusSVG } from "../Assets/New-Icon.svg";
 
 import React, { useState } from 'react';
 
@@ -59,7 +60,7 @@ function Navbar({ page }) {
 
         <li className={`w-full flex items-start justify-center ${ page === "docx" ? "bg-accent-blue" : "" } hover:bg-accent-red duration-300`}>
           <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/DocxEditor">
-            <DocxSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Document Editor</h1> : ""}
+            <PlusSVG className="h-12" /> {menuBar ? <h1 className="duration-300">New File</h1> : ""}
           </a>
         </li>
       </ul>

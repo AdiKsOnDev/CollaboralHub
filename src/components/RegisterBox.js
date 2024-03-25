@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
-import { auth, provider } from '../firebase';
+import { auth, database, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { setDoc, doc } from 'firebase/firestore';
+import { updateProfile } from 'firebase/auth';
 
 const RegisterBox = () => {
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     // firstname: '',
     // lastname: '',
@@ -29,7 +32,7 @@ const RegisterBox = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { firstname, lastname, email, password, passwordConfirm } = formData;
+    const { username, firstname, lastname, email, password, passwordConfirm } = formData;
 
     // Basic validation - check if email and password are not empty
     // if (!firstname || !lastname) {
@@ -38,6 +41,9 @@ const RegisterBox = () => {
     // } else 
     if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
+      return;
+    } else if (!username) {
+      setFormData({ ...formData, error: 'Please enter Username' });
       return;
     } else if (password.length < 8) {
       setFormData({ ...formData, error: 'Password\'s length should be at least 8 characters' })
@@ -51,17 +57,37 @@ const RegisterBox = () => {
       .then(async (userCredential) => {
         // Signed in 
         const user = userCredential.user;
+        const uid = user.uid;
+        setDoc(doc(database, "userChats", uid), {});
 
-        // Remove the next line if you don't use the 'response' variable
-        const response = await axios.post('/api/register', {
-          email: email,
-          name: firstname,
-          lastname: lastname
+        updateProfile(user, {
+          displayName: username,
         });
+        // Remove the next line if you don't use the 'response' variable
+        // const response = await axios.post('/api/register', {
+        //   email: email,
+        //   displayName: username,
+        //   name: firstname,
+        //   lastname: lastname
+        // });
+        const newUser = {
+          email: email,
+          displayName: username,
+          name: firstname,
+          lastname: lastname,
+          files: [],
+          canvases: [],
+        };
+
+        if (newUser) {
+          await setDoc(doc(database, "Users", email), newUser);
+
+          // res.status(201).json(user);
+        }
 
         navigate("/Tutorial");
         console.log(user);
-        console.log(response);
+        // console.log(response);
       })
 
       .catch((error) => {
@@ -98,7 +124,7 @@ const RegisterBox = () => {
       });
   };
 
-  const { email, firstname, lastname, password, passwordConfirm, error } = formData;
+  const { username, email, firstname, lastname, password, passwordConfirm, error } = formData;
 
   return (
     <div className="flex flex-col bg-secondary w-fit p-10 items-center rounded-lg">

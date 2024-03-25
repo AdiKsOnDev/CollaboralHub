@@ -5,13 +5,16 @@ import App from './App';
 import { AuthContextProvider } from './context/AuthContext';
 import PlannerContextWrapper from './PlannerContext/PlannerContextWrapper';
 import reportWebVitals from './PlannerContext/PlannerReportWebVitals';
+import { ChatContextProvider } from './context/ChatContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <PlannerContextWrapper>
-        <App />
+        <ChatContextProvider>
+          <App />
+        </ChatContextProvider>
       </PlannerContextWrapper>
     </AuthContextProvider>
 
