@@ -146,7 +146,7 @@ const RegisterBox = () => {
 
           {error && <p className="text-accent-red italic mb-5 text-xs">{error}</p>}
 
-          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Sign Up</button>
+          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-accent-blue duration-300" type="submit">Sign Up</button>
 
           <h1 className='font-semibold text-3xl text-text-color mb-5'>OR</h1>
         </div>

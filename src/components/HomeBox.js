@@ -93,6 +93,13 @@ function HomeBox() {
         <ProfilePicture pfp={userImg} />
       </div>
 
+      {/* Warning message when both filteredFiles and filteredCanvases are empty */}
+      {userFiles.length === 0 && userCanvases.length === 0 && (
+        <div className="p-24 text-center text-4xl text-text-color font-semibold mb-10">
+          A newbie, huh? You can create a new file <a className="text-accent-red underline hover:text-accent-blue duration-300 cursor-pointer" href="/Choice">HERE.</a>
+        </div>
+      )}
+
       {filteredFiles.length > 0 && (
         <div className="p-24">
           <h1 className="text-4xl text-text-color font-semibold mb-20">Your Files</h1>
