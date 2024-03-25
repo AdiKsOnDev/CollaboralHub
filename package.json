@@ -9,7 +9,6 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.15.14",
     "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/user-event": "^13.5.0",
     "@tldraw/tldraw": "^2.0.0-canary.261079087377",
     "@zegocloud/zego-uikit-prebuilt": "^1.10.2",
     "axios": "^1.6.7",
@@ -19,7 +18,6 @@
     "openai": "^4.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-editext": "^6.0.0",
     "react-icons": "^5.0.1",
     "react-images-uploading": "^3.1.7",
     "react-loader-spinner": "^6.1.6",
@@ -30,7 +28,6 @@
     "serve": "^14.2.1",
     "socket.io-client": "^4.7.5",
     "source-map-explorer": "^2.5.3",
-    "tldraw": "^0.0.1",
     "uuid": "^8.2.0",
     "web-vitals": "^2.1.4",
     "zego-superboard-web": "^2.14.1"
@@ -63,7 +60,6 @@
   },
   "devDependencies": {
     "@testing-library/react": "^14.1.2",
-    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.4.0"
   },
   "description": "Thinklabs is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.",

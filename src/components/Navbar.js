@@ -2,10 +2,8 @@ import { ReactComponent as ProjectsSVG } from "../Assets/Navigation-Projects.svg
 import { ReactComponent as NotesSVG } from "../Assets/Navigation-Notes.svg";
 import { ReactComponent as PlannerSVG } from "../Assets/Navigation-Planner.svg";
 import { ReactComponent as GroupsSVG } from "../Assets/Navigation-Groups.svg";
-import { ReactComponent as SettingsSVG } from "../Assets/Navigation-Settings.svg";
 import { ReactComponent as MenuBarSVG } from "../Assets/Menu-Bar.svg";
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
-import { ReactComponent as DocxSVG } from "../Assets/Docx-Icon.svg";
 import { ReactComponent as PlusSVG } from "../Assets/New-Icon.svg";
 
 import React, { useState } from 'react';

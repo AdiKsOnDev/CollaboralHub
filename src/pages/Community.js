@@ -8,7 +8,6 @@ import NewPost from "../components/NewPost";
 import NewsFeed from "../components/NewsFeed";
 import Navbar from '../components/Navbar.js';
 import StatusBar from "../components/StatusBar";
-import ProfilePic from '../components/ProfilePic.js';
 
 export default function Community() {
   const { currentUser } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect} from 'react';
-import { addDoc, collection, getDocs,deleteDoc, doc } from '@firebase/firestore';
+import { addDoc, collection, getDocs } from '@firebase/firestore';
 import { database } from "../firebase";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
@@ -19,9 +19,6 @@ async function getTodo() {
 
   
 const DisplayStickyNotes = () => {
-
-
-    const todoRef= React.useRef();
     const ref = collection( database, "Todo");
 
     const [notes, setNotes] = useState([]);

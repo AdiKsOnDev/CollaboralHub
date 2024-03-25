@@ -3,7 +3,6 @@ import { ReactComponent as GoogleSvg } from '../Assets/google-icon.svg';
 import { auth, database, provider } from '../firebase';
 import { createUserWithEmailAndPassword, getAuth, setPersistence, browserLocalPersistence, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { setDoc, doc } from 'firebase/firestore';
 import { updateProfile } from 'firebase/auth';
 

@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useRef , useContext} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Select from 'react-select';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { addDoc, collection ,doc, getDoc, updateDoc, setDoc} from '@firebase/firestore';
+import { doc, updateDoc } from '@firebase/firestore';
 import { database, storage } from '../firebase';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from "../context/AuthContext";
-import { useSearchParams } from "react-router-dom";
-
-
 
 
 const CreateProfile = () => {

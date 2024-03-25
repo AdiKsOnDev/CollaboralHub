@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Avatar from "@mui/material/Avatar";
 import Select from "react-select";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { BsHouse } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import {
-  addDoc,
   collection,
   doc,
-  getDocs,
   updateDoc,
   getDoc,
-  setDoc,
 } from "@firebase/firestore";
 import { database, storage } from "../firebase";
 import { v4 as uuidv4 } from 'uuid';

@@ -1,35 +1,10 @@
-import { useContext } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { ReactComponent as ProfileSVG } from "../Assets/Profile_Button.svg";
-import { collection, doc, getDoc } from "firebase/firestore";
-import { database } from "../firebase.js";
-import { AuthContext } from '../context/AuthContext';
 import { auth } from "../firebase.js";
 import LogoutButton from "./LogoutButton.js";
-import { useNavigate } from 'react-router-dom';
 
 function ProfilePicture({ pfp }) {
-  // const navigate= useNavigate();
-  // const { currentUser } = useContext(AuthContext);
-  const [userData, setUserData] = useState(""); 
-  // const routeChange = () =>{ 
-    // navigate("/DisplayProfile");
-  // };
-
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const userRef = doc(collection(database, "Users"), currentUser.email);
-  //     const userSnapshot = await getDoc(userRef);
-  //     const user = userSnapshot.data();
-  //
-  //     setUserData(user);
-  //     console.log(userData.profileImg);
-  //   }
-  //
-  //   getUser();
-  // }, [currentUser])
-
   const [menu, setMenu] = useState(false);
 
   const handleToggle = () => {

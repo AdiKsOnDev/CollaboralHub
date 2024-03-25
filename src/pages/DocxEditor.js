@@ -9,7 +9,7 @@ import { useEffect, useContext, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import 'react-quill/dist/quill.snow.css';
 import '../Quill.css';
-import { collection, query, where, getDocs, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
 import { useSearchParams } from "react-router-dom";
 import OpenAI from "openai";
@@ -167,8 +167,8 @@ const DocxEditor = () => {
       const accessedDate = Timestamp.now();
       const owner = user.lastname + ", " + user.name;
 
-      const userChange = await updateDoc(userRef, {files: [...user.files, fileID]})
-      const response = await setDoc(doc(database, "Files", fileID), {content, title, fileID, accessedDate, owner}); 
+      await updateDoc(userRef, {files: [...user.files, fileID]})
+      await setDoc(doc(database, "Files", fileID), {content, title, fileID, accessedDate, owner}); 
     } else {
       const accessedDate = Timestamp.now();
       const userRef = doc(collection(database, "Users"), currentUser.email);
@@ -177,7 +177,7 @@ const DocxEditor = () => {
       const owner = user.lastname + ", " + user.name;
 
       console.log(id);
-      const response = await updateDoc(doc(database, "Files", id), {content, title, id, accessedDate, owner});
+      await updateDoc(doc(database, "Files", id), {content, title, id, accessedDate, owner});
     }
 
     navigate("/Dashboard");

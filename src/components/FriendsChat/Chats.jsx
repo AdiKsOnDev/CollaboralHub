@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { database } from '../../firebase';
 import { AuthContext } from "../../context/AuthContext"
-import { doc, onSnapshot, getDoc } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { ChatContext } from '../../context/ChatContext';
 
 function Chats() {

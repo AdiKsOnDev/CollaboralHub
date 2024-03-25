@@ -3,13 +3,10 @@ import { useReducer, useEffect, useContext, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import { collection, doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase.js";
-import Form from "./Form.js";
 import contextTodo from "../context/contextTodo.js";
 import reducer from "./reducer.js";
 import DisplayStickyNotes from "./displayStickyNote.js";
 import StatusBar from "./StatusBar.js";
-import Img from "../Assets/stickyNote.png";
-import SavedNotes from "./SavedNotes.js";
  
 
 function TODOList() {
