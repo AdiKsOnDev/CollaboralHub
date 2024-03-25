@@ -1,22 +1,17 @@
-import {
-  T,
-  TLRecord,
-  Tldraw,
-  createTLStore,
-  defaultShapeUtils,
-  useEditor,
-} from "@tldraw/tldraw";
+import { T, TLRecord, Tldraw, createTLStore, defaultShapeUtils } from "@tldraw/tldraw";
 import "@tldraw/tldraw/tldraw.css";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 import { useEffect, useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
-export default function () {
+export default function Canvas() {
+  const roomID = uuidv4();
   let changes = {};
   const [showRoomWindow, setShowRoomWindow] = useState(false);
   const [title, setTitle] = useState("");
   const [socket, setSocket] = useState();
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(roomID);
 
   const store = createTLStore({
     shapeUtils: defaultShapeUtils,
@@ -24,7 +19,8 @@ export default function () {
 
   useEffect(() => {
     // create the socket connection only once
-    const socket = io.connect("http://localhost:8080");
+    const socket = io.connect("https://synergyserver-dev-eddj.1.us-1.fl0.io");
+    // const socket = io.connect("http://localhost:8080");
     setSocket(socket);
 
     return () => socket.disconnect();
@@ -47,11 +43,12 @@ export default function () {
     console.log("SAVE");
   }
 
-  //use Effect if message recevied
+  //use Effect if message received
   useEffect(() => {
     // handle the incoming messages
-    console.log("INCOMING CHANGES");
-    socket?.on("board rec", (changes: any) => {
+    socket?.on("board rec", (changes) => {
+      console.log("CURRENT ROOM IS -->" + room)
+      console.log("INCOMING!");
       const toRemove = [];
       const toPut = [];
 
@@ -60,9 +57,9 @@ export default function () {
       }
       for (const [id, record] of Object.entries(changes.updated)) {
         if (
-          id != "instance:instance" &&
-          id != "camera:page:page" &&
-          id != "pointer:pointer"
+          id !== "instance:instance" &&
+          id !== "camera:page:page" &&
+          id !== "pointer:pointer"
         ) {
           toPut.push(record[1]);
         }
@@ -72,15 +69,17 @@ export default function () {
         toRemove.push(record.id);
       }
 
+      console.log("TO ADD --->" + toRemove);
       store.mergeRemoteChanges(() => {
         if (toRemove.length) store.remove(toRemove);
         if (toPut.length) store.put(toPut);
       });
     });
-  }, [socket]);
+  }, [socket, store, room]);
 
   const setRoomfunc = (event, room) => {
-    event.preventDefault(setRoom(room));
+    event.preventDefault();
+    setRoom(room);
   };
 
   const handleRoomWindow = () => {
@@ -104,7 +103,8 @@ export default function () {
               placeholder="Enter the Room Code"
               className="border border-gray-300 text-primary p-2 outline-none"
               type="text"
-              onChange={(event) => setRoomfunc(event, event.target.value)}
+              value={room}
+              onChange={(e)=> setRoom(e.target.value)}
             />
             <button className="bg-accent-red text-white rounded-r-md hover:bg-accent-blue duration-300 px-4 py-2" onClick={() => socket?.emit("join room", room)}>
               {" "}
@@ -120,3 +120,4 @@ export default function () {
     </>
   );
 }
+
