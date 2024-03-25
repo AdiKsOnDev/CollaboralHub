@@ -2,13 +2,13 @@ import { signOut } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
 function LogoutButton({ auth, component }) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleLogout = () => {
     signOut(auth)
     .then(() => {
       // Handle successful logout if needed
-      navigate("/Login");
+      // navigate("/Login");
       console.log("Logged Out");
     })
     .catch((error) => {
@@ -19,6 +19,7 @@ function LogoutButton({ auth, component }) {
 
   return (
     <button
+      href="/Login"
       className={`text-text-color`}
       onClick={handleLogout}
     >
