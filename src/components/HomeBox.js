@@ -66,6 +66,10 @@ function HomeBox() {
     file.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredCanvases = userCanvases.filter(canvas =>
+    canvas.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="flex flex-col w-full h-full bg-primary overflow-scroll">
       <div data-testid="statusbar" className="flex flex-row justify-between items-center px-10 w-full">
@@ -89,24 +93,28 @@ function HomeBox() {
         <ProfilePicture pfp={userImg} />
       </div>
 
-      <div className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Files</h1>
-        <div className="grid grid-cols-4"> 
-          {filteredFiles.map((file) => (
-            <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
-          ))}
-        </div> 
-      </div>
-      
-      <div data-testid="canvases" className="p-24">
-        <h1 className="text-4xl text-text-color font-semibold mb-20">Your Canvases</h1>
-
-        <div className="grid grid-cols-4"> 
-          {userCanvases.map((canvas) => (
-            <Project image={PreviewImage} title={canvas.title} id={"/Canvas?id=" + canvas.canvasID} owner={canvas.owner} date={canvas.accessedDate ? (canvas.accessedDate.toDate().toDateString()) : "Not Accessed"} />
-          ))}
+      {filteredFiles.length > 0 && (
+        <div className="p-24">
+          <h1 className="text-4xl text-text-color font-semibold mb-20">Your Files</h1>
+          <div className="grid grid-cols-4"> 
+            {filteredFiles.map((file) => (
+              <Project image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
+            ))}
+          </div> 
         </div>
-      </div>
+      )}
+
+      {filteredCanvases.length > 0 && (
+        <div data-testid="canvases" className="p-24">
+          <h1 className="text-4xl text-text-color font-semibold mb-20">Your Canvases</h1>
+
+          <div className="grid grid-cols-4"> 
+            {filteredCanvases.map((canvas) => (
+              <Project image={PreviewImage} title={canvas.title} id={"/Canvas?id=" + canvas.canvasID} owner={canvas.owner} date={canvas.accessedDate ? (canvas.accessedDate.toDate().toDateString()) : "Not Accessed"} />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
