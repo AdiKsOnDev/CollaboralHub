@@ -11,6 +11,7 @@ import Tutorial from './pages/Tutorial.js';
 import PlannerCreate from './pages/PlannerCreate.js';
 import Call from './pages/Call.js';
 import StickyNotes from './pages/StickyNotes.js';
+import Choice from './pages/Choice.js';
 import Groups from './pages/Groups.js';
 
 import DocxEditor from './pages/DocxEditor.js';
@@ -75,6 +76,11 @@ function App() {
           <Route
             path="/DisplayProfile"
             element={currentUser ? <DisplayProfile /> : <Navigate to="/Login" replace />}
+          />
+
+          <Route
+            path="/Choice"
+            element={currentUser ? <Choice /> : <Navigate to="/Login" replace />}
           />
 
           <Route
