@@ -5,7 +5,7 @@ import ReactQuill from 'react-quill';
 import { Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useContext, useState, useCallback } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import 'react-quill/dist/quill.snow.css';
 import '../Quill.css';
@@ -14,6 +14,7 @@ import { database } from "../firebase.js";
 import { useSearchParams } from "react-router-dom";
 import OpenAI from "openai";
 import io, { Socket } from "socket.io-client";
+import { throttle, debounce } from 'lodash';
 
 const filterIncomingChanges = (incomingChanges) => {
   // No conflict resolution needed for HTML content
@@ -26,7 +27,25 @@ const applyChanges = (currentContent, changes) => {
   return changes;
 };
 
+const DelayHandler = () => {
+  const [content, setContent] = useState('');
+
+  const handleChange = useCallback(throttle((value) => {
+    setContent(value);
+    // Place your socket emit code or any other update logic here
+  }, 1000), []); // Adjust the 1000 ms delay to suit your needs
+
+  return (
+    <input
+      type="text"
+      value={content}
+      onChange={(e) => handleChange(e.target.value)}
+    />
+  );
+};
+
 const DocxEditor = () => {
+  const roomID = uuidv4();
   const [aiInput, setAIInput] = useState("");
   const [showAIWindow, setShowAIWindow] = useState(false);
   const [showRoomWindow, setShowRoomWindow] = useState(false);
@@ -40,11 +59,13 @@ const DocxEditor = () => {
   // Socket.io Variables
   let changes = {};
   const [socket, setSocket] = useState();
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(roomID);
+  const [isExternalUpdate, setIsExternalUpdate] = useState(false);
 
   useEffect(() => {
     // Create a Socket
-    const socket = io.connect("http://localhost:8080");
+    // const socket = io.connect("http://localhost:8080");
+    const socket = io.connect("https://synergyserver-dev-eddj.1.us-1.fl0.io");
 
     setSocket(socket);
 
@@ -119,9 +140,12 @@ const DocxEditor = () => {
     'link', 'image', 'video', 'color', 'background'
   ];
 
-  const handleChange = (value) => {
-    setContent(value.toString());
-  };
+  const handleChange = useCallback(debounce((value) => {
+    if (!isExternalUpdate) { // Make sure to define isExternalUpdate state correctly
+      setContent(value);
+      // Emit changes to the server or update Firestore
+    }
+  }, 300), [isExternalUpdate]);
 
   useEffect(() => {
     const getContent = async () => {
@@ -214,7 +238,8 @@ const DocxEditor = () => {
               placeholder="Enter the Room Code"
               className="border border-gray-300 text-primary p-2 outline-none"
               type="text"
-              onChange={(event) => setRoomfunc(event, event.target.value)}
+              value={room}
+              onChange={(e)=> setRoom(e.target.value)}
             />
             <button className="bg-accent-red text-white rounded-r-md hover:bg-accent-blue duration-300 px-4 py-2" onClick={() => socket?.emit("join room", room)}>
               {" "}
