@@ -39,6 +39,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.8.0",
     "roughjs": "^4.6.6",
+    "serve": "^14.2.1",
     "socket.io-client": "^4.7.5",
     "tldraw": "^0.0.1",
     "uuid": "^8.2.0",
