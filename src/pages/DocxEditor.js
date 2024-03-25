@@ -189,7 +189,7 @@ const DocxEditor = () => {
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
       const accessedDate = Timestamp.now();
-      const owner = user.lastname + ", " + user.name;
+      const owner = user.displayName;
 
       await updateDoc(userRef, {files: [...user.files, fileID]})
       await setDoc(doc(database, "Files", fileID), {content, title, fileID, accessedDate, owner}); 
@@ -198,7 +198,7 @@ const DocxEditor = () => {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
-      const owner = user.lastname + ", " + user.name;
+      const owner = user.displayName; 
 
       console.log(id);
       await updateDoc(doc(database, "Files", id), {content, title, id, accessedDate, owner});

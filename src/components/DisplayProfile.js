@@ -41,7 +41,7 @@ const DisplayProfile = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    username: "",
+    displayName: "",
     Education: "",
     selectedCountry: "",
     aboutme: "",
@@ -62,7 +62,7 @@ const DisplayProfile = () => {
         setFormData({
           firstName: user.firstName,
           lastName: user.lastName,
-          username: user.username,
+          displayName: user.displayName,
           Education: user.Education,
           selectedCountry: user.selectedCountry,
           aboutme: user.aboutme,
@@ -177,7 +177,7 @@ const DisplayProfile = () => {
     let data = {
       firstName: formData.firstName,
       lastName: formData.lastName,
-      username: formData.username,
+      displayName: formData.displayName,
       Education: formData.Education,
       selectedCountry: selectedCountry.label,
       aboutme: formData.aboutme,
@@ -317,7 +317,7 @@ const DisplayProfile = () => {
             </div>
           </div>
 
-          {/*Input box for Username and Country   */}
+          {/*Input box for displayName and Country   */}
           <div className="grid grid-cols-4 gap-4 px-7 m-2">
             <div className="col-span-2 bg-secondary grid-flow-col justify-center rounded-lg p-4">
               <label className="text-xl font-semibold text-text-color ">
@@ -326,9 +326,9 @@ const DisplayProfile = () => {
               <input
                 type="text"
                 className="p-2 rounded-md w-full object-contain border-2 font-semibold"
-                id="username"
-                name="username"
-                defaultValue={formData.username}
+                id="displayName"
+                name="displayName"
+                defaultValue={formData.displayName}
                 onChange={handleInputChange}
                 placeholder="Unique Username *"
               />

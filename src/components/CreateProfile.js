@@ -39,7 +39,7 @@ const { currentUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    username: '',
+    displayName: '',
     Education: '',
     selectedCountry:'',
     aboutme: '',
@@ -126,7 +126,7 @@ const handleSubmit = async (e) => {
   let data = {
     firstName: formData.firstName,
     lastName: formData.lastName,
-    username: formData.username,
+    displayName: formData.displayName,
     Education: formData.Education,
     selectedCountry: selectedCountry.label,
     aboutme: formData.aboutme,
@@ -138,7 +138,7 @@ const handleSubmit = async (e) => {
 
   // ============================================//
 
-  if (!data.firstName || !data.lastName || !data.profileImg || !data.username) {
+  if (!data.firstName || !data.lastName || !data.profileImg || !data.displayName) {
     alert('Please fill out all mandatory fields');
   } else {
 
@@ -149,7 +149,7 @@ const handleSubmit = async (e) => {
     await updateDoc(doc(database, "Users", currentUser.email), data); 
     
     // clearing the form and navigating to new page 
-    setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:''});
+    setFormData({ email:'',firstName: '',lastName:'', displayName: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:''});
 
     navigate("/Login");
   
@@ -242,15 +242,15 @@ return (
       </div>
     </div>
 
-    {/*Input box for Username and Country   */}
+    {/*Input box for displayName and Country   */}
     <div className="grid grid-cols-4 gap-4 m-2">
       <div className="col-span-2 bg-zinc-700 grid-flow-col justify-center rounded-lg p-4">
         <input
           type="text"
           className="p-2 rounded-md w-full object-contain border-2 border-rose-600"
-          id="username"
-          name="username"
-          value={formData.username}
+          id="displayName"
+          name="displayName"
+          value={formData.displayName}
           onChange={handleInputChange}
           placeholder="Unique Username *"/>
       </div>
