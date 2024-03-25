@@ -1,5 +1,7 @@
 import { ReactComponent as SearchSVG } from "../Assets/Magnifier.svg";
 
+import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useContext, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import { collection, doc, getDoc } from "firebase/firestore";
@@ -15,7 +17,9 @@ function HomeBox() {
   const [userImg, setUserImg] = useState("lol?");
   const [userFiles, setUserFiles] = useState([]);
   const [userCanvases, setUserCanvases] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("query");
+  const [searchQuery, setSearchQuery] = useState(id ? id : '');
 
   useEffect(() => {
     const getFiles = async () => {
