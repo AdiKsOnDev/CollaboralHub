@@ -32,7 +32,7 @@ const NewPost = () => {
       console.log(postRef.current.value);
 
       let data = {
-          userName: userData.name + " " + userData.lastname,
+          userName: userData.firstName + " " + userData.lastName,
           user: userData.displayName,
           userEmail: userData.email,
           postBody: postRef.current.value,
