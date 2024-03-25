@@ -19,7 +19,7 @@ function LogoutButton({ auth, component }) {
 
   return (
     <button
-      className={`text-text-color hover:text-accent-blue duration-300`}
+      className={`text-text-color`}
       onClick={handleLogout}
     >
       Logout

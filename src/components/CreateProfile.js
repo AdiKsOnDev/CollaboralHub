@@ -154,7 +154,7 @@ const handleSubmit = async (e) => {
     // clearing the form and navigating to new page 
     setFormData({ email:'',firstName: '',lastName:'', username: '',Education: '',selectedCountry:'',aboutme: '',Company: '',handle: '',Skills:''});
 
-    navigate("/Community");
+    navigate("/Login");
   
   } catch (e) {
     alert('Error adding document: ', e);

@@ -35,11 +35,11 @@ const RegisterBox = () => {
     const { username, firstname, lastname, email, password, passwordConfirm } = formData;
 
     // Basic validation - check if email and password are not empty
-    // if (!firstname || !lastname) {
-    //   setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
-    //   return;
-    // } else 
-    if (!email || !password) {
+    if (!firstname || !lastname) {
+      setFormData({ ...formData, error: 'Please enter First Name AND Last Name' });
+      return;
+    } 
+    else if (!email || !password) {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     } else if (!username) {
@@ -98,7 +98,7 @@ const RegisterBox = () => {
 
         // Reset the form fields
         setFormData({ 
-          // firstname: '', lastname: '',
+          firstname: '', lastname: '',
           email: '', password: '', passwordConfirm: '', error: "E-Mail is already in use" });
         return;
       });
@@ -132,7 +132,7 @@ const RegisterBox = () => {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-center items-center">
 
-          {/* <input
+          <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
             id="firstname"
@@ -145,12 +145,22 @@ const RegisterBox = () => {
           <input
             type="text"
             className='mb-5 p-2 rounded-md bg-text-color'
+            id="username"
+            name="username"
+            value={username}
+            onChange={handleInputChange}
+            placeholder='Username'
+          />
+
+          <input
+            type="text"
+            className='mb-5 p-2 rounded-md bg-text-color'
             id="lastname"
             name="lastname"
             value={lastname}
             onChange={handleInputChange}
             placeholder='Last Name'
-          /> */}
+          /> 
 
           <input
             type="text"

@@ -170,7 +170,7 @@ const DisplayProfile = () => {
   const navigate= useNavigate();
   const back = (e) => {
     e.preventDefault();
-    navigate("/Community");
+    navigate("/");
   }
   // =====================================================//
   const handleSubmit = async (e) => {

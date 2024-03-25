@@ -52,7 +52,7 @@ function HomeBox() {
 
   return (
     <div className="flex flex-col w-full h-full bg-primary overflow-scroll">
-      <ProfilePicture/>
+
       <StatusBar />
 
       <div data-testid="canvases" className="p-24">

@@ -127,7 +127,6 @@ const NewPost = () => {
                 {/* Image upload goes here */}
                   <div className="flex flex-row ">
                     {/* <input type="file"/> */}
-                    <PhotoLibrary />
 
                   </div> 
 
