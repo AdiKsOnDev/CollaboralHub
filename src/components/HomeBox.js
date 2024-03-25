@@ -47,7 +47,15 @@ function HomeBox() {
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
       
-      setUserCanvases(user.canvases);
+      const files = await Promise.all(user.canvases.map(async (file) => {
+        const fileRef = doc(collection(database, "Canvases"), file);
+        const fileSnapshot = await getDoc(fileRef);
+        return fileSnapshot.data();
+      }));
+
+      files.sort((a, b) => a.title.localeCompare(b.title));
+
+      setUserCanvases(files);
     };
 
     getCanvases();
@@ -95,7 +103,7 @@ function HomeBox() {
 
         <div className="grid grid-cols-4"> 
           {userCanvases.map((canvas) => (
-            <Project image={PreviewImage} title={canvas} />
+            <Project image={PreviewImage} title={canvas.title} id={"/Canvas?id=" + canvas.canvasID} owner={canvas.owner} date={canvas.accessedDate ? (canvas.accessedDate.toDate().toDateString()) : "Not Accessed"} />
           ))}
         </div>
       </div>
