@@ -136,22 +136,18 @@ sans-serif;
 
 #your-groups-btn {
   margin-top: 10px;
-}
-
-#discover-groups-btn {
-  margin-top: 10px;
+  width: fit-content;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  color: #ffffff;
 }
 
 #create-groups-btn {
   margin-top: 10px;
-}
-
-
-
-
-#discover-groups-btn {
-  margin-left: 15px;
-  margin-right: 15px;
+  width: fit-content;
+  padding-left: 1vw;
+  padding-right: 1vw;
+  color: white;
 }
 
 #create-groups-btn {

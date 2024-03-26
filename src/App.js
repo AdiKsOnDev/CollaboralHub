@@ -12,6 +12,8 @@ import Messaging from './pages/Messaging'; import PlannerCreate from './pages/Pl
 import Call from './pages/Call.js';
 import StickyNotes from './pages/StickyNotes.js';
 import Groups from './pages/Groups.js';
+import GroupsPanel from './components/GroupPanel.js';
+import GroupPage from './components/GroupPage.js';
 
 import DocxEditor from './pages/DocxEditor.js';
 import { FriendsChat } from './components/FriendsChat/FriendsChat.jsx';

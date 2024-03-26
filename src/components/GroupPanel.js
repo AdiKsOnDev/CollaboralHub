@@ -527,17 +527,6 @@ function GroupsPanel() {
                   ></textarea>
                 </div>
 
-                <div className="popup-form-div">
-                  <h2 className="popup-form-subtitle">Group Category:</h2>
-                  <div className="popup-form-tags-container">
-                    {categories.map((category) => (
-                      <div key={category.id} className={newGroupCategory.category === category.category ? "popup-form-selected-tag" : "popup-form-unselected-tag"} onClick={() => setNewGroupCategory(category)}>
-                        {category.category}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
 
                 <button type="submit" className='bob-btn-1' id="create-group-btn" disabled={isSubmitting}>Create Group</button>
 

@@ -18,6 +18,7 @@ import {
 import GroupChat from "../components/GroupChat";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 
 import "./GroupPage.css"
@@ -43,7 +44,20 @@ function GroupPage() {
   const [groupMemberPermissions, setGroupMemberPermissions] = useState([]);
   const [currentUserIsMuted, setCurrentUserIsMuted] = useState(false);
   const navigate = useNavigate();
+  const [roomID, setRoomID] = useState("");
 
+  function randomID(len) {
+    let result = "";
+    if (result) return result;
+    var chars = "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
+      maxPos = chars.length,
+      i;
+    len = len || 5;
+    for (i = 0; i < len; i++) {
+      result += chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return result;
+  }
 
   const fetchGroupMemberPermissions = async () => {
 
@@ -56,6 +70,44 @@ function GroupPage() {
     databaseReadCount++;
     console.log("Database read count increased: " + databaseReadCount + " || in fetchGroupMemberPermissions");
   }
+
+  const handleCallButtonClick = async () => {
+    const newRoomID = randomID(5); // Generate a new room ID
+    setRoomID(newRoomID); // Update the state with the generated room ID
+
+    // Generate Kit Token
+    const appID = 802437622;
+    const serverSecret = "1a7316254a55bd78eba0d89b2bdb1056";
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+      appID,
+      serverSecret,
+      newRoomID,
+      randomID(5),
+      randomID(5)
+    );
+
+    // Create instance object from Kit Token.
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+
+    // Join the room
+    await zp.joinRoom({
+      scenario: {
+        mode: ZegoUIKitPrebuilt.GroupCall,
+      },
+    });
+
+    // Construct the call link using the generated room ID
+    const callLink = `${window.location.protocol}//${window.location.host}${window.location.pathname}?roomID=${newRoomID}`;
+
+    // Send the link to the chat
+    // You can replace this with your actual chat sending mechanism
+    // For demonstration, let's log the link to the console
+    console.log(callLink);
+
+    // You can also navigate to a chat component and pass the link as a prop
+    // navigate('/chat', { state: { callLink } });
+  };
+
 
 
   useEffect(() => {
@@ -385,7 +437,7 @@ function GroupPage() {
             <div className="group-actions">
               {/* <button className='bob-btn-1' id="start-whiteboard-btn" onClick={() => handleStartWhiteboardClick()}>Start a Whiteboard</button> */}
               {/* <button className='bob-btn-1' id="call-btn">Voice Call</button> */}
-              <button className='bob-btn-1' id="video-btn">Call</button>
+              <button className='bob-btn-1' id="video-btn" onClick={handleCallButtonClick}>Call</button>
               <button className='bob-btn-1' id="info-btn" onClick={handleInfoClick}> Info </button>
             </div>
 
