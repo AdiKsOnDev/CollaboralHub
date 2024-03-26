@@ -12,7 +12,7 @@ function Tutorial() {
                     allowFullScreen
                 ></iframe>
 
-                <a href="/Login" className="px-10 py-4 text-xl rounded-xl text-white font-semibold bg-accent-red hover:bg-accent-blue duration-300">
+                <a href="/CreateProfile" className="px-10 py-4 text-xl rounded-xl text-white font-semibold bg-accent-red hover:bg-accent-blue duration-300">
                     Login
                 </a>
 

@@ -8,7 +8,6 @@ import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { AuthContext } from "../context/AuthContext";
 import { IconContext } from "react-icons";
-import PhotoLibrary from "./PhotoLibrary";
 import { RxCross2 } from "react-icons/rx";
 
 const NewPost = () => {
@@ -33,7 +32,7 @@ const NewPost = () => {
       console.log(postRef.current.value);
 
       let data = {
-          userName: userData.name + " " + userData.lastname,
+          userName: userData.firstName + " " + userData.lastName,
           user: userData.displayName,
           userEmail: userData.email,
           postBody: postRef.current.value,
@@ -128,7 +127,6 @@ const NewPost = () => {
                 {/* Image upload goes here */}
                   <div className="flex flex-row ">
                     {/* <input type="file"/> */}
-                    <PhotoLibrary />
 
                   </div> 
 
@@ -150,7 +148,7 @@ const NewPost = () => {
                 <IconContext.Provider value={{ color: "white" }} >
                   <RxCross2 size={15} onClick={() => setIsOpen(false)} />
                 </IconContext.Provider>
-             </div >
+            </div >
           </div>
         </div>
       )}

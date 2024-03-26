@@ -5,48 +5,12 @@ import { RxCross2 } from "react-icons/rx";
 import { LuUpload } from "react-icons/lu";
 import { IconContext } from "react-icons";
 //name of firestore collection
-// import {storage} from './firebase';
+import {storage} from '../firebase';
 import {ref, uploadBytes,listAll,getDownloadURL} from 'firebase/storage';
 import {v4} from 'uuid';
 import { useState , useEffect} from 'react';
 
 function PhotoLibrary(){
-
-
-  // //send img to firestore 
-  // const [imageUpload, setImageUpload] = React.useState(null);
-  // //stores array of img urls from firestore
-  // const [imageList, setImageList] = React.useState([]);
-
-
-  // // ref to all files in storage
-  // const imageListRef = ref(storage, 'images');
-
-  // const uploadImage = () => {
-  //   if(!imageUpload==null) return ;
-  //     const imageRef = ref(storage, `images/${imageUpload.name + v4() }`);
-  //     uploadBytes(imageRef, imageUpload).then((snapshot.ref) => {
-  //       alert("Image uploaded");
-  //       setImageList((prev)=>{...prev, snapshot.ref.then((url))})
-  //     });
-
-  // };git
-
-  // useEffect(() => {
-
-  //   listAll(imageListRef).then((response) => {
-  //   console.log(response);
-  //   response.items.forEach((item) => {
-  //     getDownloadURL(item).then((url) => {
-  //       setImageList((prev) => [...prev, url]);
-  //     });
-  //   });
-
-  //   });
-
-  // },[]);
-
-
 
     //image upload
 
@@ -58,6 +22,27 @@ function PhotoLibrary(){
       console.log(imageList, addUpdateIndex);
       setImages(imageList);
     };
+
+    const [imageUpload, setImageUpload] = useState(null);
+    const [imageUrls, setImageUrls] = useState([]);
+
+    
+
+    const uploadImage = () => {
+      if (imageUpload === null) return;
+    
+      const imageRef = ref(storage, `posts/${v4()}`);
+      
+      uploadBytes(imageRef, imageUpload).then(() => {
+        alert("Image Uploaded");
+      });
+
+      
+    };
+
+    
+   
+
 
   return (
                     <ImageUploading
@@ -74,21 +59,26 @@ function PhotoLibrary(){
                           onImageRemove,
                         }) => (
                           <div>
-                            {/* img icon  */}
-                          
-                              <IconContext.Provider value={{ color: "white" }} >
-                                <FiImage size={40} onClick={onImageUpload}/>
-                              </IconContext.Provider>
+                             {/* add image icon  */}
+                            <input type="file" onChange={(event)=> {setImageUpload(event.target.files[0])
+                            }}/>
+
+                            <IconContext.Provider value={{ color: "white" }} >
+                              <FiImage size={40} onClick={uploadImage}/>
+                            </IconContext.Provider>
+
+                            <button onClick={uploadImage}> upload image </button>
+
 
                             {imageList.map((image, index) => (
                               <div key={index} className="image-item">
                                 <img src={image['data_url']} alt="" width="100" />
 
-                                <div className=" flex flex-row justify-between p-2">
+                                <div className=" flex flex-col justify-between p-2">
 
                                       {/* img upload icon  */}
                                         <IconContext.Provider value={{ color: "white" }} >
-                                            <LuUpload size={20}  onClick={() => onImageUpdate(index)}/>
+                                            <LuUpload size={20}  onClick={() => uploadImage}/>
                                         </IconContext.Provider>
 
                                       
@@ -111,3 +101,4 @@ function PhotoLibrary(){
 
 
 export default PhotoLibrary;
+

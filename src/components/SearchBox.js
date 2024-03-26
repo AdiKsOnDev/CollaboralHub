@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 // import { database } from "../firebase";
 // import { collection } from "firebase/firestore";
 
@@ -8,6 +9,7 @@ const SearchBox = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
     // const projectsRef = collection(database, "Projects");
@@ -18,9 +20,8 @@ const SearchBox = () => {
     // const searchResults = fuse.search(searchQuery);
 
     // Extract the matched documents
-    const results = searchResults.map((result) => result.item);
-
-    setSearchResults(results);
+    
+    navigate("/Dashboard?query=" + searchQuery);
   };
 
   return (

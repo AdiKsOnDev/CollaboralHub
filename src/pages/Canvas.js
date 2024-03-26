@@ -1,30 +1,55 @@
-import {
-  T,
-  TLRecord,
-  Tldraw,
-  createTLStore,
-  defaultShapeUtils,
-  useEditor,
-} from "@tldraw/tldraw";
+import { T, TLRecord, Tldraw, createTLStore, defaultShapeUtils } from "@tldraw/tldraw";
+import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext, useState, useCallback } from 'react';
+import { useSearchParams } from "react-router-dom";
+import { collection, doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
+import { database } from "../firebase.js";
+import { AuthContext } from "../context/AuthContext";
 import "@tldraw/tldraw/tldraw.css";
-import io, { Socket } from "socket.io-client";
-import { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { v4 as uuidv4 } from 'uuid';
 import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 
-export default function () {
+export default function Canvas() {
+  const roomID = uuidv4();
   let changes = {};
   const [showRoomWindow, setShowRoomWindow] = useState(false);
   const [title, setTitle] = useState("");
   const [socket, setSocket] = useState();
-  const [room, setRoom] = useState("");
+  const [room, setRoom] = useState(roomID);
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const store = createTLStore({
     shapeUtils: defaultShapeUtils,
   });
 
   useEffect(() => {
+    const getContent = async () => {
+      try {
+        const id = searchParams.get("id").toString();
+
+        console.log(id);
+
+        const fileRef = doc(collection(database, "Canvases"), id);
+        const fileSnapshot = await getDoc(fileRef);
+        const file = fileSnapshot.data();
+
+        store.loadSnapshot(file.content);
+        setTitle(file.title);
+      } catch (Exception) {
+        console.log("NO ID");
+      }
+    };
+
+    getContent();
+    }, [searchParams, store])  
+  useEffect(() => {
     // create the socket connection only once
-    const socket = io.connect("http://localhost:8080");
+    const socket = io.connect("https://synergyserver-dev-eddj.1.us-1.fl0.io");
+    // const socket = io.connect("http://localhost:8080");
     setSocket(socket);
 
     return () => socket.disconnect();
@@ -43,15 +68,48 @@ export default function () {
     console.log(room);
   };
 
-  const handleSave = () => {
-    console.log("SAVE");
+  const handleSave = async () => {
+    let id = null;
+
+    try {
+      id = searchParams.get("id").toString();
+    } catch (Exception) {
+      console.log("NO ID Passed");
+    }
+    const content = store.getSnapshot();
+
+    if (id === null) {
+      const canvasID = uuidv4();
+
+      console.log("SAVED: " + title)
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const accessedDate = Timestamp.now();
+      const owner = user.displayName;
+
+      await updateDoc(userRef, {canvases: [...user.canvases, canvasID]})
+      await setDoc(doc(database, "Canvases", canvasID), {content, title, canvasID, accessedDate, owner}); 
+    } else {
+      const accessedDate = Timestamp.now();
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+      const owner = user.displayName; 
+
+      console.log(id);
+      await updateDoc(doc(database, "Canvases", id), {content, title, id, accessedDate, owner});
+    }
+
+    navigate("/Dashboard");
   }
 
-  //use Effect if message recevied
+  //use Effect if message received
   useEffect(() => {
     // handle the incoming messages
-    console.log("INCOMING CHANGES");
-    socket?.on("board rec", (changes: any) => {
+    socket?.on("board rec", (changes) => {
+      console.log("CURRENT ROOM IS -->" + room)
+      console.log("INCOMING!");
       const toRemove = [];
       const toPut = [];
 
@@ -60,9 +118,9 @@ export default function () {
       }
       for (const [id, record] of Object.entries(changes.updated)) {
         if (
-          id != "instance:instance" &&
-          id != "camera:page:page" &&
-          id != "pointer:pointer"
+          id !== "instance:instance" &&
+          id !== "camera:page:page" &&
+          id !== "pointer:pointer"
         ) {
           toPut.push(record[1]);
         }
@@ -72,15 +130,17 @@ export default function () {
         toRemove.push(record.id);
       }
 
+      console.log("TO ADD --->" + toPut);
       store.mergeRemoteChanges(() => {
         if (toRemove.length) store.remove(toRemove);
         if (toPut.length) store.put(toPut);
       });
     });
-  }, [socket]);
+  }, [socket, store, room]);
 
   const setRoomfunc = (event, room) => {
-    event.preventDefault(setRoom(room));
+    event.preventDefault();
+    setRoom(room);
   };
 
   const handleRoomWindow = () => {
@@ -104,7 +164,8 @@ export default function () {
               placeholder="Enter the Room Code"
               className="border border-gray-300 text-primary p-2 outline-none"
               type="text"
-              onChange={(event) => setRoomfunc(event, event.target.value)}
+              value={room}
+              onChange={(e)=> setRoom(e.target.value)}
             />
             <button className="bg-accent-red text-white rounded-r-md hover:bg-accent-blue duration-300 px-4 py-2" onClick={() => socket?.emit("join room", room)}>
               {" "}
@@ -120,3 +181,4 @@ export default function () {
     </>
   );
 }
+

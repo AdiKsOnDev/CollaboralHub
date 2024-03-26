@@ -52,6 +52,7 @@ const LoginBox = () => {
   
       setFormData({ email: '', password: '', error: "Wrong E-Mail OR Password" });
     });
+    
   };
 
   const handleResetPassword = async () => {
@@ -111,7 +112,7 @@ const LoginBox = () => {
 
           {error && <p className="text-accent-red italic mb-5 text-xs">{error}</p>}
 
-          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-red-700 duration-300" type="submit">Login</button>
+          <button className="text-text-color bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 hover:bg-accent-blue duration-300" type="submit">Login</button>
 
           <button
             className="mb-3 text-text-color underline no-underline hover:text-accent-blue duration-300"

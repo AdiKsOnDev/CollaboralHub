@@ -4,7 +4,6 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ReactComponent as HeartSVG } from "../Assets/Like-Icon.svg";
 import { database } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
-import { RotatingLines } from "react-loader-spinner";
 
 async function getPosts() {
 
@@ -16,10 +15,6 @@ async function getPosts() {
     // console.log(doc.id, ' => ', doc.data());
   })
   return post;
-}
-
-const getLiked = () => {
-  const post = getPosts()
 }
 
 function PostHolder() {
@@ -41,10 +36,10 @@ function PostHolder() {
     if (post.likedUsers.includes(userData.email)) {
       console.log(post);
       const updatedLikedUsers = post.likedUsers.filter(email => email !== userData.email);
-      const querySnapshot = await updateDoc(postRef, { likedUsers: updatedLikedUsers, likeCount: post.likeCount - 1 });
+      await updateDoc(postRef, { likedUsers: updatedLikedUsers, likeCount: post.likeCount - 1 });
       setPostData(await getPosts());
     } else {
-      const querySnapshot = await updateDoc(postRef, { likedUsers: [...post.likedUsers, userData.email], likeCount: post.likeCount + 1 });
+      await updateDoc(postRef, { likedUsers: [...post.likedUsers, userData.email], likeCount: post.likeCount + 1 });
       setPostData(await getPosts());
     }
   }

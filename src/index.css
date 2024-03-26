@@ -23,6 +23,12 @@
     background-color: #00A9E5;
 }
 
+::-webkit-file-upload-button {
+    border-radius: 8px;
+    background-color: #FFFFFF;
+
+  }
+
 .h-90 {
   height: 90%;
 }
