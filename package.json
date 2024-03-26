@@ -18,7 +18,6 @@
     "openai": "^4.29.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icon": "^1.0.0",
     "react-icons": "^5.0.1",
     "react-images-uploading": "^3.1.7",
     "react-loader-spinner": "^6.1.6",
@@ -28,10 +27,7 @@
     "react-select": "^5.8.0",
     "serve": "^14.2.1",
     "socket.io-client": "^4.7.5",
-    "stream-chat": "^8.19.0",
-    "stream-chat-react": "^11.11.0",
     "source-map-explorer": "^2.5.3",
-    "universal-cookie": "^7.1.0",
     "uuid": "^8.2.0",
     "web-vitals": "^2.1.4",
     "zego-superboard-web": "^2.14.1"

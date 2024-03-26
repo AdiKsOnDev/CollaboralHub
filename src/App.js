@@ -13,7 +13,7 @@ const PlannerCreate = lazy(() => import('./pages/PlannerCreate.js'));
 const Call = lazy(() => import('./pages/Call.js'));
 const StickyNotes = lazy(() => import('./pages/StickyNotes.js'));
 const Choice = lazy(() => import('./pages/Choice.js'));
-const Groups = lazy(() => import('./pages/Groups.js'));
+const Groups = lazy(() => import('./pages/GroupPanel.js'));
 const DocxEditor = lazy(() => import('./pages/DocxEditor.js'));
 const CreateProfile = lazy(() => import('./components/CreateProfile.js'));
 const DisplayProfile = lazy(() => import('./components/DisplayProfile.js'));
