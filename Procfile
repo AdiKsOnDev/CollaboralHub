@@ -1,1 +1,1 @@
-web: npm i && npm run build && npm run eject && serve -s build -l $PORT
+web: npm i && npm run build && serve -s build -l $PORT
