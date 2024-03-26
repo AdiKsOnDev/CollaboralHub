@@ -23,8 +23,8 @@ function App() {
   const { currentUser } = useContext(AuthContext);
 
   return (
-    <div className="App bg-primary w-screen h-screen">
       <Router>
+    <div className="App bg-primary w-screen h-screen">
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             {/* Auth */}
@@ -90,8 +90,8 @@ function App() {
             />
           </Routes>
         </Suspense>
-      </Router>
     </div>
+      </Router>
   );
 }
 

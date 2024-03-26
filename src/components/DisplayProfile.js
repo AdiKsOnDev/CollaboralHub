@@ -3,8 +3,6 @@ import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 import Avatar from "@mui/material/Avatar";
 import Select from "react-select";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { BsHouse } from "react-icons/bs";
-import { IconContext } from "react-icons";
 import {
   collection,
   doc,
@@ -13,7 +11,6 @@ import {
 } from "@firebase/firestore";
 import { database, storage } from "../firebase";
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const DisplayProfile = () => {
@@ -77,7 +74,7 @@ const DisplayProfile = () => {
     };
   
     getContent();
-  }, []);
+  }, [currentUser]);
 
   // =====================================================//
   //=======================================//
@@ -165,11 +162,6 @@ const DisplayProfile = () => {
   };
   
   //=======================================//
-  const navigate= useNavigate();
-  const back = (e) => {
-    e.preventDefault();
-    navigate("/");
-  }
   // =====================================================//
   const handleSubmit = async (e) => {
     e.preventDefault();
