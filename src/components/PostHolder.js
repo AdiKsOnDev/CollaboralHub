@@ -59,8 +59,8 @@ function PostHolder() {
     <div className="flex flex-col h-screen overflow-y-scroll text-white px-10">
       {postData.map((post) => (
         <div className="bg-secondary w-full p-7 rounded-xl mb-12">
-          <div className="flex justify-between w-full">
-            <a href={"/DisplayProfile?handle=" + post.user} className="flex flex-row items-center mb-8">
+          <div className="flex justify-between items-center w-full">
+            <a href={"/DisplayProfile?handle=" + post.user} className="flex flex-row items-center">
               <img src={post.userPFP} alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4" />
               <p className="font-semibold text-xl">
                 <h1 className="flex flex-col">{post.userName} <span className="italic text-sm">@{post.user}</span></h1>
@@ -80,7 +80,7 @@ function PostHolder() {
             }
           </div>
 
-          <div className="flex justify-center w-full mb-8">
+          <div className="flex justify-center w-full my-8">
             <p className="w-full">{post.postBody}</p>
           </div>
 
