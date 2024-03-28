@@ -45,7 +45,7 @@ const DisplayProfile = () => {
     Company: "",
     handle: "",
     Skills: "",
-    profileImg:""
+    profileImg: ""
   });
   // =====================================================//
 
@@ -55,7 +55,7 @@ const DisplayProfile = () => {
         const userRef = doc(collection(database, "Users"), currentUser.email);
         const userSnapshot = await getDoc(userRef);
         const user = userSnapshot.data();
-  
+
         setFormData({
           firstName: user.firstName,
           lastName: user.lastName,
@@ -72,7 +72,7 @@ const DisplayProfile = () => {
         console.log("Error making copy ");
       }
     };
-  
+
     getContent();
   }, [currentUser]);
 
@@ -102,12 +102,12 @@ const DisplayProfile = () => {
       });
   }, []);
 
- //=======================================//
+  //=======================================//
   //=======================================//
   const [buttonPressed, setButtonPressed] = useState(false);
   const [changed, isChanged] = useState(false);
   const handleButtonPress = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     // Toggle buttonPressed state
     setButtonPressed(prevState => !prevState);
@@ -122,7 +122,7 @@ const DisplayProfile = () => {
 
   const [image, setImage] = useState(null);
   const [url, setUrl] = useState(null);
-  
+
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -130,7 +130,7 @@ const DisplayProfile = () => {
   };
 
   const handleSubmitImage = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const imageRef = ref(storage, `image/${uuidv4()}`);
     if (image) {
       uploadBytes(imageRef, image)
@@ -149,18 +149,18 @@ const DisplayProfile = () => {
           setTimeout(() => {
             setButtonPressed(false);
           }, 2000);
-          
+
         })
         .catch((error) => {
           console.log(error.message);
         });
-    } 
+    }
     else {
       alert('Please select an image first.');
     }
 
   };
-  
+
   //=======================================//
   // =====================================================//
   const handleSubmit = async (e) => {
@@ -182,6 +182,7 @@ const DisplayProfile = () => {
 
     try {
       await updateDoc(doc(database, "Users", currentUser.email), data);
+      console.log("skibdidi", currentUser.email);
       alert("Profile Saved !");
     } catch (e) {
       alert("Error adding document: ", e);
@@ -195,64 +196,64 @@ const DisplayProfile = () => {
 
         <form onSubmit={handleSubmit}>
           {/* page title */}
-            <div className="flex flex-row items-center">
-              <a className="p-9 flex justify-center items-center hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-9 h-9" /></a>
+          <div className="flex flex-row items-center">
+            <a className="p-9 flex justify-center items-center hover:bg-accent-red duration-300" href="/"><HomeSVG className="w-9 h-9" /></a>
 
-              <h2 className="font-semibold text-center text-3xl text-text-color w-full">
-                My Profile
-              </h2>
-            </div>
-      
+            <h2 className="font-semibold text-center text-3xl text-text-color w-full">
+              My Profile
+            </h2>
+          </div>
+
           {/* Image upload and about me box */}
           <div className="grid grid-rows-8 grid-flow-col gap-4 px-9">
             {/* Image upload */}
             <div className="row-span-8 col-span-1 bg-secondary  rounded-lg p-2">
               <div className="p-0 flex flex-col justify-center items-center">
 
-                    {changed ? 
-                      <Avatar
-                        src={url}
-                        sx={{ width: 150, height: 150 }}
-                        className="m-4 "
-                      />
+                {changed ?
+                  <Avatar
+                    src={url}
+                    sx={{ width: 150, height: 150 }}
+                    className="m-4 "
+                  />
 
-                    : 
-                      <Avatar
-                        src={formData.profileImg}
-                        sx={{ width: 150, height: 150 }}
-                        className="m-4 "
-                      />
-                    }
-                  
+                  :
+                  <Avatar
+                    src={formData.profileImg}
+                    sx={{ width: 150, height: 150 }}
+                    className="m-4 "
+                  />
+                }
+
                 <div className="pb-5 flex flex-row justify-center items-center text-text-color">
-                  
-                  
+
+
                   {!buttonPressed && (
-                        <button
-                          onClick={handleButtonPress}
-                          className="text-text-color hover:bg-accent-blue bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-                        >
-                          Edit
-                        </button>
-                      )}
-               
+                    <button
+                      onClick={handleButtonPress}
+                      className="text-text-color hover:bg-accent-blue bg-accent-red font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
+                    >
+                      Edit
+                    </button>
+                  )}
+
                   {buttonPressed && (
-                      <>
-                        <input
-                          type="file"
-                          onChange={handleImageChange}
-                          className="w-3/4 p-0 m-0 text-text-color 'hover:bg-red-700  "
-                          id="profileImg"
-                          name="profileImg"
-                        />
-                        <button
-                          onClick={handleSubmitImage}
-                          className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
-                        >
-                          Upload
-                        </button>
-                      </>
-                    )}
+                    <>
+                      <input
+                        type="file"
+                        onChange={handleImageChange}
+                        className="w-3/4 p-0 m-0 text-text-color 'hover:bg-red-700  "
+                        id="profileImg"
+                        name="profileImg"
+                      />
+                      <button
+                        onClick={handleSubmitImage}
+                        className="text-text-color 'hover:bg-red-700 bg-accent-red cursor-pointer' font-semibold text-lg px-8 py-2 w-30 rounded-md mb-5 justify-center items-center duration-300"
+                      >
+                        Upload
+                      </button>
+                    </>
+                  )}
 
                 </div>
               </div>
@@ -340,7 +341,7 @@ const DisplayProfile = () => {
                 placeholder={formData.selectedCountry}
                 options={countries}
                 onChange={(selectedOption) => {
-                  setSelectedCountry(selectedOption); 
+                  setSelectedCountry(selectedOption);
                 }}
               />
             </div>

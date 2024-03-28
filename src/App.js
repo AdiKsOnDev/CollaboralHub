@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import React, { Suspense, lazy } from 'react';
-
+import GroupPage from './components/GroupPage.js';
+import GroupsPanel from './components/GroupPanel.js';
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const Home = lazy(() => import('./pages/Home'));
@@ -13,7 +14,7 @@ const PlannerCreate = lazy(() => import('./pages/PlannerCreate.js'));
 const Call = lazy(() => import('./pages/Call.js'));
 const StickyNotes = lazy(() => import('./pages/StickyNotes.js'));
 const Choice = lazy(() => import('./pages/Choice.js'));
-const Groups = lazy(() => import('./pages/Groups.js'));
+// const GroupsPanel = lazy(() => import('./pages/GroupPanel.js'));
 const DocxEditor = lazy(() => import('./pages/DocxEditor.js'));
 const CreateProfile = lazy(() => import('./components/CreateProfile.js'));
 const DisplayProfile = lazy(() => import('./components/DisplayProfile.js'));
@@ -23,8 +24,8 @@ function App() {
   const { currentUser } = useContext(AuthContext);
 
   return (
-      <Router>
-    <div className="App bg-primary w-screen h-screen">
+    <Router>
+      <div className="App bg-primary w-screen h-screen">
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             {/* Auth */}
@@ -70,8 +71,16 @@ function App() {
               element={currentUser ? <Call /> : <Navigate to="/Login" replace />}
             />
             <Route
-              path="/Groups"
-              element={currentUser ? <Groups /> : <Navigate to="/Login" replace />}
+              path="/groupsPanel"
+              element={currentUser ? <GroupsPanel /> : <Navigate to="/Login" replace />}
+            />
+            <Route
+              path="/GroupPage/:groupName"
+              element={currentUser ? <GroupPage /> : <Navigate to="/Login" replace />}
+            />
+            <Route
+              path="/Messaging"
+              element={currentUser ? <FriendsChat /> : <Navigate to="/Login" replace />}
             />
 
             <Route
@@ -90,8 +99,8 @@ function App() {
             />
           </Routes>
         </Suspense>
-    </div>
-      </Router>
+      </div>
+    </Router>
   );
 }
 
