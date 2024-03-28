@@ -109,7 +109,7 @@ function HomeBox() {
           <h1 className="text-lg lg:text-4xl text-text-color font-semibold mb-8 lg:mb-20">Your Files</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"> 
             {filteredFiles.map((file) => (
-              <Project key={file.fileID} fileID={file.id} image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
+              <Project key={file.fileID} fileID={file.id} file={file} image={PreviewDocx} title={file.title} id={"/DocxEditor?id=" + file.fileID} owner={file.owner} date={file.accessedDate ? (file.accessedDate.toDate().toDateString()) : "Not Accessed"} />
             ))}
           </div> 
         </div>
@@ -122,7 +122,7 @@ function HomeBox() {
 
           <div className="grid grid-cols-4"> 
             {filteredCanvases.map((canvas) => (
-              <Project key={canvas.id} fileID="" canvasID={canvas.id} image={PreviewImage} title={canvas.title} id={"/Canvas?id=" + canvas.canvasID} owner={canvas.owner} date={canvas.accessedDate ? (canvas.accessedDate.toDate().toDateString()) : "Not Accessed"} />
+              <Project key={canvas.id} fileID="" file={canvas} canvasID={canvas.id} image={PreviewImage} title={canvas.title} id={"/Canvas?id=" + canvas.canvasID} owner={canvas.owner} date={canvas.accessedDate ? (canvas.accessedDate.toDate().toDateString()) : "Not Accessed"} />
             ))}
           </div>
         </div>

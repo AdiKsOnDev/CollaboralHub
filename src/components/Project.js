@@ -1,7 +1,7 @@
 import { doc, collection, getDocs, deleteDoc } from 'firebase/firestore';
 import { database } from '../firebase';
 
-function Project({canvasID, fileID, image, title, id, owner, date}) {
+function Project({canvasID, fileID, image, title, id, owner, file, date}) {
   return (
     <div>
       <a href={id} className="flex flex-col items-center justify-center mr-5 mb-12 w-64 hover:w-72 hover:text-lg duration-300">
@@ -13,7 +13,7 @@ function Project({canvasID, fileID, image, title, id, owner, date}) {
       </a>
 
       <button onClick={async () => {
-                  deleteDoc(doc(database, "Canvases", canvasID));
+                  deleteDoc(doc(database, fileID == "" ? "Canvases" : "Files", file.canvasID));
                 }}
       >
         Delete
