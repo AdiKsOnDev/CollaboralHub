@@ -18,8 +18,7 @@ import {
 import GroupChat from "../components/GroupChat";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
-import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-import Call from "../pages/Call.js";
+
 
 import "./GroupPage.css"
 
@@ -44,20 +43,7 @@ function GroupPage() {
   const [groupMemberPermissions, setGroupMemberPermissions] = useState([]);
   const [currentUserIsMuted, setCurrentUserIsMuted] = useState(false);
   const navigate = useNavigate();
-  // const [roomID, setRoomID] = useState("");
 
-  function randomID(len) {
-    let result = "";
-    if (result) return result;
-    var chars = "12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP",
-      maxPos = chars.length,
-      i;
-    len = len || 5;
-    for (i = 0; i < len; i++) {
-      result += chars.charAt(Math.floor(Math.random() * maxPos));
-    }
-    return result;
-  }
 
   const fetchGroupMemberPermissions = async () => {
 
@@ -70,11 +56,6 @@ function GroupPage() {
     databaseReadCount++;
     console.log("Database read count increased: " + databaseReadCount + " || in fetchGroupMemberPermissions");
   }
-
-  const handleCallButtonClick = async () => {
-    window.open('/Call', '_blank');
-  };
-
 
 
   useEffect(() => {
@@ -106,7 +87,48 @@ function GroupPage() {
       console.log("Database read count increased: " + databaseReadCount + " || in fetchWhiteboards");
     }
 
+    const fetchCurrentUserGroupPermissions = async () => {
 
+      if (!currentUser || !currentUser.uid) {
+        console.error("Current user data is not available.");
+        return;
+      }
+
+      const userGroupCol = query(collection(database, 'UsersToGroup'), where('userID', '==', currentUser.uid), where('groupID', '==', thisGroup.id));
+      const userGroupSnapshot = await getDocs(userGroupCol);
+      const userGroupList = userGroupSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+      databaseReadCount++;
+      console.log("Database read count increased: " + databaseReadCount + " || in fetchCurrentUserGroupPermissions");
+
+
+      if (userGroupList.length !== 0) {
+
+        setCurrentUserPermission(userGroupList[0].userPermission);
+        console.log(userGroupList[0].userPermission);
+        setCurrentUserIsMuted(userGroupList[0].isMuted);
+
+        if (userGroupList[0].userPermission === 'group-owner' || userGroupList[0].userPermission === 'group-moderator' || userGroupList[0].userPermission === 'group-admin') {
+          setShowUserMenu(true);
+        } else {
+          document.getElementById("start-whiteboard-btn").style.display = "none";
+          setShowUserMenu(true);
+        }
+
+      } else {
+
+        console.log("Current user is not a member of this group.");
+        document.getElementById("start-whiteboard-btn").style.display = "none";
+        document.getElementById("group-page-users-btn").style.display = "none";
+        navigate('/groupsPanel');
+
+      }
+
+    }
+
+
+
+    fetchCurrentUserGroupPermissions();
     fetchGroupMemberPermissions();
     fetchGroupImage();
     fetchWhiteboards();
@@ -189,9 +211,9 @@ function GroupPage() {
 
   const handleCloseFormClick = () => {
     document.getElementsByClassName("overlay")[0].style.display = "none";
-    // setNewWhiteboardDescription("");
-    // setNewWhiteboardName("");
-    // setShowAddWhiteboard(false);
+    setNewWhiteboardDescription("");
+    setNewWhiteboardName("");
+    setShowAddWhiteboard(false);
     setShowGroupInfo(false);
   }
 
@@ -357,13 +379,13 @@ function GroupPage() {
       <div className='group-page-container'>
         <div className='group-navbar'>
           <div className="group-header">
-            {/* <img src={groupImageURL} alt='logo' className="group-image" /> */}
+            <img src={groupImageURL} alt='logo' className="group-image" />
             <h1 className="group-name">{groupName}</h1>
 
             <div className="group-actions">
               {/* <button className='bob-btn-1' id="start-whiteboard-btn" onClick={() => handleStartWhiteboardClick()}>Start a Whiteboard</button> */}
               {/* <button className='bob-btn-1' id="call-btn">Voice Call</button> */}
-              <button className='bob-btn-1' id="video-btn" onClick={handleCallButtonClick}>Call</button>
+              <button className='bob-btn-1' id="video-btn">Call</button>
               <button className='bob-btn-1' id="info-btn" onClick={handleInfoClick}> Info </button>
             </div>
 
@@ -383,6 +405,33 @@ function GroupPage() {
             <GroupChat groupName={groupName} isMuted={currentUserIsMuted} />
           )}
 
+
+          {activeTab === 'files' && (
+            <div className="files-container">
+
+              {/* Files would be listed here */}
+            </div>
+          )}
+
+
+          {activeTab === 'whiteboards' && (
+            <div className="whiteboards-container">
+
+              <div className="whiteboards-grid">
+                {whiteboards.map((whiteboard) => (
+                  <div key={whiteboard.id} className="whiteboard-item">
+                    <img src="/clouds.jpeg" alt={whiteboard.name} className="whiteboard-image" />
+                    <h2 className="whiteboard-name">{whiteboard.wName}</h2>
+                    <h3 className="whiteboard-creation-date">Created at: {whiteboard.createdAt.toDate().toLocaleDateString()}</h3>
+                    <button /*onClick={() => navigate(</div>`/whiteboard/${whiteboard.id}`)}*/ className="whiteboard-grid-btn"><img src="/edit.png" alt='pencil' className='w-btn-img' /></button>
+                  </div>
+                ))}
+              </div>
+
+
+            </div>
+          )}
+
           {activeTab === 'users' && (
 
             <div className='group-page-users-tab-container'>
@@ -391,6 +440,8 @@ function GroupPage() {
 
                 {groupMemberPermissions.map((member) => (
                   <div key={member.id} className='group-page-user-container'>
+
+                    <img src={member.userPhotoURL} alt='user' className='group-page-user-image' />
 
                     <h2 className='group-page-user-name'>{member.userDisplayName}</h2>
 
@@ -401,12 +452,57 @@ function GroupPage() {
             </div>
           )}
 
+
+
+          {showAddWhiteboard && (
+            <div className="popup-form">
+              <img src={'/clouds.jpeg'} alt={'brainwave'} className="popup-form-image" />
+              <button className="popup-form-close-btn" onClick={handleCloseFormClick}>X</button>
+              <img className="popup-form-cloud-icon" src="/Component 1.png" alt="cloud" />
+              <form onSubmit={handleSubmitNewWhiteboard} className="popup-form-form">
+
+                <div className="popup-form-container">
+
+                  <h1 className="popup-form-title">Start a Whiteboard!</h1>
+                  <div className="popup-form-div">
+                    <h2 className="popup-form-subtitle">Whiteboard Name:</h2>
+
+                    <input
+                      type="text"
+                      placeholder="Enter name"
+                      className="popup-form-input"
+                      value={newWhiteboardName}
+                      onChange={(e) => setNewWhiteboardName(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+
+                  <div className="popup-form-div">
+                    <h2 className="popup-form-subtitle">Whiteboard Description:</h2>
+
+                    <textarea
+                      type="text"
+                      placeholder="Enter description"
+                      className="popup-form-input"
+                      value={newWhiteboardDescription}
+                      onChange={(e) => setNewWhiteboardDescription(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <button type="submit" className="bob-btn-1" id="start-whiteboard-btn" disabled={isSubmitting}>Start Whiteboard</button>
+                </div>
+              </form>
+            </div>
+          )}
+
         </div>
 
         {showGroupInfo && (
           <div className="popup-form">
 
+            <img src={thisGroup.imageUrl} alt={thisGroup.name} className='popup-form-image' />
             <button type="button" className="popup-form-close-btn" onClick={handleCloseFormClick}>X</button>
+            <img src="/Component 1.png" alt="cloud-icon" className="popup-form-cloud-icon" />
 
             <form onSubmit={(e) => handleLeaveGroupClick(e, currentUser.uid)} className='popup-form-form'>
 
@@ -422,6 +518,17 @@ function GroupPage() {
 
                 <div className='popup-form-div'>
                   <h2 className="popup-form-subtitle">Group Members ({thisGroup.members.length}):</h2>
+
+                  <div className="popup-form-member-icons-container">
+
+                    {thisGroup.members.length === 0 ? (
+                      <img className="popup-form-member-icon" src="/cross.png" alt="Default" />
+                    ) : (
+                      thisGroup.members.map((member) => (
+                        <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
+                      )))}
+
+                  </div>
                 </div>
 
                 <button type="submit" className='bob-btn-1' id="leave-group-btn" disabled={isSubmitting}>Leave Group</button>

@@ -196,11 +196,12 @@
   font-size: larger;
   width: 7vh;
   /* Increased from 50px */
-  height: 3vh;
+  /* height: 5vh; */
   /* Increased from 50px */
   border-radius: 20px;
   /* Rounded corners */
   background-color: red;
+
 }
 
 .bob-btn-1:hover {
