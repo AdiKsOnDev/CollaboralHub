@@ -84,7 +84,7 @@
 
 
 .group-actions button:hover {
-  background-color: #cab8ff;
+  background-color: red;
 }
 
 .tabs button {
@@ -187,7 +187,7 @@
 
 .whiteboard-grid-btn {
   position: absolute;
-  background-color: #6b3aff;
+  background-color: red;
   left: 75%;
   top: 30%;
   width: 50px;

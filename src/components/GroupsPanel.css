@@ -384,7 +384,7 @@ sans-serif;
 }
 
 .return-btn {
-  background-color: #6b3aff00;
+  background-color: #ff000000;
   border-radius: 20px;
   color: white;
   padding: 10px 20px;
@@ -401,7 +401,7 @@ sans-serif;
 
 .return-btn:hover {
 
-  background-color: #6b3aff;
+  background-color: red;
 
 }
 
@@ -447,7 +447,7 @@ sans-serif;
   position: absolute;
   top: 20px;
   right: 20px;
-  background-color: #6b3aff00;
+  background-color: #ff000000;
   z-index: 999;
   border-radius: 50px;
   color: white;
@@ -519,6 +519,7 @@ sans-serif;
   font-size: medium;
   margin-top: 0px;
   margin-bottom: 5px;
+  color: #ffffff;
 
 }
 
@@ -558,7 +559,7 @@ sans-serif;
   font-size: medium;
   margin-top: 0px;
   margin-bottom: 10px;
-  background-color: #6b3aff;
+  background-color: red;
   border-radius: 20px;
   padding-left: 10px;
   padding-right: 10px;
