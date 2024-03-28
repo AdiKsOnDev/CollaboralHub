@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from "../context/AuthContext";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ReactComponent as HeartSVG } from "../Assets/Like-Icon.svg";
+import { ReactComponent as TrashSVG } from "../Assets/Trash.svg";
 import { database } from '../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, deleteDoc } from 'firebase/firestore';
 
 async function getPosts() {
 
@@ -58,12 +59,25 @@ function PostHolder() {
     <div className="flex flex-col h-screen overflow-y-scroll text-white px-10">
       {postData.map((post) => (
         <div className="bg-secondary w-full p-7 rounded-xl mb-12">
-          <div className="flex flex-row items-center mb-8">
-            <img src={post.userPFP} alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4" />
-            <p className="font-semibold text-xl">
-              <h1 className="flex flex-col">{post.userName} <span className="italic text-sm">@{post.user}</span></h1>
-              <h2 className="text-sm italic font-light">{post.uploaded ? (post.uploaded.toDate().toDateString()) : "Not Accessed"}</h2>
-            </p>
+          <div className="flex justify-between w-full">
+            <a href={"/DisplayProfile?handle=" + post.user} className="flex flex-row items-center mb-8">
+              <img src={post.userPFP} alt="profile img" className="rounded-full w-16 h-16 mr-5 border-accent-red border-4" />
+              <p className="font-semibold text-xl">
+                <h1 className="flex flex-col">{post.userName} <span className="italic text-sm">@{post.user}</span></h1>
+                <h2 className="text-sm italic font-light">{post.uploaded ? (post.uploaded.toDate().toDateString()) : "Not Accessed"}</h2>
+              </p>
+            </a>
+
+            {
+            (post.user==userData.displayName) ? 
+              <TrashSVG 
+                className="h-7 w-7 hover:fill-accent-red duration-300"
+                onClick={async () => {
+                  deleteDoc(doc(database, "Posts", post.id));
+                  setPostData(await getPosts());
+                }}
+              /> : (<div></div>)
+            }
           </div>
 
           <div className="flex justify-center w-full mb-8">

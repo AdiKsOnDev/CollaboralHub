@@ -1,9 +1,12 @@
+import { ReactComponent as RobotSVG } from "../Assets/Magic-Wand.svg";
+
 import React, { useContext } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import { addDoc, collection } from '@firebase/firestore';
 import { doc, getDoc } from "firebase/firestore";
 import { database } from "../firebase";
 import { useState, useEffect } from 'react'
+import OpenAI from "openai";
 import EmojiPicker from 'emoji-picker-react';
 import { BiHappyBeaming } from "react-icons/bi";
 import { AuthContext } from "../context/AuthContext";
@@ -59,6 +62,16 @@ const NewPost = () => {
 
   };
 
+  const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
+
+  const handleAI = async () => {
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "system", content: "You are a helpful agent that is meant to take an text input and improve it." }, { role: "user", content: inputStr }],
+      model: "gpt-3.5-turbo",
+    });
+
+    setInputStr(completion.choices[0].message.content);
+  };
    
   //post box 
   let [isOpen, setIsOpen] = useState(false);
@@ -126,8 +139,7 @@ const NewPost = () => {
 
                 {/* Image upload goes here */}
                   <div className="flex flex-row ">
-                    {/* <input type="file"/> */}
-
+                    <RobotSVG className="h-12 w-12" onClick={handleAI} />
                   </div> 
 
                 {/* add images later */}
