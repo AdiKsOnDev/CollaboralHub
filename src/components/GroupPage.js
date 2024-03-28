@@ -106,48 +106,7 @@ function GroupPage() {
       console.log("Database read count increased: " + databaseReadCount + " || in fetchWhiteboards");
     }
 
-    const fetchCurrentUserGroupPermissions = async () => {
 
-      if (!currentUser || !currentUser.uid) {
-        console.error("Current user data is not available.");
-        return;
-      }
-
-      const userGroupCol = query(collection(database, 'UsersToGroup'), where('userID', '==', currentUser.uid), where('groupID', '==', thisGroup.id));
-      const userGroupSnapshot = await getDocs(userGroupCol);
-      const userGroupList = userGroupSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
-      databaseReadCount++;
-      console.log("Database read count increased: " + databaseReadCount + " || in fetchCurrentUserGroupPermissions");
-
-
-      if (userGroupList.length !== 0) {
-
-        setCurrentUserPermission(userGroupList[0].userPermission);
-        console.log(userGroupList[0].userPermission);
-        setCurrentUserIsMuted(userGroupList[0].isMuted);
-
-        if (userGroupList[0].userPermission === 'group-owner' || userGroupList[0].userPermission === 'group-moderator' || userGroupList[0].userPermission === 'group-admin') {
-          setShowUserMenu(true);
-        } else {
-          document.getElementById("start-whiteboard-btn").style.display = "none";
-          setShowUserMenu(true);
-        }
-
-      } else {
-
-        console.log("Current user is not a member of this group.");
-        document.getElementById("start-whiteboard-btn").style.display = "none";
-        document.getElementById("group-page-users-btn").style.display = "none";
-        navigate('/groupsPanel');
-
-      }
-
-    }
-
-
-
-    fetchCurrentUserGroupPermissions();
     fetchGroupMemberPermissions();
     fetchGroupImage();
     fetchWhiteboards();
