@@ -99,7 +99,6 @@ function GroupsPanel() {
     const q = query(groupsRef, where('name', '==', groupName));
     const groupSnapshot = await getDocs(q);
     const groupByName = groupSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
     return groupByName;
 
   };
@@ -152,7 +151,7 @@ function GroupsPanel() {
 
     if (currentUser) {
       fetchCategories();
-      // fetchNonMemberGroups();
+      fetchNonMemberGroups();
       fetchYourGroups();
     }
   }, []);
@@ -234,6 +233,7 @@ function GroupsPanel() {
     setNewGroupName('');
     setNewGroupDetails('');
     setNewGroupCategory('');
+    setSearchTerm('');
 
     setShowAddGroup(false);
     setShowGroupPreview(false)
@@ -390,7 +390,7 @@ function GroupsPanel() {
         </div>
         <div className="groups-panel-menu-btns-contianer">
           <button className="bob-btn-1" id='your-groups-btn' onClick={handleYourGroupsClick}>Your Groups</button>
-          {/* <button className="bob-btn-1" id='discover-groups-btn' onClick={handleDiscoverGroupsClick}>Discover Groups</button> */}
+          <button className="bob-btn-1" id='your-groups-btn' onClick={handleDiscoverGroupsClick}>Discover Groups</button>
           <button className="bob-btn-1" id='create-groups-btn' onClick={handleCreateGroupClick}>Create Group</button>
         </div>
 
@@ -400,26 +400,15 @@ function GroupsPanel() {
           <div>
             {!displayingCategory && (
               <div className="categories-container">
-                <h2 className='discover-title'>Discover groups by category!</h2>
-                <div className="categories-grid">
-                  {categories.map((category) => (
-                    <div key={category.id} className="category-grid-item" onClick={() => handleCategoryClick(category.category)}>
-                      {/* <img src={category.imageUrl} alt={category.category} className="category-grid-image" /> */}
-                      <h3 className="category-name">{category.category}</h3>
-                    </div>
-                  ))}
-                </div>
-                <h2 className='discover-title'>Or join recommended groups!</h2>
+                <h2 className='discover-title'>Join recommended groups!</h2>
               </div>
             )}
 
             {displayingCategory && (
               <div>
-
-                {/* <img src={categories.filter(category => category.category === selectedCategory)[0].imageUrl} alt={categories.filter(category => category.category === selectedCategory)[0].category} className="category-banner-image" /> */}
+                <img src={categories.filter(category => category.category === selectedCategory)[0].imageUrl} alt={categories.filter(category => category.category === selectedCategory)[0].category} className="category-banner-image" />
                 <h1 className="category-banner-name">{selectedCategory}</h1>
                 <button className="return-btn" onClick={handleDiscoverGroupsClick}>Back</button>
-
                 <h2>Discover the category's trending groups!</h2>
 
               </div>
@@ -437,18 +426,8 @@ function GroupsPanel() {
                     className="group-grid-item"
                     onClick={() => handleGroupClick(group)}
                   >
-                    {/* <img src={group.imageUrl} alt={group.name} className="group-grid-image" /> */}
                     <div className='group-grid-info-container'>
                       <h3 className="groups-name">{group.name}</h3>
-                      {/* <div className="group-grid-member-icons-container">
-                        {group.members.length === 0 ? (
-                          <img className="group-grid-member-icon" src="/cross.png" alt="Default" />
-                        ) : (
-                          group.members.map((member) => (
-                            <img className="group-grid-member-icon" src={member.userPhotoURL} alt="user" />
-                          ))
-                        )}
-                      </div> */}
                     </div>
                   </div>
                 ))}
@@ -469,18 +448,8 @@ function GroupsPanel() {
                     className="group-grid-item"
                     onClick={() => handleYourGroupClick(group)}
                   >
-                    {/* <img src={group.imageUrl} alt={group.name} className="group-grid-image" /> */}
                     <div className='group-grid-info-container'>
                       <h3 className="groups-name">{group.name}</h3>
-                      {/* <div className="group-grid-member-icons-container">
-                        {group.members.length === 0 ? (
-                          <img className="group-grid-member-icon" src="/cross.png" alt="Default" />
-                        ) : (
-                          group.members.map((member) => (
-                            <img className="group-grid-member-icon" src={member.userPhotoURL} alt="user" />
-                          ))
-                        )}
-                      </div> */}
                     </div>
                   </div>
                 ))}
@@ -493,10 +462,7 @@ function GroupsPanel() {
 
         {showAddGroup && (
           <div className="popup-form">
-
-            <img src={'/brainwave.png'} alt={'brainwave'} className="popup-form-image" />
             <button className="popup-form-close-btn" type="button" onClick={handleCloseFormClick}>X</button>
-            <img src="/Component 1.png" alt="cloud-icon" className="popup-form-cloud-icon" />
 
             <form onSubmit={handleSubmitNewGroup} className='popup-form-form'>
 
@@ -528,6 +494,8 @@ function GroupsPanel() {
                 </div>
 
 
+
+
                 <button type="submit" className='bob-btn-1' id="create-group-btn" disabled={isSubmitting}>Create Group</button>
 
               </div>
@@ -537,10 +505,7 @@ function GroupsPanel() {
 
         {showGroupPreview && (
           <div className="popup-form">
-
-            {/* <img src={selectedGroup.imageUrl} alt={selectedGroup.name} className='popup-form-image' /> */}
             <button type="button" className="popup-form-close-btn" onClick={handleCloseFormClick}>X</button>
-            <img src="/Component 1.png" alt="cloud-icon" className="popup-form-cloud-icon" />
 
 
             <form onSubmit={handleJoinGroupClick} className='popup-form-form'>
@@ -555,21 +520,16 @@ function GroupsPanel() {
                 </div>
 
                 <div className='popup-form-div'>
-                  <h2 className="popup-form-subtitle">Group Category:</h2>
-                  <div className="popup-form-selected-tag">{selectedGroup.category}</div>
-                </div>
-
-                <div className='popup-form-div'>
                   <h2 className="popup-form-subtitle">Group Members ({selectedGroupMembers.length}):</h2>
 
                   <div className="popup-form-member-icons-container">
 
-                    {/* {selectedGroupMembers.length === 0 ? (
+                    {selectedGroupMembers.length === 0 ? (
                       <img className="popup-form-member-icon" src="/cross.png" alt="Default" />
                     ) : (
                       selectedGroupMembers.map((member) => (
                         <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
-                      )))} */}
+                      )))}
 
                   </div>
                 </div>
@@ -595,7 +555,6 @@ function GroupsPanel() {
         )}
       </div>
     </div>
-
   );
 }
 

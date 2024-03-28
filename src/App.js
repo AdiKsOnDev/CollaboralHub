@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useContext } from 'react';
 import { AuthContext } from './context/AuthContext';
 import React, { Suspense, lazy } from 'react';
-
+import GroupPage from './components/GroupPage.js';
+import GroupsPanel from './components/GroupPanel.js';
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const Home = lazy(() => import('./pages/Home'));
@@ -13,7 +14,7 @@ const PlannerCreate = lazy(() => import('./pages/PlannerCreate.js'));
 const Call = lazy(() => import('./pages/Call.js'));
 const StickyNotes = lazy(() => import('./pages/StickyNotes.js'));
 const Choice = lazy(() => import('./pages/Choice.js'));
-const Groups = lazy(() => import('./pages/GroupPanel.js'));
+// const GroupsPanel = lazy(() => import('./pages/GroupPanel.js'));
 const DocxEditor = lazy(() => import('./pages/DocxEditor.js'));
 const CreateProfile = lazy(() => import('./components/CreateProfile.js'));
 const DisplayProfile = lazy(() => import('./components/DisplayProfile.js'));
@@ -79,7 +80,7 @@ function App() {
             />
             <Route
               path="/Messaging"
-              element={currentUser ? <Messaging /> : <Navigate to="/Login" replace />}
+              element={currentUser ? <FriendsChat /> : <Navigate to="/Login" replace />}
             />
 
             <Route

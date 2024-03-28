@@ -63,14 +63,6 @@ function Navbar({ page }) {
             <PlusSVG className="h-12" /> {menuBar ? <h1 className="duration-300">New File</h1> : ""}
           </a>
         </li>
-
-        <li className={`w-full flex items-start justify-center ${page === "Call" ? "bg-accent-blue" : ""} hover:bg-accent-red duration-300`}>
-          <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Call">
-            <MdCall className="h-12 w-12 mx-auto" /> {menuBar ? <h1 className="duration-300">Call</h1> : ""}
-            {/* <PlusSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Call</h1> : ""} */}
-          </a>
-        </li>
-
       </ul>
     </nav>
   );
