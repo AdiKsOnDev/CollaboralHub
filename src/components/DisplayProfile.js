@@ -3,6 +3,7 @@ import { ReactComponent as HomeSVG } from "../Assets/Home_Icon.svg";
 import Avatar from "@mui/material/Avatar";
 import Select from "react-select";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useSearchParams } from "react-router-dom";
 import {
   collection,
   doc,
@@ -10,11 +11,13 @@ import {
   getDoc,
 } from "@firebase/firestore";
 import { database, storage } from "../firebase";
+import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { AuthContext } from "../context/AuthContext";
 
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   //=======================================//
   //           Country Picker              //
@@ -52,22 +55,31 @@ const DisplayProfile = () => {
   useEffect(() => {
     const getContent = async () => {
       try {
-        const userRef = doc(collection(database, "Users"), currentUser.email);
-        const userSnapshot = await getDoc(userRef);
-        const user = userSnapshot.data();
+        const userHandle = searchParams.get("handle");
+        const usersCollectionRef = collection(database, "Users");
+        const userQuery = query(usersCollectionRef, where("displayName", "==", userHandle));
+        const userSnapshot = await getDocs(userQuery);
+        
+        if (!userSnapshot.empty) {
+          const userDoc = userSnapshot.docs[0]; // Assuming there's only one user for each handle
+          const userData = userDoc.data();
 
-        setFormData({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          displayName: user.displayName,
-          Education: user.Education,
-          selectedCountry: user.selectedCountry,
-          aboutme: user.aboutme,
-          Company: user.Company,
-          handle: user.handle,
-          Skills: user.Skills,
-          profileImg: user.profileImg,
-        });
+          setFormData({
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            displayName: userData.displayName,
+            Education: userData.Education,
+            selectedCountry: userData.selectedCountry,
+            aboutme: userData.aboutme,
+            Company: userData.Company,
+            handle: userData.handle,
+            Skills: userData.Skills,
+            profileImg: userData.profileImg,
+          });
+        } else {
+          // Handle case where no user is found for the given handle
+          console.log("No user found for the provided handle");
+        }
       } catch (Exception) {
         console.log("Error making copy ");
       }
