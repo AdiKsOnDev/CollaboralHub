@@ -36,23 +36,23 @@ const LoginBox = () => {
       setFormData({ ...formData, error: 'Please enter E-Mail AND Password' });
       return;
     }
-    
+
     setPersistence(auth, browserLocalPersistence);
 
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      navigate("/");
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigate("/");
 
-      console.log(user);
-    })
-    .catch((error) => {
-      // Handle login errors
-      console.error(error);
-  
-      setFormData({ email: '', password: '', error: "Wrong E-Mail OR Password" });
-    });
-    
+        console.log(user);
+      })
+      .catch((error) => {
+        // Handle login errors
+        console.error(error);
+
+        setFormData({ email: '', password: '' });
+      });
+
   };
 
   const handleResetPassword = async () => {
@@ -69,18 +69,18 @@ const LoginBox = () => {
     setPersistence(auth, browserLocalPersistence);
 
     signInWithPopup(auth, provider)
-    .then((result) => {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      navigate("/");
-      // IdP data available using getAdditionalUserInfo(result)
-      // ...
-    }).catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        navigate("/");
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
 
-      console.log(errorCode, errorMessage);
-    });
+        console.log(errorCode, errorMessage);
+      });
   };
 
   const { email, password, error } = formData;

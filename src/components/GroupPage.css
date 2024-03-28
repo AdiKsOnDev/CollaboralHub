@@ -1,0 +1,353 @@
+.group-page {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #171717;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+}
+
+.group-page-navbar-container {
+  z-index: 94;
+  flex-grow: 1;
+}
+
+.group-page-container {}
+
+.group-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid white;
+}
+
+.group-name {
+  margin-left: 40px;
+  font-size: xx-large;
+  font-weight: 500;
+}
+
+.group-image {
+  width: 80px;
+  height: 80px;
+  margin-left: 10px;
+  border-radius: 20%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.group-actions {
+
+  margin-top: 10px;
+  width: fit-content;
+  position: static;
+  margin-left: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: row;
+
+  justify-content: space-between;
+
+
+}
+
+.group-navbar {
+  position: sticky;
+  z-index: 90;
+  top: 0;
+  background-color: #272727;
+  border-bottom: 1px solid white;
+}
+
+
+
+.group-actions button {
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  font-size: medium;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 180px;
+  /* Increased from 50px */
+  height: 50px;
+  /* Increased from 50px */
+  border-radius: 20px;
+  /* Rounded corners */
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+
+.group-actions button:hover {
+  background-color: red;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: none;
+  background-color: transparent;
+  color: #a2a2a2;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  border-bottom: 3px solid red;
+  color: rgb(255, 255, 255);
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+
+}
+
+.whiteboards-container {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.whiteboards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 2fr));
+  grid-template-rows: repeat(auto-fill, minmax(250px, 2fr));
+  gap: 30px;
+}
+
+.whiteboard-item {
+  height: 300px;
+  background-color: #5a579e;
+  /* Adjust color to match your design */
+  padding: 10px;
+  border-radius: 10px;
+  /* Adjusted to match the design */
+  overflow: hidden;
+  /* To ensure the image corners are also rounded */
+  box-shadow: 0 4px 8px rgba(138, 60, 255, 0.344);
+  /* Optional: Adds a subtle shadow for depth */
+  text-align: left;
+  font-size: larger;
+  color: white;
+  /* For the text color */
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.5s ease;
+  /* For absolute positioning of child elements */
+}
+
+.whiteboard-item:hover {
+  background-color: #5a579e;
+  /* Adjust color to match your design */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.6);
+}
+
+.whiteboard-item:hover img {
+  transform: scale(1.15);
+}
+
+.whiteboard-item:hover button {
+  transform: scale(1.15);
+  background-color: #cab8ff;
+}
+
+
+.whiteboard-image {
+  display: block;
+  /* Add this line */
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  opacity: 1;
+  transition: transform 0.5s ease;
+  /* You might want to move this to the .group-preview class */
+}
+
+.whiteboard-name {
+  margin-top: 35px;
+  text-align: center;
+  font-size: larger;
+}
+
+.whiteboard-creation-date {
+  text-align: center;
+  font-size: medium;
+}
+
+.whiteboard-grid-btn {
+  position: absolute;
+  background-color: red;
+  left: 75%;
+  top: 30%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: transform 0.5s ease;
+}
+
+.w-btn-img {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  left: -90%;
+  bottom: 0%;
+  border-radius: 10px;
+  opacity: 1;
+  transition: transform 0.5s ease;
+}
+
+
+.group-page-users-tab-container {
+
+  width: auto;
+  height: auto;
+  margin: 20px;
+
+}
+
+.group-page-users-container {
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+}
+
+.group-page-user-container {
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #272727;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+
+}
+
+.group-page-user-container:hover {
+
+  transform: scale(1.02);
+  border: 1px solid red;
+
+}
+
+.group-page-user-container:hover img {
+  transform: scale(1.15);
+}
+
+.group-page-user-container:hover div {
+  transform: scale(1.05);
+}
+
+.group-page-user-container:hover button {
+  transform: scale(1.10);
+}
+
+.group-page-user-image {
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+  margin-right: 20px;
+  margin-left: 10px;
+  border: 2px solid #ffffff;
+  transition: transform 0.5s ease;
+
+}
+
+.group-page-user-name {
+
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.group-page-user-text {
+
+  font-size: medium;
+  color: #ffffff;
+  margin-right: 10px;
+
+}
+
+.group-page-mute-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#start-whiteboard-btn {
+
+  margin-left: auto;
+  width: fit-content;
+  display: block;
+}
+
+#leave-group-btn {
+  width: fit-content;
+  background-color: red;
+  margin-left: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#leave-group-btn:hover {
+  background-color: rgb(255, 149, 149);
+}
+
+.group-page-kick-btn {
+
+  background-color: red;
+  width: fit-content;
+  font-size: large;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 20px;
+  margin: 10px;
+  transition: transform 0.5s ease;
+
+
+}
+
+.group-page-kick-btn:hover {
+
+  background-color: rgb(255, 149, 149);
+
+}
+
+#visible {
+  visibility: visible;
+}
+
+#hidden {
+  visibility: hidden;
+}
+
+#removed {
+  display: none;
+}
+
+
+
+
+.files-container {
+  /* Styles for file container */
+}
