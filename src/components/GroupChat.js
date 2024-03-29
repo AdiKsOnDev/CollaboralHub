@@ -128,11 +128,11 @@ function GroupChat(props) {
     <div className="group-chat-container">
       <div className="group-messages-container">
         {messages.map((message) => (
-          <div key={message.id} className={currentUser.uid === message.userID ? 'group-message-container-me' : 'p-10 grid grid-rows-[auto,1px] grid-cols-[1fr,auto] gap-2 items-start'}>
+          <div key={message.id} className={currentUser.uid === message.userID ? 'group-message-container-they ' : 'group-message-container-me '}>
             <img src={message.userPhotoURL} alt="user" className="group-message-user-icon" />
-            <div className='group-message-text-container'>
-              <div className="group-message-displayName">{message.userDisplayName}</div>
-              <div className="group-message-message">{message.text}</div>
+            <div className='group-message-text-container '>
+              {/* <div className="group-message-displayName">{message.userDisplayName}</div> */}
+              <div className="group-message-message ">{message.text}</div>
             </div>
             <div className={currentUser.uid === message.userID ? 'group-message-timestamp-me' : 'group-message-timestamp-they'}>{getMessageTimestamp(message)}</div>
           </div>
@@ -151,7 +151,7 @@ function GroupChat(props) {
             className="group-message-input-field"
             placeholder="Type your message here..."
           />
-          <button type="submit" className="bob-btn-1" id='group-message-send-btn'>
+          <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 text-white px-7">
             Send
           </button>
         </form>

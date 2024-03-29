@@ -21,7 +21,7 @@ function Navbar({ page }) {
   }
 
   return (
-    <nav className={`flex flex-col justify-between items-center gap-24 ${!menuBar ? "w-24" : "w-1/4"} h-screen bg-secondary duration-300`}>
+    <nav className={`flex flex-col justify-between items-center gap-24 ${!menuBar ? "w-24" : "w-1/4"}  bg-secondary duration-300`}>
       <li className={`w-full flex items-start justify-center shadow-none hover:bg-accent-red duration-300`}>
         <button data-testid="navbar" className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold" onClick={toggleMenu}>
           <MenuBarSVG className="h-12" /> {menuBar ? <h1 className="duration-300">Side Menu</h1> : ""}

@@ -14,6 +14,7 @@ import { database, storage } from "../firebase";
 import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { AuthContext } from "../context/AuthContext";
+// import { updateProfile } from "firebase/auth";
 
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
@@ -25,6 +26,8 @@ const DisplayProfile = () => {
   //=======================================//
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({});
+
+
 
   useEffect(() => {
     const getFiles = async () => {
@@ -73,7 +76,7 @@ const DisplayProfile = () => {
         const usersCollectionRef = collection(database, "Users");
         const userQuery = query(usersCollectionRef, where("displayName", "==", userHandle));
         const userSnapshot = await getDocs(userQuery);
-        
+
         if (!userSnapshot.empty) {
           const userDoc = userSnapshot.docs[0]; // Assuming there's only one user for each handle
           const userData = userDoc.data();
@@ -158,6 +161,7 @@ const DisplayProfile = () => {
   const handleSubmitImage = async (e) => {
     e.preventDefault();
     const imageRef = ref(storage, `image/${uuidv4()}`);
+
     if (image) {
       uploadBytes(imageRef, image)
         .then(() => {

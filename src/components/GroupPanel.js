@@ -4,7 +4,12 @@ import { collection, getDocs, addDoc, query, where, Timestamp, deleteDoc, doc } 
 import { database, auth } from '../firebase';
 import Navbar from '../components/Navbar';
 import { AuthContext } from "../context/AuthContext";
+import { ReactComponent as PlusSVG } from "../Assets/New-Icon.svg";
 import './GroupsPanel.css';
+import { ReactComponent as SearchSVG } from "../Assets/Magnifier.svg";
+import group_icon_blue from "../Assets/group_icon_blue.png"
+import group_icon_red from "../Assets/group_icon_red.png"
+import { ReactComponent as PlusNoCircleSVG } from "../Assets/Plus-No-Circle.svg"
 
 //------------------------------------------------------------------------------//
 //------------------------------------------------------------------------------//
@@ -375,23 +380,24 @@ function GroupsPanel() {
 
   return (
 
-    <div className="groups-panel overflow-x-hidden">
+    <div className="groups-panel">
       <div className="groups-panel-navbar-container"> <Navbar page="groups" /> </div>
       <div className="groups-panel-container">
-        <div className="search-container">
+        <div className="flex w-full justify-center items-center">
           <input
             type="text"
             placeholder="Search groups..."
             value={searchTerm}
             onChange={handleSearchChange}
-            className="search-bar"
+            className="w-full h-14 px-4 py-2 border rounded-l-md focus:outline-none text-xl font-semibold"
           />
-          <button className="filter-button" > Filter</button>
+          <button className="px-4 py-2 h-14 text-text-color bg-accent-red font-semibold rounded-r-md focus:outline-none text-xl hover:bg-accent-blue duration-300" ><SearchSVG className="h-8 w-8" /></button>
         </div>
-        <div className="groups-panel-menu-btns-contianer">
-          <button className="bob-btn-1" id='your-groups-btn' onClick={handleYourGroupsClick}>Your Groups</button>
-          <button className="bob-btn-1" id='your-groups-btn' onClick={handleDiscoverGroupsClick}>Discover Groups</button>
-          <button className="bob-btn-1" id='create-groups-btn' onClick={handleCreateGroupClick}>Create Group</button>
+        <div className="groups-panel-menu-btns-contianer py-5 justify-between">
+          <div className=''>  <button className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" onClick={handleYourGroupsClick}>Your Groups</button>
+            <button className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 text-white px-7 " onClick={handleDiscoverGroupsClick}>Discover Groups</button>
+          </div>
+          <button className="text-center font-semibold flex justify-center items-center bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 text-white" onClick={handleCreateGroupClick}><PlusNoCircleSVG className="h-8 w-8" /></button>
         </div>
 
         <div className="white-line"></div>
@@ -400,13 +406,12 @@ function GroupsPanel() {
           <div>
             {!displayingCategory && (
               <div className="categories-container">
-                <h2 className='discover-title'>Join recommended groups!</h2>
               </div>
             )}
 
             {displayingCategory && (
               <div>
-                <img src={categories.filter(category => category.category === selectedCategory)[0].imageUrl} alt={categories.filter(category => category.category === selectedCategory)[0].category} className="category-banner-image" />
+                <img src={group_icon_red}> </img>
                 <h1 className="category-banner-name">{selectedCategory}</h1>
                 <button className="return-btn" onClick={handleDiscoverGroupsClick}>Back</button>
                 <h2>Discover the category's trending groups!</h2>
@@ -415,8 +420,9 @@ function GroupsPanel() {
             )}
 
             <div className="groups-container">
+              <h2 className='discover-title'>Join recommended groups!</h2>
 
-              <div className="group-grid justify-between">
+              <div className="group-grid">
                 {nonMemberGroupsWithMembers.filter(displayingCategory ? (group => group.name.toLowerCase().includes(searchTerm.toLowerCase()) && group.category.toLowerCase() === selectedCategory.toLowerCase()) : (group =>
                   group.name && typeof group.name === 'string' &&
                   group.name.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -426,8 +432,9 @@ function GroupsPanel() {
                     className="group-grid-item"
                     onClick={() => handleGroupClick(group)}
                   >
-                    <div className='group-grid-info-container'>
-                      <h3 className="groups-name">{group.name}</h3>
+                    <div className='flex flex-col justify-center items-center'>
+                      <img className='rounded-lg w-3/4 hover:w-64 duration-300' src={group_icon_red}></img>
+                      <h3 className="text-text-color text-wxl mt-5 font-semibold">{group.name}</h3>
                     </div>
                   </div>
                 ))}
@@ -448,8 +455,9 @@ function GroupsPanel() {
                     className="group-grid-item"
                     onClick={() => handleYourGroupClick(group)}
                   >
-                    <div className='group-grid-info-container'>
-                      <h3 className="groups-name">{group.name}</h3>
+                    <div className='flex flex-col justify-center items-center'>
+                      <img className='rounded-lg w-3/4 hover:w-64 duration-300' src={group_icon_blue}></img>
+                      <h3 className="text-text-color text-wxl mt-5 font-semibold">{group.name}</h3>
                     </div>
                   </div>
                 ))}
@@ -467,7 +475,7 @@ function GroupsPanel() {
             <form onSubmit={handleSubmitNewGroup} className='popup-form-form'>
 
               <div className='popup-form-container'>
-
+                <img className='rounded-lg w-3/4' src={group_icon_red}></img>
                 <h1 className="popup-form-title">Create a new group!</h1>
 
                 <div className="popup-form-div">
@@ -496,7 +504,7 @@ function GroupsPanel() {
 
 
 
-                <button type="submit" className='bob-btn-1' id="create-group-btn" disabled={isSubmitting}>Create Group</button>
+                <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" disabled={isSubmitting}>Create Group</button>
 
               </div>
             </form>
@@ -511,7 +519,7 @@ function GroupsPanel() {
             <form onSubmit={handleJoinGroupClick} className='popup-form-form'>
 
               <div className='popup-form-container'>
-
+                <img className="rounded-lg w-3/4" src={group_icon_red}></img>
                 <h1 className="popup-form-title">{selectedGroup.name}</h1>
 
                 <div className='popup-form-div'>
@@ -521,20 +529,10 @@ function GroupsPanel() {
 
                 <div className='popup-form-div'>
                   <h2 className="popup-form-subtitle">Group Members ({selectedGroupMembers.length}):</h2>
-
-                  <div className="popup-form-member-icons-container">
-
-                    {selectedGroupMembers.length === 0 ? (
-                      <img className="popup-form-member-icon" src="/cross.png" alt="Default" />
-                    ) : (
-                      selectedGroupMembers.map((member) => (
-                        <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
-                      )))}
-
-                  </div>
+                  {/* //Access user name */}
                 </div>
 
-                <button type="submit" className='bob-btn-1' id="join-group-btn" disabled={isSubmitting}>Join Group</button>
+                <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" disabled={isSubmitting}>Join Group</button>
               </div>
 
 
