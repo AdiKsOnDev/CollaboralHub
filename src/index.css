@@ -32,3 +32,27 @@
 .h-90 {
   height: 90%;
 }
+
+.shadow-neon {
+  box-shadow: 0 0 20px 2px #00A9E5;
+  z-index: 1000;
+}
+
+.shadow-neon:hover {
+  box-shadow: 0 0 30px 2px #DC2034;
+}
+
+.shadow-none:hover {
+  box-shadow: 0 0 30px 2px #DC2034;
+  z-index: 1000;
+}
+
+.shadow-neon-blue {
+  box-shadow: 0 0 20px 2px #00A9E5;
+  z-index: 1000;
+}
+
+.shadow-neon-red {
+  box-shadow: 0 0 20px 2px #DC2034;
+  z-index: 1000;
+}
