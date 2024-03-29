@@ -17,6 +17,7 @@ import { AuthContext } from "../context/AuthContext";
 
 const DisplayProfile = () => {
   const { currentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
 
   //=======================================//
@@ -24,6 +25,19 @@ const DisplayProfile = () => {
   //=======================================//
   const [countries, setCountries] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({});
+
+  useEffect(() => {
+    const getFiles = async () => {
+      const userRef = doc(collection(database, "Users"), currentUser.email);
+      const userSnapshot = await getDoc(userRef);
+      const user = userSnapshot.data();
+
+      setUserData(user);
+    }
+
+    getFiles();
+
+  }, [currentUser])
 
   useEffect(() => {
     fetch(
