@@ -19,6 +19,7 @@ import GroupChat from "../components/GroupChat";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import group_icon_red from "../Assets/group_icon_red.png"
+import group_icon_blue from "../Assets/group_icon_blue.png"
 
 
 import "./GroupPage.css"
@@ -342,7 +343,7 @@ function GroupPage() {
       <div className='group-page-container'>
         <div className='group-navbar'>
           <div className="group-header">
-            <img src="group_icon_red" alt='logo' className="group-image" />
+            <img src={group_icon_blue} alt='logo' className="group-image" />
             <h1 className="group-name">{groupName}</h1>
 
             <div className="group-actions">
