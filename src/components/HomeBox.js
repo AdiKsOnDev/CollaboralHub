@@ -100,7 +100,7 @@ function HomeBox() {
       {/* Warning message when both filteredFiles and filteredCanvases are empty */}
       {filteredFiles.length === 0 && filteredCanvases.length === 0 && (
         <div className="p-24 text-center text-4xl text-text-color font-semibold mb-10">
-          No files found, create a new one <a className="text-accent-red underline hover:text-accent-blue duration-300 cursor-pointer" href="/Choice">HERE.</a>
+          No projects found, create a new one <a className="text-accent-red underline hover:text-accent-blue duration-300 cursor-pointer" href="/Choice">HERE.</a>
         </div>
       )}
 
