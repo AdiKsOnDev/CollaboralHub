@@ -18,6 +18,7 @@ import {
 import GroupChat from "../components/GroupChat";
 import { AuthContext } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
+import group_icon_red from "../Assets/group_icon_red.png"
 
 
 import "./GroupPage.css"
@@ -29,7 +30,7 @@ function GroupPage() {
   const { groupName } = useParams();
   const location = useLocation();
   const thisGroup = location.state.group;
-
+  console.log("dsa", thisGroup)
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [activeTab, setActiveTab] = useState('chat'); // 'chat' or 'files'
   const [groupImageURL, setGroupImageURL] = useState("");
@@ -332,20 +333,23 @@ function GroupPage() {
     }
   }
 
+  const handleCallButtonClick = async () => {
+    window.open('/Call', '_blank');
+  };
 
   return (
     <div className="group-page">
       <div className='group-page-container'>
         <div className='group-navbar'>
           <div className="group-header">
-            <img src={groupImageURL} alt='logo' className="group-image" />
+            <img src="group_icon_red" alt='logo' className="group-image" />
             <h1 className="group-name">{groupName}</h1>
 
             <div className="group-actions">
               {/* <button className='bob-btn-1' id="start-whiteboard-btn" onClick={() => handleStartWhiteboardClick()}>Start a Whiteboard</button> */}
               {/* <button className='bob-btn-1' id="call-btn">Voice Call</button> */}
-              <button className='bob-btn-1' id="video-btn">Call</button>
-              <button className='bob-btn-1' id="info-btn" onClick={handleInfoClick}> Info </button>
+              <button className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 text-white px-7 mr-4" onClick={handleCallButtonClick}>Call</button>
+              <button className='text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 text-white px-7' onClick={handleInfoClick}> Info </button>
             </div>
 
           </ div>
@@ -354,7 +358,7 @@ function GroupPage() {
             <button onClick={() => setActiveTab('chat')} className={activeTab === 'chat' ? 'active' : ''}>Chat</button>
             {/* <button onClick={() => setActiveTab('files')} className={activeTab === 'files' ? 'active' : ''}>Files</button>
             <button onClick={() => setActiveTab('whiteboards')} className={activeTab === 'whiteboards' ? 'active' : ''}>Whiteboards</button> */}
-            <button onClick={() => setActiveTab('users')} className={activeTab === 'users' ? 'active' : ''} id='group-page-users-btn'>Users</button>
+            {/* <button onClick={() => setActiveTab('users')} className={activeTab === 'users' ? 'active' : ''} id='group-page-users-btn'>Users</button> */}
           </div>
         </div>
 
@@ -459,24 +463,22 @@ function GroupPage() {
         {showGroupInfo && (
           <div className="popup-form">
 
-            <img src={thisGroup.imageUrl} alt={thisGroup.name} className='popup-form-image' />
             <button type="button" className="popup-form-close-btn" onClick={handleCloseFormClick}>X</button>
-            <img src="/Component 1.png" alt="cloud-icon" className="popup-form-cloud-icon" />
 
             <form onSubmit={(e) => handleLeaveGroupClick(e, currentUser.uid)} className='popup-form-form'>
 
 
               <div className='popup-form-container'>
-
+                <img className="rounded-lg w-3/4" src={group_icon_red}></img>
                 <h1 className="popup-form-title">{thisGroup.name}</h1>
 
                 <div className='popup-form-div'>
-                  <h2 className="popup-form-subtitle">Group Description:</h2>
+                  <h2 className="popup-form-subtitle font-semibold">Group Description:</h2>
                   <div className="popup-form-text">{thisGroup.details}</div>
                 </div>
 
                 <div className='popup-form-div'>
-                  <h2 className="popup-form-subtitle">Group Members ({thisGroup.members.length}):</h2>
+                  <h2 className="popup-form-subtitle font-semibold">Group Members ({thisGroup.members.length}):</h2>
 
                   <div className="popup-form-member-icons-container">
 
@@ -484,13 +486,14 @@ function GroupPage() {
                       <img className="popup-form-member-icon" src="/cross.png" alt="Default" />
                     ) : (
                       thisGroup.members.map((member) => (
-                        <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
+                        <h3 className="text-center rounded-full font-semibold bg-accent-blue  text-lg p-1 text-white px-7 mr-4">{member.userDisplayName} </h3>
+                        // <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
                       )))}
 
                   </div>
                 </div>
 
-                <button type="submit" className='bob-btn-1' id="leave-group-btn" disabled={isSubmitting}>Leave Group</button>
+                <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" disabled={isSubmitting}>Leave Group</button>
               </div>
 
             </form>

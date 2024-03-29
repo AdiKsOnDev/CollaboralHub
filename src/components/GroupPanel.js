@@ -380,7 +380,7 @@ function GroupsPanel() {
 
   return (
 
-    <div className="groups-panel overflow-x-hidden">
+    <div className="groups-panel">
       <div className="groups-panel-navbar-container"> <Navbar page="groups" /> </div>
       <div className="groups-panel-container">
         <div className="flex w-full justify-center items-center">
@@ -475,7 +475,7 @@ function GroupsPanel() {
             <form onSubmit={handleSubmitNewGroup} className='popup-form-form'>
 
               <div className='popup-form-container'>
-
+                <img className='rounded-lg w-3/4' src={group_icon_red}></img>
                 <h1 className="popup-form-title">Create a new group!</h1>
 
                 <div className="popup-form-div">
@@ -504,7 +504,7 @@ function GroupsPanel() {
 
 
 
-                <button type="submit" className='bob-btn-1' id="create-group-btn" disabled={isSubmitting}>Create Group</button>
+                <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" disabled={isSubmitting}>Create Group</button>
 
               </div>
             </form>
@@ -519,7 +519,7 @@ function GroupsPanel() {
             <form onSubmit={handleJoinGroupClick} className='popup-form-form'>
 
               <div className='popup-form-container'>
-
+                <img className="rounded-lg w-3/4" src={group_icon_red}></img>
                 <h1 className="popup-form-title">{selectedGroup.name}</h1>
 
                 <div className='popup-form-div'>
@@ -529,20 +529,10 @@ function GroupsPanel() {
 
                 <div className='popup-form-div'>
                   <h2 className="popup-form-subtitle">Group Members ({selectedGroupMembers.length}):</h2>
-
-                  <div className="popup-form-member-icons-container">
-
-                    {selectedGroupMembers.length === 0 ? (
-                      <img className="popup-form-member-icon" src="/cross.png" alt="Default" />
-                    ) : (
-                      selectedGroupMembers.map((member) => (
-                        <img className="popup-form-member-icon" src={member.userPhotoURL} alt="user" />
-                      )))}
-
-                  </div>
+                  {/* //Access user name */}
                 </div>
 
-                <button type="submit" className='bob-btn-1' id="join-group-btn" disabled={isSubmitting}>Join Group</button>
+                <button type="submit" className="text-center font-semibold bg-accent-red rounded-md hover:bg-accent-blue duration-300  text-lg p-4 px-7 text-white mr-8" disabled={isSubmitting}>Join Group</button>
               </div>
 
 

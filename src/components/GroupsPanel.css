@@ -402,16 +402,6 @@ sans-serif;
 
 }
 
-.popup-form-cloud-icon {
-
-  scale: 0.75;
-  position: absolute;
-  left: -120px;
-  top: -85px;
-  transform: rotateY(180deg);
-
-}
-
 .popup-form-close-btn {
   position: absolute;
   top: 20px;
@@ -466,7 +456,6 @@ sans-serif;
 
   text-align: left;
   font-size: xx-large;
-  margin-top: 10vh;
   margin-bottom: 10px;
   color: white;
 

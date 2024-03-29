@@ -20,6 +20,7 @@
   grid-template-rows: auto 1px;
   margin-right: auto;
   margin-bottom: 10px;
+
 }
 
 .group-message-container-they {
@@ -54,7 +55,7 @@
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 10px;
-  background-color: red;
+  background-color: #00A9E5;
 
 }
 
@@ -124,7 +125,7 @@
 
 .group-message-input-field {
 
-  width: 94vw;
+  width: 91vw;
   padding: 10px;
   margin-right: 20px;
   border-radius: 30px;
@@ -189,24 +190,7 @@
   cursor: pointer;
 }
 
-.bob-btn-1 {
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  font-size: larger;
-  width: 7vh;
-  /* Increased from 50px */
-  /* height: 5vh; */
-  /* Increased from 50px */
-  border-radius: 20px;
-  /* Rounded corners */
-  background-color: red;
 
-}
-
-.bob-btn-1:hover {
-  background-color: #ffb8b8;
-}
 
 @keyframes slideUp2 {
   0% {
