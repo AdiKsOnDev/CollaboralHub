@@ -13,7 +13,7 @@
     "@zegocloud/zego-uikit-prebuilt": "^1.10.2",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
-    "emoji-picker-react": "^3.6.5",
+    "emoji-picker-react": "^3.5.1",
     "firebase": "^10.9.0",
     "openai": "^4.29.1",
     "react": "^18.2.0",
