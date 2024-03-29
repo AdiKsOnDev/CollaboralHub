@@ -80,7 +80,7 @@ const NewPost = () => {
   const [inputStr, setInputStr] = useState("");
   const [showPicker, setShowPicker] = useState(false);
 
-  const onEmojiClick = (emojiObject) => {
+  const onEmojiClick = (e, emojiObject) => {
     setInputStr(prevInput=> prevInput + emojiObject.emoji);
     setShowPicker(false);
   };
