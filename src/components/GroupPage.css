@@ -64,7 +64,7 @@
 
 
 
-.group-actions button {
+/* .group-actions button {
   text-align: center;
   vertical-align: middle;
   border: none;
@@ -73,19 +73,19 @@
   margin-left: 10px;
   width: 180px;
   /* Increased from 50px */
-  height: 50px;
-  /* Increased from 50px */
-  border-radius: 20px;
-  /* Rounded corners */
-  background-color: red;
-  color: white;
-  cursor: pointer;
-}
+/* height: 50px; */
+/* Increased from 50px */
+/* border-radius: 20px; */
+/* Rounded corners */
+/* background-color: red; */
+/* color: white; */
+/* cursor: pointer; */
+/* } */
 
 
-.group-actions button:hover {
-  background-color: red;
-}
+/* .group-actions button:hover {
+  background-color: #cab8ff;
+}  */
 
 .tabs button {
   padding: 10px 20px;
@@ -187,7 +187,7 @@
 
 .whiteboard-grid-btn {
   position: absolute;
-  background-color: red;
+  background-color: #6b3aff;
   left: 75%;
   top: 30%;
   width: 50px;

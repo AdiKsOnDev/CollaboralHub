@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import PlannerGlobalContext from "../../PlannerContext/PlannerGlobalContext";
+import { FaCheck } from "react-icons/fa6";
 
 const labelsClasses = [
   "accent-indigo",
@@ -118,7 +119,7 @@ export default function EventModal() {
                 >
                   {selectedLabel === lblClass && (
                     <span className="material-icons-outlined text-black text-sm">
-                      0
+                      <FaCheck />
                     </span>
                   )}
                 </span>

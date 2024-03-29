@@ -8,6 +8,7 @@ import NewPost from "../components/NewPost";
 import NewsFeed from "../components/NewsFeed";
 import Navbar from '../components/Navbar.js';
 import StatusBar from "../components/StatusBar";
+import { getAuth, updateProfile } from 'firebase/auth';
 
 export default function Community() {
   const { currentUser } = useContext(AuthContext);
@@ -18,7 +19,13 @@ export default function Community() {
       const userRef = doc(collection(database, "Users"), currentUser.email);
       const userSnapshot = await getDoc(userRef);
       const user = userSnapshot.data();
+      const auth = getAuth();
 
+      console.log("hao", currentUser.uid)
+      updateProfile(auth.currentUser, {
+        displayName: user.displayName,
+        photoURL: user.profileImg
+      })
       setUserImg(user.profileImg)
     }
 
@@ -30,9 +37,9 @@ export default function Community() {
       <Navbar page="community" />
 
       <div className="w-full">
-      <div className="flex flex-row">
-        <StatusBar image={userImg} />
-      </div>
+        <div className="flex flex-row">
+          <StatusBar image={userImg} />
+        </div>
 
         <div className="flex flex-row p-5 h-90">
           <div className="flex flex-col w-full">
@@ -40,7 +47,7 @@ export default function Community() {
             <PostHolder />
           </div>
 
-        <NewsFeed />
+          <NewsFeed />
         </div>
       </div>
     </div>

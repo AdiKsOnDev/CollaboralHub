@@ -123,11 +123,6 @@ sans-serif;
 }
 
 .groups-panel-menu-btns-contianer {
-
-  margin-left: 19%;
-  margin-right: 19%;
-  margin-bottom: 25px;
-  margin-top: 15px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -272,30 +267,13 @@ sans-serif;
 
 }
 
-.group-grid-item {
-  height: 300px;
-  background-color: #DC2034;
-  /* Adjust color to match your design */
 
-  border-radius: 10px;
-  /* Adjusted to match the design */
-  overflow: hidden;
-  /* To ensure the image corners are also rounded */
-  justify-content: center;
-  align-items: center;
-  font-size: larger;
-  color: white;
-  /* For the text color */
-  cursor: pointer;
-
-  transition: transform 0.5s ease;
-  /* For absolute positioning of child elements */
-}
 
 .group-grid-item:hover {
-  background-color: #DC2034;
+  /* background-color: #DC2034; */
   /* Adjust color to match your design */
-  transform: scale(1.05);
+  border-radius: 0.5rem;
+  transition-duration: 300ms;
 }
 
 .groups-name {
@@ -303,9 +281,6 @@ sans-serif;
   align-items: center;
 }
 
-.groups-name1 {
-  padding-top: 130px;
-}
 
 
 .group-grid-image {
@@ -363,12 +338,6 @@ sans-serif;
 }
 
 
-/* Style for the group name */
-.groups-name {
-  text-align: left;
-  font-size: larger;
-  /* Space from the top of the image */
-}
 
 
 
@@ -433,16 +402,6 @@ sans-serif;
 
 }
 
-.popup-form-cloud-icon {
-
-  scale: 0.75;
-  position: absolute;
-  left: -120px;
-  top: -85px;
-  transform: rotateY(180deg);
-
-}
-
 .popup-form-close-btn {
   position: absolute;
   top: 20px;
@@ -497,7 +456,6 @@ sans-serif;
 
   text-align: left;
   font-size: xx-large;
-  margin-top: 10vh;
   margin-bottom: 10px;
   color: white;
 
