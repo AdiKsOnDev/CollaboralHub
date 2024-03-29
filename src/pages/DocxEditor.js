@@ -33,7 +33,7 @@ const DelayHandler = () => {
   const handleChange = useCallback(throttle((value) => {
     setContent(value);
     // Place your socket emit code or any other update logic here
-  }, 1000), []); // Adjust the 1000 ms delay to suit your needs
+  }, 5000), []); // Adjust the 1000 ms delay to suit your needs
 
   return (
     <input

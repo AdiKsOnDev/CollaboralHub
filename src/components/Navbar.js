@@ -69,7 +69,7 @@ function Navbar({ page }) {
       </ul>
 
       <li className={`w-full flex items-start justify-center ${page === "stats" ? "bg-accent-blue shadow-neon" : "shadow-none"} hover:bg-accent-red duration-300`}>
-        <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="/Stats">
+        <a className="flex flex-row justify-start items-center text-text-color text-xl w-full p-5 font-semibold hover:translate-x-2  duration-300" href="https://console.firebase.google.com/project/papercraft-af1e6/overview">
           <img src={Logo} className="h-12" /> {menuBar ? <h1 className="duration-300">Stats for Nerds</h1> : ""}
         </a>
       </li>
