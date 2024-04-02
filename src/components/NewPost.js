@@ -62,7 +62,7 @@ const NewPost = () => {
 
   };
 
-  const openai = new OpenAI({ apiKey: "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", dangerouslyAllowBrowser: true });
+  const openai = new OpenAI({ apiKey: process.env.REACT_APP_OPENAI_API_KEY, dangerouslyAllowBrowser: true });
 
   const handleAI = async () => {
     const completion = await openai.chat.completions.create({
