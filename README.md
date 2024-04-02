@@ -1,6 +1,6 @@
-# 🎨 ThinkLabs
+# 🎨 CollaboralHub
 
-Thinklabs is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.
+CollaboralHub is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.
 
 ## 🗃️ Folder Structure
 ```bash
@@ -15,9 +15,13 @@ Thinklabs is a collaboration platform created for artists, teachers, students an
 
 ## 😭 How to Get started?
 Clone the repository to your local machine. 
-(Note that you don't have to fork it.)
 <br>
-When you have it cloned, these are the following scripts you might need:
+When you have it cloned, you will need to do the following:
+
+- Add your (OpenAI API Key)[https://openai.com/blog/openai-api] to a new `.env` file
+```bash
+REACT_APP_OPENAI_API_KEY="Your OpenAI Key"
+```
 
 - Install the packages:
 ```bash
@@ -28,12 +32,15 @@ npm install
 npm run start
 ```
 
-- Build the project:
+### If you need to build and serve the project on your hosting, run the following:
+
 ```bash
-npm run build
+npm run serve
 ```
 
-- Test the project:
+### Testing
+
+- Testing is done via `react jest`:
 ```bash
 npm run test
 ```

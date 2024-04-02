@@ -36,7 +36,7 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "serve": "react-scripts build && cd server && npm i && node server.js",
+    "serve": "react-scripts build && npx serve",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
