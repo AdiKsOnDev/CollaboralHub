@@ -2,8 +2,7 @@
 
 CollaboralHub is a collaboration platform created for artists, teachers, students and businesses to brainstorm new ideas and plan their execution.
 
-#Company Website 
-https://collaboralhub.000.pe/?i=1 
+(Company Website)[https://collaboralhub.000.pe/?i=1]
 
 ## 🗃️ Folder Structure
 ```bash
